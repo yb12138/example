@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.EcOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.heeexy.example.model.EcOrder" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="refNo" property="refno" jdbcType="VARCHAR" />
+    <result column="saleOrderCode" property="saleordercode" jdbcType="VARCHAR" />
+    <result column="sysOrderCode" property="sysordercode" jdbcType="VARCHAR" />
+    <result column="warehouseOrderCode" property="warehouseordercode" jdbcType="VARCHAR" />
+    <result column="createdDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="updateDate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="datePaidPlatform" property="datepaidplatform" jdbcType="TIMESTAMP" />
+    <result column="dateCreatePlatform" property="datecreateplatform" jdbcType="TIMESTAMP" />
+    <result column="platformShipStatus" property="platformshipstatus" jdbcType="INTEGER" />
+    <result column="platformShipTime" property="platformshiptime" jdbcType="TIMESTAMP" />
+    <result column="dateWarehouseShipping" property="datewarehouseshipping" jdbcType="TIMESTAMP" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="amountpaid" property="amountpaid" jdbcType="REAL" />
+    <result column="subtotal" property="subtotal" jdbcType="REAL" />
+    <result column="shipFee" property="shipfee" jdbcType="REAL" />
+    <result column="platformFeeTotal" property="platformfeetotal" jdbcType="REAL" />
+    <result column="finalvaluefeeTotal" property="finalvaluefeetotal" jdbcType="REAL" />
+    <result column="otherFee" property="otherfee" jdbcType="REAL" />
+    <result column="costShipFee" property="costshipfee" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, status, refNo, saleOrderCode, sysOrderCode, warehouseOrderCode, createdDate, 
+    updateDate, datePaidPlatform, dateCreatePlatform, platformShipStatus, platformShipTime, 
+    dateWarehouseShipping, currency, amountpaid, subtotal, shipFee, platformFeeTotal, 
+    finalvaluefeeTotal, otherFee, costShipFee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.heeexy.example.model.EcOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ec_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ec_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ec_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.heeexy.example.model.EcOrderExample" >
+    delete from ec_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.heeexy.example.model.EcOrder" >
+    insert into ec_order (order_id, status, refNo, 
+      saleOrderCode, sysOrderCode, warehouseOrderCode, 
+      createdDate, updateDate, datePaidPlatform, 
+      dateCreatePlatform, platformShipStatus, 
+      platformShipTime, dateWarehouseShipping, 
+      currency, amountpaid, subtotal, 
+      shipFee, platformFeeTotal, finalvaluefeeTotal, 
+      otherFee, costShipFee)
+    values (#{orderId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{refno,jdbcType=VARCHAR}, 
+      #{saleordercode,jdbcType=VARCHAR}, #{sysordercode,jdbcType=VARCHAR}, #{warehouseordercode,jdbcType=VARCHAR}, 
+      #{createddate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{datepaidplatform,jdbcType=TIMESTAMP}, 
+      #{datecreateplatform,jdbcType=TIMESTAMP}, #{platformshipstatus,jdbcType=INTEGER}, 
+      #{platformshiptime,jdbcType=TIMESTAMP}, #{datewarehouseshipping,jdbcType=TIMESTAMP}, 
+      #{currency,jdbcType=VARCHAR}, #{amountpaid,jdbcType=REAL}, #{subtotal,jdbcType=REAL}, 
+      #{shipfee,jdbcType=REAL}, #{platformfeetotal,jdbcType=REAL}, #{finalvaluefeetotal,jdbcType=REAL}, 
+      #{otherfee,jdbcType=REAL}, #{costshipfee,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.heeexy.example.model.EcOrder" >
+    insert into ec_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="refno != null" >
+        refNo,
+      </if>
+      <if test="saleordercode != null" >
+        saleOrderCode,
+      </if>
+      <if test="sysordercode != null" >
+        sysOrderCode,
+      </if>
+      <if test="warehouseordercode != null" >
+        warehouseOrderCode,
+      </if>
+      <if test="createddate != null" >
+        createdDate,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="datepaidplatform != null" >
+        datePaidPlatform,
+      </if>
+      <if test="datecreateplatform != null" >
+        dateCreatePlatform,
+      </if>
+      <if test="platformshipstatus != null" >
+        platformShipStatus,
+      </if>
+      <if test="platformshiptime != null" >
+        platformShipTime,
+      </if>
+      <if test="datewarehouseshipping != null" >
+        dateWarehouseShipping,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="amountpaid != null" >
+        amountpaid,
+      </if>
+      <if test="subtotal != null" >
+        subtotal,
+      </if>
+      <if test="shipfee != null" >
+        shipFee,
+      </if>
+      <if test="platformfeetotal != null" >
+        platformFeeTotal,
+      </if>
+      <if test="finalvaluefeetotal != null" >
+        finalvaluefeeTotal,
+      </if>
+      <if test="otherfee != null" >
+        otherFee,
+      </if>
+      <if test="costshipfee != null" >
+        costShipFee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="refno != null" >
+        #{refno,jdbcType=VARCHAR},
+      </if>
+      <if test="saleordercode != null" >
+        #{saleordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysordercode != null" >
+        #{sysordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseordercode != null" >
+        #{warehouseordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datepaidplatform != null" >
+        #{datepaidplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datecreateplatform != null" >
+        #{datecreateplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformshipstatus != null" >
+        #{platformshipstatus,jdbcType=INTEGER},
+      </if>
+      <if test="platformshiptime != null" >
+        #{platformshiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datewarehouseshipping != null" >
+        #{datewarehouseshipping,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="amountpaid != null" >
+        #{amountpaid,jdbcType=REAL},
+      </if>
+      <if test="subtotal != null" >
+        #{subtotal,jdbcType=REAL},
+      </if>
+      <if test="shipfee != null" >
+        #{shipfee,jdbcType=REAL},
+      </if>
+      <if test="platformfeetotal != null" >
+        #{platformfeetotal,jdbcType=REAL},
+      </if>
+      <if test="finalvaluefeetotal != null" >
+        #{finalvaluefeetotal,jdbcType=REAL},
+      </if>
+      <if test="otherfee != null" >
+        #{otherfee,jdbcType=REAL},
+      </if>
+      <if test="costshipfee != null" >
+        #{costshipfee,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.heeexy.example.model.EcOrderExample" resultType="java.lang.Integer" >
+    select count(*) from ec_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ec_order
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.refno != null" >
+        refNo = #{record.refno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleordercode != null" >
+        saleOrderCode = #{record.saleordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysordercode != null" >
+        sysOrderCode = #{record.sysordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseordercode != null" >
+        warehouseOrderCode = #{record.warehouseordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createddate != null" >
+        createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedate != null" >
+        updateDate = #{record.updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datepaidplatform != null" >
+        datePaidPlatform = #{record.datepaidplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datecreateplatform != null" >
+        dateCreatePlatform = #{record.datecreateplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.platformshipstatus != null" >
+        platformShipStatus = #{record.platformshipstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.platformshiptime != null" >
+        platformShipTime = #{record.platformshiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datewarehouseshipping != null" >
+        dateWarehouseShipping = #{record.datewarehouseshipping,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountpaid != null" >
+        amountpaid = #{record.amountpaid,jdbcType=REAL},
+      </if>
+      <if test="record.subtotal != null" >
+        subtotal = #{record.subtotal,jdbcType=REAL},
+      </if>
+      <if test="record.shipfee != null" >
+        shipFee = #{record.shipfee,jdbcType=REAL},
+      </if>
+      <if test="record.platformfeetotal != null" >
+        platformFeeTotal = #{record.platformfeetotal,jdbcType=REAL},
+      </if>
+      <if test="record.finalvaluefeetotal != null" >
+        finalvaluefeeTotal = #{record.finalvaluefeetotal,jdbcType=REAL},
+      </if>
+      <if test="record.otherfee != null" >
+        otherFee = #{record.otherfee,jdbcType=REAL},
+      </if>
+      <if test="record.costshipfee != null" >
+        costShipFee = #{record.costshipfee,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ec_order
+    set order_id = #{record.orderId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      refNo = #{record.refno,jdbcType=VARCHAR},
+      saleOrderCode = #{record.saleordercode,jdbcType=VARCHAR},
+      sysOrderCode = #{record.sysordercode,jdbcType=VARCHAR},
+      warehouseOrderCode = #{record.warehouseordercode,jdbcType=VARCHAR},
+      createdDate = #{record.createddate,jdbcType=TIMESTAMP},
+      updateDate = #{record.updatedate,jdbcType=TIMESTAMP},
+      datePaidPlatform = #{record.datepaidplatform,jdbcType=TIMESTAMP},
+      dateCreatePlatform = #{record.datecreateplatform,jdbcType=TIMESTAMP},
+      platformShipStatus = #{record.platformshipstatus,jdbcType=INTEGER},
+      platformShipTime = #{record.platformshiptime,jdbcType=TIMESTAMP},
+      dateWarehouseShipping = #{record.datewarehouseshipping,jdbcType=TIMESTAMP},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      amountpaid = #{record.amountpaid,jdbcType=REAL},
+      subtotal = #{record.subtotal,jdbcType=REAL},
+      shipFee = #{record.shipfee,jdbcType=REAL},
+      platformFeeTotal = #{record.platformfeetotal,jdbcType=REAL},
+      finalvaluefeeTotal = #{record.finalvaluefeetotal,jdbcType=REAL},
+      otherFee = #{record.otherfee,jdbcType=REAL},
+      costShipFee = #{record.costshipfee,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.EcOrder" >
+    update ec_order
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="refno != null" >
+        refNo = #{refno,jdbcType=VARCHAR},
+      </if>
+      <if test="saleordercode != null" >
+        saleOrderCode = #{saleordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysordercode != null" >
+        sysOrderCode = #{sysordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseordercode != null" >
+        warehouseOrderCode = #{warehouseordercode,jdbcType=VARCHAR},
+      </if>
+      <if test="createddate != null" >
+        createdDate = #{createddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datepaidplatform != null" >
+        datePaidPlatform = #{datepaidplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datecreateplatform != null" >
+        dateCreatePlatform = #{datecreateplatform,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformshipstatus != null" >
+        platformShipStatus = #{platformshipstatus,jdbcType=INTEGER},
+      </if>
+      <if test="platformshiptime != null" >
+        platformShipTime = #{platformshiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datewarehouseshipping != null" >
+        dateWarehouseShipping = #{datewarehouseshipping,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="amountpaid != null" >
+        amountpaid = #{amountpaid,jdbcType=REAL},
+      </if>
+      <if test="subtotal != null" >
+        subtotal = #{subtotal,jdbcType=REAL},
+      </if>
+      <if test="shipfee != null" >
+        shipFee = #{shipfee,jdbcType=REAL},
+      </if>
+      <if test="platformfeetotal != null" >
+        platformFeeTotal = #{platformfeetotal,jdbcType=REAL},
+      </if>
+      <if test="finalvaluefeetotal != null" >
+        finalvaluefeeTotal = #{finalvaluefeetotal,jdbcType=REAL},
+      </if>
+      <if test="otherfee != null" >
+        otherFee = #{otherfee,jdbcType=REAL},
+      </if>
+      <if test="costshipfee != null" >
+        costShipFee = #{costshipfee,jdbcType=REAL},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.EcOrder" >
+    update ec_order
+    set status = #{status,jdbcType=INTEGER},
+      refNo = #{refno,jdbcType=VARCHAR},
+      saleOrderCode = #{saleordercode,jdbcType=VARCHAR},
+      sysOrderCode = #{sysordercode,jdbcType=VARCHAR},
+      warehouseOrderCode = #{warehouseordercode,jdbcType=VARCHAR},
+      createdDate = #{createddate,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      datePaidPlatform = #{datepaidplatform,jdbcType=TIMESTAMP},
+      dateCreatePlatform = #{datecreateplatform,jdbcType=TIMESTAMP},
+      platformShipStatus = #{platformshipstatus,jdbcType=INTEGER},
+      platformShipTime = #{platformshiptime,jdbcType=TIMESTAMP},
+      dateWarehouseShipping = #{datewarehouseshipping,jdbcType=TIMESTAMP},
+      currency = #{currency,jdbcType=VARCHAR},
+      amountpaid = #{amountpaid,jdbcType=REAL},
+      subtotal = #{subtotal,jdbcType=REAL},
+      shipFee = #{shipfee,jdbcType=REAL},
+      platformFeeTotal = #{platformfeetotal,jdbcType=REAL},
+      finalvaluefeeTotal = #{finalvaluefeetotal,jdbcType=REAL},
+      otherFee = #{otherfee,jdbcType=REAL},
+      costShipFee = #{costshipfee,jdbcType=REAL}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

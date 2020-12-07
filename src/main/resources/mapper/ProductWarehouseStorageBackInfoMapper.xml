@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.ProductWarehouseStorageBackInfoMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.ProductWarehouseStorageBackInfo">
+        <id column="backID" property="backid" jdbcType="INTEGER"/>
+        <result column="purchaseStr" property="purchasestr" jdbcType="VARCHAR"/>
+        <result column="cnWarehouseStr" property="cnwarehousestr" jdbcType="VARCHAR"/>
+        <result column="onWayStr" property="onwaystr" jdbcType="VARCHAR"/>
+        <result column="onWarehouseStr" property="onwarehousestr" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        backID, purchaseStr, cnWarehouseStr, onWayStr, onWarehouseStr
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfoExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from product_warehouse_storage_back_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from product_warehouse_storage_back_info
+        where backID = #{backid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from product_warehouse_storage_back_info
+        where backID = #{backid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfoExample">
+        delete from product_warehouse_storage_back_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfo">
+        insert into product_warehouse_storage_back_info (backID, purchaseStr, cnWarehouseStr,
+        onWayStr, onWarehouseStr)
+        values (#{backid,jdbcType=INTEGER}, #{purchasestr,jdbcType=VARCHAR}, #{cnwarehousestr,jdbcType=VARCHAR},
+        #{onwaystr,jdbcType=VARCHAR}, #{onwarehousestr,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfo">
+        insert into product_warehouse_storage_back_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="backid != null">
+                backID,
+            </if>
+            <if test="purchasestr != null">
+                purchaseStr,
+            </if>
+            <if test="cnwarehousestr != null">
+                cnWarehouseStr,
+            </if>
+            <if test="onwaystr != null">
+                onWayStr,
+            </if>
+            <if test="onwarehousestr != null">
+                onWarehouseStr,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="backid != null">
+                #{backid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasestr != null">
+                #{purchasestr,jdbcType=VARCHAR},
+            </if>
+            <if test="cnwarehousestr != null">
+                #{cnwarehousestr,jdbcType=VARCHAR},
+            </if>
+            <if test="onwaystr != null">
+                #{onwaystr,jdbcType=VARCHAR},
+            </if>
+            <if test="onwarehousestr != null">
+                #{onwarehousestr,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfoExample"
+            resultType="java.lang.Integer">
+        select count(*) from product_warehouse_storage_back_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update product_warehouse_storage_back_info
+        <set>
+            <if test="record.backid != null">
+                backID = #{record.backid,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasestr != null">
+                purchaseStr = #{record.purchasestr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnwarehousestr != null">
+                cnWarehouseStr = #{record.cnwarehousestr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.onwaystr != null">
+                onWayStr = #{record.onwaystr,jdbcType=VARCHAR},
+            </if>
+            <if test="record.onwarehousestr != null">
+                onWarehouseStr = #{record.onwarehousestr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update product_warehouse_storage_back_info
+        set backID = #{record.backid,jdbcType=INTEGER},
+        purchaseStr = #{record.purchasestr,jdbcType=VARCHAR},
+        cnWarehouseStr = #{record.cnwarehousestr,jdbcType=VARCHAR},
+        onWayStr = #{record.onwaystr,jdbcType=VARCHAR},
+        onWarehouseStr = #{record.onwarehousestr,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfo">
+        update product_warehouse_storage_back_info
+        <set>
+            <if test="purchasestr != null">
+                purchaseStr = #{purchasestr,jdbcType=VARCHAR},
+            </if>
+            <if test="cnwarehousestr != null">
+                cnWarehouseStr = #{cnwarehousestr,jdbcType=VARCHAR},
+            </if>
+            <if test="onwaystr != null">
+                onWayStr = #{onwaystr,jdbcType=VARCHAR},
+            </if>
+            <if test="onwarehousestr != null">
+                onWarehouseStr = #{onwarehousestr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where backID = #{backid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.ProductWarehouseStorageBackInfo">
+        update product_warehouse_storage_back_info
+        set purchaseStr = #{purchasestr,jdbcType=VARCHAR},
+        cnWarehouseStr = #{cnwarehousestr,jdbcType=VARCHAR},
+        onWayStr = #{onwaystr,jdbcType=VARCHAR},
+        onWarehouseStr = #{onwarehousestr,jdbcType=VARCHAR}
+        where backID = #{backid,jdbcType=INTEGER}
+    </update>
+</mapper>
