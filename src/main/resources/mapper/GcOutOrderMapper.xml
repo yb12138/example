@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.GcOutOrderMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.GcOutOrder">
+        <id column="order_code" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="reference_no" property="referenceNo" jdbcType="VARCHAR"/>
+        <result column="platform" property="platform" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="shipping_method" property="shippingMethod" jdbcType="VARCHAR"/>
+        <result column="tracking_no" property="trackingNo" jdbcType="VARCHAR"/>
+        <result column="warehouse_code" property="warehouseCode" jdbcType="VARCHAR"/>
+        <result column="order_weight" property="orderWeight" jdbcType="DOUBLE"/>
+        <result column="order_desc" property="orderDesc" jdbcType="VARCHAR"/>
+        <result column="date_create" property="dateCreate" jdbcType="TIMESTAMP"/>
+        <result column="date_modify" property="dateModify" jdbcType="TIMESTAMP"/>
+        <result column="consignee_country_code" property="consigneeCountryCode" jdbcType="VARCHAR"/>
+        <result column="consignee_country_name" property="consigneeCountryName" jdbcType="VARCHAR"/>
+        <result column="consignee_state" property="consigneeState" jdbcType="VARCHAR"/>
+        <result column="consignee_city" property="consigneeCity" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        order_code, reference_no, platform, order_status, shipping_method, tracking_no, warehouse_code,
+        order_weight, order_desc, date_create, date_modify, consignee_country_code, consignee_country_name,
+        consignee_state, consignee_city
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.heeexy.example.model.GcOutOrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from gc_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from gc_out_order
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from gc_out_order
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.GcOutOrderExample">
+        delete from gc_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.GcOutOrder">
+        insert into gc_out_order (order_code, reference_no, platform,
+        order_status, shipping_method, tracking_no,
+        warehouse_code, order_weight, order_desc,
+        date_create, date_modify, consignee_country_code,
+        consignee_country_name, consignee_state, consignee_city
+        )
+        values (#{orderCode,jdbcType=VARCHAR}, #{referenceNo,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR},
+        #{orderStatus,jdbcType=VARCHAR}, #{shippingMethod,jdbcType=VARCHAR}, #{trackingNo,jdbcType=VARCHAR},
+        #{warehouseCode,jdbcType=VARCHAR}, #{orderWeight,jdbcType=DOUBLE}, #{orderDesc,jdbcType=VARCHAR},
+        #{dateCreate,jdbcType=TIMESTAMP}, #{dateModify,jdbcType=TIMESTAMP}, #{consigneeCountryCode,jdbcType=VARCHAR},
+        #{consigneeCountryName,jdbcType=VARCHAR}, #{consigneeState,jdbcType=VARCHAR}, #{consigneeCity,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.GcOutOrder">
+        insert into gc_out_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderCode != null">
+                order_code,
+            </if>
+            <if test="referenceNo != null">
+                reference_no,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="shippingMethod != null">
+                shipping_method,
+            </if>
+            <if test="trackingNo != null">
+                tracking_no,
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code,
+            </if>
+            <if test="orderWeight != null">
+                order_weight,
+            </if>
+            <if test="orderDesc != null">
+                order_desc,
+            </if>
+            <if test="dateCreate != null">
+                date_create,
+            </if>
+            <if test="dateModify != null">
+                date_modify,
+            </if>
+            <if test="consigneeCountryCode != null">
+                consignee_country_code,
+            </if>
+            <if test="consigneeCountryName != null">
+                consignee_country_name,
+            </if>
+            <if test="consigneeState != null">
+                consignee_state,
+            </if>
+            <if test="consigneeCity != null">
+                consignee_city,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="referenceNo != null">
+                #{referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="platform != null">
+                #{platform,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingMethod != null">
+                #{shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trackingNo != null">
+                #{trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderWeight != null">
+                #{orderWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="orderDesc != null">
+                #{orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreate != null">
+                #{dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateModify != null">
+                #{dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="consigneeCountryCode != null">
+                #{consigneeCountryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeCountryName != null">
+                #{consigneeCountryName,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeState != null">
+                #{consigneeState,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeCity != null">
+                #{consigneeCity,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.GcOutOrderExample"
+            resultType="java.lang.Integer">
+        select count(*) from gc_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update gc_out_order
+        <set>
+            <if test="record.orderCode != null">
+                order_code = #{record.orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.referenceNo != null">
+                reference_no = #{record.referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.platform != null">
+                platform = #{record.platform,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderStatus != null">
+                order_status = #{record.orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shippingMethod != null">
+                shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="record.trackingNo != null">
+                tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseCode != null">
+                warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderWeight != null">
+                order_weight = #{record.orderWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.orderDesc != null">
+                order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dateCreate != null">
+                date_create = #{record.dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.dateModify != null">
+                date_modify = #{record.dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.consigneeCountryCode != null">
+                consignee_country_code = #{record.consigneeCountryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consigneeCountryName != null">
+                consignee_country_name = #{record.consigneeCountryName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consigneeState != null">
+                consignee_state = #{record.consigneeState,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consigneeCity != null">
+                consignee_city = #{record.consigneeCity,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update gc_out_order
+        set order_code = #{record.orderCode,jdbcType=VARCHAR},
+        reference_no = #{record.referenceNo,jdbcType=VARCHAR},
+        platform = #{record.platform,jdbcType=VARCHAR},
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
+        shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+        tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+        warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+        order_weight = #{record.orderWeight,jdbcType=DOUBLE},
+        order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+        date_create = #{record.dateCreate,jdbcType=TIMESTAMP},
+        date_modify = #{record.dateModify,jdbcType=TIMESTAMP},
+        consignee_country_code = #{record.consigneeCountryCode,jdbcType=VARCHAR},
+        consignee_country_name = #{record.consigneeCountryName,jdbcType=VARCHAR},
+        consignee_state = #{record.consigneeState,jdbcType=VARCHAR},
+        consignee_city = #{record.consigneeCity,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.GcOutOrder">
+        update gc_out_order
+        <set>
+            <if test="referenceNo != null">
+                reference_no = #{referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="platform != null">
+                platform = #{platform,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingMethod != null">
+                shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trackingNo != null">
+                tracking_no = #{trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderWeight != null">
+                order_weight = #{orderWeight,jdbcType=DOUBLE},
+            </if>
+            <if test="orderDesc != null">
+                order_desc = #{orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreate != null">
+                date_create = #{dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateModify != null">
+                date_modify = #{dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="consigneeCountryCode != null">
+                consignee_country_code = #{consigneeCountryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeCountryName != null">
+                consignee_country_name = #{consigneeCountryName,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeState != null">
+                consignee_state = #{consigneeState,jdbcType=VARCHAR},
+            </if>
+            <if test="consigneeCity != null">
+                consignee_city = #{consigneeCity,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.GcOutOrder">
+        update gc_out_order
+        set reference_no = #{referenceNo,jdbcType=VARCHAR},
+        platform = #{platform,jdbcType=VARCHAR},
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+        shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+        tracking_no = #{trackingNo,jdbcType=VARCHAR},
+        warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+        order_weight = #{orderWeight,jdbcType=DOUBLE},
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+        date_create = #{dateCreate,jdbcType=TIMESTAMP},
+        date_modify = #{dateModify,jdbcType=TIMESTAMP},
+        consignee_country_code = #{consigneeCountryCode,jdbcType=VARCHAR},
+        consignee_country_name = #{consigneeCountryName,jdbcType=VARCHAR},
+        consignee_state = #{consigneeState,jdbcType=VARCHAR},
+        consignee_city = #{consigneeCity,jdbcType=VARCHAR}
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </update>
+</mapper>

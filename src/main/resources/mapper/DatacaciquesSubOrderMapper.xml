@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.DatacaciquesSubOrderMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.DatacaciquesSubOrder">
+        <result column="sysOrderID" property="sysorderid" jdbcType="BIGINT"/>
+        <result column="pfTransactionID" property="pftransactionid" jdbcType="VARCHAR"/>
+        <result column="pfOrderID" property="pforderid" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="pfItemID" property="pfitemid" jdbcType="VARCHAR"/>
+        <result column="sysSku" property="syssku" jdbcType="VARCHAR"/>
+        <result column="pfSku" property="pfsku" jdbcType="VARCHAR"/>
+        <result column="pfItemPrice" property="pfitemprice" jdbcType="DOUBLE"/>
+        <result column="pfQuantity" property="pfquantity" jdbcType="VARCHAR"/>
+        <result column="pfShippingAmount" property="pfshippingamount" jdbcType="VARCHAR"/>
+        <result column="platformID" property="platformid" jdbcType="INTEGER"/>
+        <result column="coverUrl" property="coverurl" jdbcType="VARCHAR"/>
+        <result column="siteID" property="siteid" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        sysOrderID, pfTransactionID, pfOrderID, title, pfItemID, sysSku, pfSku, pfItemPrice,
+        pfQuantity, pfShippingAmount, platformID, coverUrl, siteID, createTime
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.DatacaciquesSubOrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from datacaciques_sub_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.DatacaciquesSubOrderExample">
+        delete from datacaciques_sub_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.DatacaciquesSubOrder">
+        insert into datacaciques_sub_order (sysOrderID, pfTransactionID, pfOrderID,
+        title, pfItemID, sysSku,
+        pfSku, pfItemPrice, pfQuantity,
+        pfShippingAmount, platformID, coverUrl,
+        siteID, createTime)
+        values (#{sysorderid,jdbcType=BIGINT}, #{pftransactionid,jdbcType=VARCHAR}, #{pforderid,jdbcType=VARCHAR},
+        #{title,jdbcType=VARCHAR}, #{pfitemid,jdbcType=VARCHAR}, #{syssku,jdbcType=VARCHAR},
+        #{pfsku,jdbcType=VARCHAR}, #{pfitemprice,jdbcType=DOUBLE}, #{pfquantity,jdbcType=VARCHAR},
+        #{pfshippingamount,jdbcType=VARCHAR}, #{platformid,jdbcType=INTEGER}, #{coverurl,jdbcType=VARCHAR},
+        #{siteid,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.DatacaciquesSubOrder">
+        insert into datacaciques_sub_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysorderid != null">
+                sysOrderID,
+            </if>
+            <if test="pftransactionid != null">
+                pfTransactionID,
+            </if>
+            <if test="pforderid != null">
+                pfOrderID,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="pfitemid != null">
+                pfItemID,
+            </if>
+            <if test="syssku != null">
+                sysSku,
+            </if>
+            <if test="pfsku != null">
+                pfSku,
+            </if>
+            <if test="pfitemprice != null">
+                pfItemPrice,
+            </if>
+            <if test="pfquantity != null">
+                pfQuantity,
+            </if>
+            <if test="pfshippingamount != null">
+                pfShippingAmount,
+            </if>
+            <if test="platformid != null">
+                platformID,
+            </if>
+            <if test="coverurl != null">
+                coverUrl,
+            </if>
+            <if test="siteid != null">
+                siteID,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysorderid != null">
+                #{sysorderid,jdbcType=BIGINT},
+            </if>
+            <if test="pftransactionid != null">
+                #{pftransactionid,jdbcType=VARCHAR},
+            </if>
+            <if test="pforderid != null">
+                #{pforderid,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="pfitemid != null">
+                #{pfitemid,jdbcType=VARCHAR},
+            </if>
+            <if test="syssku != null">
+                #{syssku,jdbcType=VARCHAR},
+            </if>
+            <if test="pfsku != null">
+                #{pfsku,jdbcType=VARCHAR},
+            </if>
+            <if test="pfitemprice != null">
+                #{pfitemprice,jdbcType=DOUBLE},
+            </if>
+            <if test="pfquantity != null">
+                #{pfquantity,jdbcType=VARCHAR},
+            </if>
+            <if test="pfshippingamount != null">
+                #{pfshippingamount,jdbcType=VARCHAR},
+            </if>
+            <if test="platformid != null">
+                #{platformid,jdbcType=INTEGER},
+            </if>
+            <if test="coverurl != null">
+                #{coverurl,jdbcType=VARCHAR},
+            </if>
+            <if test="siteid != null">
+                #{siteid,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.DatacaciquesSubOrderExample"
+            resultType="java.lang.Integer">
+        select count(*) from datacaciques_sub_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update datacaciques_sub_order
+        <set>
+            <if test="record.sysorderid != null">
+                sysOrderID = #{record.sysorderid,jdbcType=BIGINT},
+            </if>
+            <if test="record.pftransactionid != null">
+                pfTransactionID = #{record.pftransactionid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pforderid != null">
+                pfOrderID = #{record.pforderid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.title != null">
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pfitemid != null">
+                pfItemID = #{record.pfitemid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.syssku != null">
+                sysSku = #{record.syssku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pfsku != null">
+                pfSku = #{record.pfsku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pfitemprice != null">
+                pfItemPrice = #{record.pfitemprice,jdbcType=DOUBLE},
+            </if>
+            <if test="record.pfquantity != null">
+                pfQuantity = #{record.pfquantity,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pfshippingamount != null">
+                pfShippingAmount = #{record.pfshippingamount,jdbcType=VARCHAR},
+            </if>
+            <if test="record.platformid != null">
+                platformID = #{record.platformid,jdbcType=INTEGER},
+            </if>
+            <if test="record.coverurl != null">
+                coverUrl = #{record.coverurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.siteid != null">
+                siteID = #{record.siteid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update datacaciques_sub_order
+        set sysOrderID = #{record.sysorderid,jdbcType=BIGINT},
+        pfTransactionID = #{record.pftransactionid,jdbcType=VARCHAR},
+        pfOrderID = #{record.pforderid,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
+        pfItemID = #{record.pfitemid,jdbcType=VARCHAR},
+        sysSku = #{record.syssku,jdbcType=VARCHAR},
+        pfSku = #{record.pfsku,jdbcType=VARCHAR},
+        pfItemPrice = #{record.pfitemprice,jdbcType=DOUBLE},
+        pfQuantity = #{record.pfquantity,jdbcType=VARCHAR},
+        pfShippingAmount = #{record.pfshippingamount,jdbcType=VARCHAR},
+        platformID = #{record.platformid,jdbcType=INTEGER},
+        coverUrl = #{record.coverurl,jdbcType=VARCHAR},
+        siteID = #{record.siteid,jdbcType=VARCHAR},
+        createTime = #{record.createtime,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+</mapper>

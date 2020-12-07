@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.WinitOrderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WinitOrderDetail">
+        <result column="orderNo" property="orderno" jdbcType="VARCHAR"/>
+        <result column="planShelfCompletedDate" property="planshelfcompleteddate" jdbcType="VARCHAR"/>
+        <result column="sku" property="sku" jdbcType="VARCHAR"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="actualQuantity" property="actualquantity" jdbcType="INTEGER"/>
+        <result column="createdDate" property="createddate" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        orderNo, planShelfCompletedDate, sku, quantity, actualQuantity, createdDate
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.WinitOrderDetailExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from winit_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WinitOrderDetailExample">
+        delete from winit_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WinitOrderDetail">
+        insert into winit_order_detail (orderNo, planShelfCompletedDate,
+        sku, quantity, actualQuantity,
+        createdDate)
+        values (#{orderno,jdbcType=VARCHAR}, #{planshelfcompleteddate,jdbcType=VARCHAR},
+        #{sku,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{actualquantity,jdbcType=INTEGER},
+        #{createddate,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WinitOrderDetail">
+        insert into winit_order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderno != null">
+                orderNo,
+            </if>
+            <if test="planshelfcompleteddate != null">
+                planShelfCompletedDate,
+            </if>
+            <if test="sku != null">
+                sku,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="actualquantity != null">
+                actualQuantity,
+            </if>
+            <if test="createddate != null">
+                createdDate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderno != null">
+                #{orderno,jdbcType=VARCHAR},
+            </if>
+            <if test="planshelfcompleteddate != null">
+                #{planshelfcompleteddate,jdbcType=VARCHAR},
+            </if>
+            <if test="sku != null">
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="actualquantity != null">
+                #{actualquantity,jdbcType=INTEGER},
+            </if>
+            <if test="createddate != null">
+                #{createddate,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WinitOrderDetailExample"
+            resultType="java.lang.Integer">
+        select count(*) from winit_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update winit_order_detail
+        <set>
+            <if test="record.orderno != null">
+                orderNo = #{record.orderno,jdbcType=VARCHAR},
+            </if>
+            <if test="record.planshelfcompleteddate != null">
+                planShelfCompletedDate = #{record.planshelfcompleteddate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sku != null">
+                sku = #{record.sku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.quantity != null">
+                quantity = #{record.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.actualquantity != null">
+                actualQuantity = #{record.actualquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.createddate != null">
+                createdDate = #{record.createddate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update winit_order_detail
+        set orderNo = #{record.orderno,jdbcType=VARCHAR},
+        planShelfCompletedDate = #{record.planshelfcompleteddate,jdbcType=VARCHAR},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        quantity = #{record.quantity,jdbcType=INTEGER},
+        actualQuantity = #{record.actualquantity,jdbcType=INTEGER},
+        createdDate = #{record.createddate,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+</mapper>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.DatacaciquesPackageMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.DatacaciquesPackage">
+        <id column="packageID" property="packageid" jdbcType="BIGINT"/>
+        <result column="packageCode" property="packagecode" jdbcType="VARCHAR"/>
+        <result column="sysPackageStatus" property="syspackagestatus" jdbcType="VARCHAR"/>
+        <result column="shipTrackingID" property="shiptrackingid" jdbcType="VARCHAR"/>
+        <result column="productWeight" property="productweight" jdbcType="DOUBLE"/>
+        <result column="realWeight" property="realweight" jdbcType="DOUBLE"/>
+        <result column="createTime" property="createtime" jdbcType="VARCHAR"/>
+        <result column="warehouseID" property="warehouseid" jdbcType="BIGINT"/>
+        <result column="currencyCode" property="currencycode" jdbcType="VARCHAR"/>
+        <result column="sysProductFee" property="sysproductfee" jdbcType="DOUBLE"/>
+        <result column="packagePlatFee" property="packageplatfee" jdbcType="DOUBLE"/>
+        <result column="pfTransferAmount" property="pftransferamount" jdbcType="DOUBLE"/>
+        <result column="pfShippingAmount" property="pfshippingamount" jdbcType="DOUBLE"/>
+        <result column="refundAmount" property="refundamount" jdbcType="DOUBLE"/>
+        <result column="flag" property="flag" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        packageID, packageCode, sysPackageStatus, shipTrackingID, productWeight, realWeight,
+        createTime, warehouseID, currencyCode, sysProductFee, packagePlatFee, pfTransferAmount,
+        pfShippingAmount, refundAmount, flag
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.DatacaciquesPackageExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from datacaciques_package
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from datacaciques_package
+        where packageID = #{packageid,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from datacaciques_package
+        where packageID = #{packageid,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.DatacaciquesPackageExample">
+        delete from datacaciques_package
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.DatacaciquesPackage">
+        insert into datacaciques_package (packageID, packageCode, sysPackageStatus,
+        shipTrackingID, productWeight, realWeight,
+        createTime, warehouseID, currencyCode,
+        sysProductFee, packagePlatFee, pfTransferAmount,
+        pfShippingAmount, refundAmount, flag
+        )
+        values (#{packageid,jdbcType=BIGINT}, #{packagecode,jdbcType=VARCHAR}, #{syspackagestatus,jdbcType=VARCHAR},
+        #{shiptrackingid,jdbcType=VARCHAR}, #{productweight,jdbcType=DOUBLE}, #{realweight,jdbcType=DOUBLE},
+        #{createtime,jdbcType=VARCHAR}, #{warehouseid,jdbcType=BIGINT}, #{currencycode,jdbcType=VARCHAR},
+        #{sysproductfee,jdbcType=DOUBLE}, #{packageplatfee,jdbcType=DOUBLE}, #{pftransferamount,jdbcType=DOUBLE},
+        #{pfshippingamount,jdbcType=DOUBLE}, #{refundamount,jdbcType=DOUBLE}, #{flag,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.DatacaciquesPackage">
+        insert into datacaciques_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="packageid != null">
+                packageID,
+            </if>
+            <if test="packagecode != null">
+                packageCode,
+            </if>
+            <if test="syspackagestatus != null">
+                sysPackageStatus,
+            </if>
+            <if test="shiptrackingid != null">
+                shipTrackingID,
+            </if>
+            <if test="productweight != null">
+                productWeight,
+            </if>
+            <if test="realweight != null">
+                realWeight,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="currencycode != null">
+                currencyCode,
+            </if>
+            <if test="sysproductfee != null">
+                sysProductFee,
+            </if>
+            <if test="packageplatfee != null">
+                packagePlatFee,
+            </if>
+            <if test="pftransferamount != null">
+                pfTransferAmount,
+            </if>
+            <if test="pfshippingamount != null">
+                pfShippingAmount,
+            </if>
+            <if test="refundamount != null">
+                refundAmount,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="packageid != null">
+                #{packageid,jdbcType=BIGINT},
+            </if>
+            <if test="packagecode != null">
+                #{packagecode,jdbcType=VARCHAR},
+            </if>
+            <if test="syspackagestatus != null">
+                #{syspackagestatus,jdbcType=VARCHAR},
+            </if>
+            <if test="shiptrackingid != null">
+                #{shiptrackingid,jdbcType=VARCHAR},
+            </if>
+            <if test="productweight != null">
+                #{productweight,jdbcType=DOUBLE},
+            </if>
+            <if test="realweight != null">
+                #{realweight,jdbcType=DOUBLE},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="currencycode != null">
+                #{currencycode,jdbcType=VARCHAR},
+            </if>
+            <if test="sysproductfee != null">
+                #{sysproductfee,jdbcType=DOUBLE},
+            </if>
+            <if test="packageplatfee != null">
+                #{packageplatfee,jdbcType=DOUBLE},
+            </if>
+            <if test="pftransferamount != null">
+                #{pftransferamount,jdbcType=DOUBLE},
+            </if>
+            <if test="pfshippingamount != null">
+                #{pfshippingamount,jdbcType=DOUBLE},
+            </if>
+            <if test="refundamount != null">
+                #{refundamount,jdbcType=DOUBLE},
+            </if>
+            <if test="flag != null">
+                #{flag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.DatacaciquesPackageExample"
+            resultType="java.lang.Integer">
+        select count(*) from datacaciques_package
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update datacaciques_package
+        <set>
+            <if test="record.packageid != null">
+                packageID = #{record.packageid,jdbcType=BIGINT},
+            </if>
+            <if test="record.packagecode != null">
+                packageCode = #{record.packagecode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.syspackagestatus != null">
+                sysPackageStatus = #{record.syspackagestatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shiptrackingid != null">
+                shipTrackingID = #{record.shiptrackingid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productweight != null">
+                productWeight = #{record.productweight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.realweight != null">
+                realWeight = #{record.realweight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.currencycode != null">
+                currencyCode = #{record.currencycode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sysproductfee != null">
+                sysProductFee = #{record.sysproductfee,jdbcType=DOUBLE},
+            </if>
+            <if test="record.packageplatfee != null">
+                packagePlatFee = #{record.packageplatfee,jdbcType=DOUBLE},
+            </if>
+            <if test="record.pftransferamount != null">
+                pfTransferAmount = #{record.pftransferamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.pfshippingamount != null">
+                pfShippingAmount = #{record.pfshippingamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.refundamount != null">
+                refundAmount = #{record.refundamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.flag != null">
+                flag = #{record.flag,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update datacaciques_package
+        set packageID = #{record.packageid,jdbcType=BIGINT},
+        packageCode = #{record.packagecode,jdbcType=VARCHAR},
+        sysPackageStatus = #{record.syspackagestatus,jdbcType=VARCHAR},
+        shipTrackingID = #{record.shiptrackingid,jdbcType=VARCHAR},
+        productWeight = #{record.productweight,jdbcType=DOUBLE},
+        realWeight = #{record.realweight,jdbcType=DOUBLE},
+        createTime = #{record.createtime,jdbcType=VARCHAR},
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+        currencyCode = #{record.currencycode,jdbcType=VARCHAR},
+        sysProductFee = #{record.sysproductfee,jdbcType=DOUBLE},
+        packagePlatFee = #{record.packageplatfee,jdbcType=DOUBLE},
+        pfTransferAmount = #{record.pftransferamount,jdbcType=DOUBLE},
+        pfShippingAmount = #{record.pfshippingamount,jdbcType=DOUBLE},
+        refundAmount = #{record.refundamount,jdbcType=DOUBLE},
+        flag = #{record.flag,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.DatacaciquesPackage">
+        update datacaciques_package
+        <set>
+            <if test="packagecode != null">
+                packageCode = #{packagecode,jdbcType=VARCHAR},
+            </if>
+            <if test="syspackagestatus != null">
+                sysPackageStatus = #{syspackagestatus,jdbcType=VARCHAR},
+            </if>
+            <if test="shiptrackingid != null">
+                shipTrackingID = #{shiptrackingid,jdbcType=VARCHAR},
+            </if>
+            <if test="productweight != null">
+                productWeight = #{productweight,jdbcType=DOUBLE},
+            </if>
+            <if test="realweight != null">
+                realWeight = #{realweight,jdbcType=DOUBLE},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="currencycode != null">
+                currencyCode = #{currencycode,jdbcType=VARCHAR},
+            </if>
+            <if test="sysproductfee != null">
+                sysProductFee = #{sysproductfee,jdbcType=DOUBLE},
+            </if>
+            <if test="packageplatfee != null">
+                packagePlatFee = #{packageplatfee,jdbcType=DOUBLE},
+            </if>
+            <if test="pftransferamount != null">
+                pfTransferAmount = #{pftransferamount,jdbcType=DOUBLE},
+            </if>
+            <if test="pfshippingamount != null">
+                pfShippingAmount = #{pfshippingamount,jdbcType=DOUBLE},
+            </if>
+            <if test="refundamount != null">
+                refundAmount = #{refundamount,jdbcType=DOUBLE},
+            </if>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where packageID = #{packageid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.DatacaciquesPackage">
+        update datacaciques_package
+        set packageCode = #{packagecode,jdbcType=VARCHAR},
+        sysPackageStatus = #{syspackagestatus,jdbcType=VARCHAR},
+        shipTrackingID = #{shiptrackingid,jdbcType=VARCHAR},
+        productWeight = #{productweight,jdbcType=DOUBLE},
+        realWeight = #{realweight,jdbcType=DOUBLE},
+        createTime = #{createtime,jdbcType=VARCHAR},
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+        currencyCode = #{currencycode,jdbcType=VARCHAR},
+        sysProductFee = #{sysproductfee,jdbcType=DOUBLE},
+        packagePlatFee = #{packageplatfee,jdbcType=DOUBLE},
+        pfTransferAmount = #{pftransferamount,jdbcType=DOUBLE},
+        pfShippingAmount = #{pfshippingamount,jdbcType=DOUBLE},
+        refundAmount = #{refundamount,jdbcType=DOUBLE},
+        flag = #{flag,jdbcType=INTEGER}
+        where packageID = #{packageid,jdbcType=BIGINT}
+    </update>
+</mapper>

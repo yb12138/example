@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.ProductSellMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.ProductSell">
+        <id column="productID" property="productid" jdbcType="INTEGER"/>
+        <result column="month1" property="month1" jdbcType="DOUBLE"/>
+        <result column="month2" property="month2" jdbcType="DOUBLE"/>
+        <result column="month3" property="month3" jdbcType="DOUBLE"/>
+        <result column="month4" property="month4" jdbcType="DOUBLE"/>
+        <result column="month5" property="month5" jdbcType="DOUBLE"/>
+        <result column="month6" property="month6" jdbcType="DOUBLE"/>
+        <result column="month7" property="month7" jdbcType="DOUBLE"/>
+        <result column="month8" property="month8" jdbcType="DOUBLE"/>
+        <result column="month9" property="month9" jdbcType="DOUBLE"/>
+        <result column="month10" property="month10" jdbcType="DOUBLE"/>
+        <result column="month11" property="month11" jdbcType="DOUBLE"/>
+        <result column="month12" property="month12" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        productID, month1, month2, month3, month4, month5, month6, month7, month8, month9,
+        month10, month11, month12
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.heeexy.example.model.ProductSellExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from product_sell
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from product_sell
+        where productID = #{productid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from product_sell
+        where productID = #{productid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.ProductSellExample">
+        delete from product_sell
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.ProductSell">
+        insert into product_sell (productID, month1, month2,
+        month3, month4, month5,
+        month6, month7, month8,
+        month9, month10, month11,
+        month12)
+        values (#{productid,jdbcType=INTEGER}, #{month1,jdbcType=DOUBLE}, #{month2,jdbcType=DOUBLE},
+        #{month3,jdbcType=DOUBLE}, #{month4,jdbcType=DOUBLE}, #{month5,jdbcType=DOUBLE},
+        #{month6,jdbcType=DOUBLE}, #{month7,jdbcType=DOUBLE}, #{month8,jdbcType=DOUBLE},
+        #{month9,jdbcType=DOUBLE}, #{month10,jdbcType=DOUBLE}, #{month11,jdbcType=DOUBLE},
+        #{month12,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.ProductSell">
+        insert into product_sell
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="month1 != null">
+                month1,
+            </if>
+            <if test="month2 != null">
+                month2,
+            </if>
+            <if test="month3 != null">
+                month3,
+            </if>
+            <if test="month4 != null">
+                month4,
+            </if>
+            <if test="month5 != null">
+                month5,
+            </if>
+            <if test="month6 != null">
+                month6,
+            </if>
+            <if test="month7 != null">
+                month7,
+            </if>
+            <if test="month8 != null">
+                month8,
+            </if>
+            <if test="month9 != null">
+                month9,
+            </if>
+            <if test="month10 != null">
+                month10,
+            </if>
+            <if test="month11 != null">
+                month11,
+            </if>
+            <if test="month12 != null">
+                month12,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="month1 != null">
+                #{month1,jdbcType=DOUBLE},
+            </if>
+            <if test="month2 != null">
+                #{month2,jdbcType=DOUBLE},
+            </if>
+            <if test="month3 != null">
+                #{month3,jdbcType=DOUBLE},
+            </if>
+            <if test="month4 != null">
+                #{month4,jdbcType=DOUBLE},
+            </if>
+            <if test="month5 != null">
+                #{month5,jdbcType=DOUBLE},
+            </if>
+            <if test="month6 != null">
+                #{month6,jdbcType=DOUBLE},
+            </if>
+            <if test="month7 != null">
+                #{month7,jdbcType=DOUBLE},
+            </if>
+            <if test="month8 != null">
+                #{month8,jdbcType=DOUBLE},
+            </if>
+            <if test="month9 != null">
+                #{month9,jdbcType=DOUBLE},
+            </if>
+            <if test="month10 != null">
+                #{month10,jdbcType=DOUBLE},
+            </if>
+            <if test="month11 != null">
+                #{month11,jdbcType=DOUBLE},
+            </if>
+            <if test="month12 != null">
+                #{month12,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.ProductSellExample"
+            resultType="java.lang.Integer">
+        select count(*) from product_sell
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update product_sell
+        <set>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.month1 != null">
+                month1 = #{record.month1,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month2 != null">
+                month2 = #{record.month2,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month3 != null">
+                month3 = #{record.month3,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month4 != null">
+                month4 = #{record.month4,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month5 != null">
+                month5 = #{record.month5,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month6 != null">
+                month6 = #{record.month6,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month7 != null">
+                month7 = #{record.month7,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month8 != null">
+                month8 = #{record.month8,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month9 != null">
+                month9 = #{record.month9,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month10 != null">
+                month10 = #{record.month10,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month11 != null">
+                month11 = #{record.month11,jdbcType=DOUBLE},
+            </if>
+            <if test="record.month12 != null">
+                month12 = #{record.month12,jdbcType=DOUBLE},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update product_sell
+        set productID = #{record.productid,jdbcType=INTEGER},
+        month1 = #{record.month1,jdbcType=DOUBLE},
+        month2 = #{record.month2,jdbcType=DOUBLE},
+        month3 = #{record.month3,jdbcType=DOUBLE},
+        month4 = #{record.month4,jdbcType=DOUBLE},
+        month5 = #{record.month5,jdbcType=DOUBLE},
+        month6 = #{record.month6,jdbcType=DOUBLE},
+        month7 = #{record.month7,jdbcType=DOUBLE},
+        month8 = #{record.month8,jdbcType=DOUBLE},
+        month9 = #{record.month9,jdbcType=DOUBLE},
+        month10 = #{record.month10,jdbcType=DOUBLE},
+        month11 = #{record.month11,jdbcType=DOUBLE},
+        month12 = #{record.month12,jdbcType=DOUBLE}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.ProductSell">
+        update product_sell
+        <set>
+            <if test="month1 != null">
+                month1 = #{month1,jdbcType=DOUBLE},
+            </if>
+            <if test="month2 != null">
+                month2 = #{month2,jdbcType=DOUBLE},
+            </if>
+            <if test="month3 != null">
+                month3 = #{month3,jdbcType=DOUBLE},
+            </if>
+            <if test="month4 != null">
+                month4 = #{month4,jdbcType=DOUBLE},
+            </if>
+            <if test="month5 != null">
+                month5 = #{month5,jdbcType=DOUBLE},
+            </if>
+            <if test="month6 != null">
+                month6 = #{month6,jdbcType=DOUBLE},
+            </if>
+            <if test="month7 != null">
+                month7 = #{month7,jdbcType=DOUBLE},
+            </if>
+            <if test="month8 != null">
+                month8 = #{month8,jdbcType=DOUBLE},
+            </if>
+            <if test="month9 != null">
+                month9 = #{month9,jdbcType=DOUBLE},
+            </if>
+            <if test="month10 != null">
+                month10 = #{month10,jdbcType=DOUBLE},
+            </if>
+            <if test="month11 != null">
+                month11 = #{month11,jdbcType=DOUBLE},
+            </if>
+            <if test="month12 != null">
+                month12 = #{month12,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.ProductSell">
+        update product_sell
+        set month1 = #{month1,jdbcType=DOUBLE},
+        month2 = #{month2,jdbcType=DOUBLE},
+        month3 = #{month3,jdbcType=DOUBLE},
+        month4 = #{month4,jdbcType=DOUBLE},
+        month5 = #{month5,jdbcType=DOUBLE},
+        month6 = #{month6,jdbcType=DOUBLE},
+        month7 = #{month7,jdbcType=DOUBLE},
+        month8 = #{month8,jdbcType=DOUBLE},
+        month9 = #{month9,jdbcType=DOUBLE},
+        month10 = #{month10,jdbcType=DOUBLE},
+        month11 = #{month11,jdbcType=DOUBLE},
+        month12 = #{month12,jdbcType=DOUBLE}
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+</mapper>

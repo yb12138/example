@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Product">
+        <id column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+        <result column="cnName" jdbcType="VARCHAR" property="cnname"/>
+        <result column="enName" jdbcType="VARCHAR" property="enname"/>
+        <result column="registeredLength" jdbcType="DOUBLE" property="registeredlength"/>
+        <result column="registeredWidth" jdbcType="DOUBLE" property="registeredwidth"/>
+        <result column="registeredHeight" jdbcType="DOUBLE" property="registeredheight"/>
+        <result column="branded" jdbcType="VARCHAR" property="branded"/>
+        <result column="brandedName" jdbcType="VARCHAR" property="brandedname"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="displayPageUrl" jdbcType="VARCHAR" property="displaypageurl"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="inportDeclaredvalue" jdbcType="VARCHAR" property="inportdeclaredvalue"/>
+        <result column="exportDeclaredvalue" jdbcType="VARCHAR" property="exportdeclaredvalue"/>
+        <result column="battery" jdbcType="VARCHAR" property="battery"/>
+        <result column="exportcountry" jdbcType="VARCHAR" property="exportcountry"/>
+        <result column="inporCountry" jdbcType="VARCHAR" property="inporcountry"/>
+        <result column="registeredWeight" jdbcType="DOUBLE" property="registeredweight"/>
+        <result column="isNew" jdbcType="VARCHAR" property="isnew"/>
+        <result column="warehouseID" jdbcType="BIGINT" property="warehouseid"/>
+        <result column="warehouseName" jdbcType="VARCHAR" property="warehousename"/>
+        <result column="headwayType" jdbcType="VARCHAR" property="headwaytype"/>
+        <result column="productlevel" jdbcType="VARCHAR" property="productlevel"/>
+        <result column="salegroupID" jdbcType="INTEGER" property="salegroupid"/>
+        <result column="salegroupName" jdbcType="VARCHAR" property="salegroupname"/>
+        <result column="productgroupID" jdbcType="INTEGER" property="productgroupid"/>
+        <result column="productgroupName" jdbcType="VARCHAR" property="productgroupname"/>
+        <result column="isActive" jdbcType="VARCHAR" property="isactive"/>
+        <result column="isDelete" jdbcType="VARCHAR" property="isdelete"/>
+        <result column="isPlus" jdbcType="VARCHAR" property="isplus"/>
+        <result column="registeredVolume" jdbcType="DOUBLE" property="registeredvolume"/>
+        <result column="imgurl" jdbcType="VARCHAR" property="imgurl"/>
+        <result column="cost" jdbcType="DOUBLE" property="cost"/>
+        <result column="mid" jdbcType="INTEGER" property="mid"/>
+        <result column="mcode" jdbcType="VARCHAR" property="mcode"/>
+        <result column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="supplierlink1" jdbcType="VARCHAR" property="supplierlink1"/>
+        <result column="supplierlink2" jdbcType="VARCHAR" property="supplierlink2"/>
+        <result column="supplierlink3" jdbcType="VARCHAR" property="supplierlink3"/>
+        <result column="deliverytime" jdbcType="INTEGER" property="deliverytime"/>
+        <result column="registerlink" jdbcType="VARCHAR" property="registerlink"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        productID, skuCode, cnName, enName, registeredLength, registeredWidth, registeredHeight,
+        branded, brandedName, model, displayPageUrl, remark, inportDeclaredvalue, exportDeclaredvalue,
+        battery, exportcountry, inporCountry, registeredWeight, isNew, warehouseID, warehouseName,
+        headwayType, productlevel, salegroupID, salegroupName, productgroupID, productgroupName,
+        isActive, isDelete, isPlus, registeredVolume, imgurl, cost, mid, mcode, supplierID,
+        supplierName, supplierlink1, supplierlink2, supplierlink3, deliverytime, registerlink
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.ProductExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from product
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        where productID = #{productid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from product
+        where productID = #{productid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.ProductExample">
+        delete from product
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Product">
+        insert into product (productID, skuCode, cnName,
+        enName, registeredLength, registeredWidth,
+        registeredHeight, branded, brandedName,
+        model, displayPageUrl, remark,
+        inportDeclaredvalue, exportDeclaredvalue,
+        battery, exportcountry, inporCountry,
+        registeredWeight, isNew, warehouseID,
+        warehouseName, headwayType, productlevel,
+        salegroupID, salegroupName, productgroupID,
+        productgroupName, isActive, isDelete,
+        isPlus, registeredVolume, imgurl,
+        cost, mid, mcode, supplierID,
+        supplierName, supplierlink1, supplierlink2,
+        supplierlink3, deliverytime, registerlink
+        )
+        values (#{productid,jdbcType=INTEGER}, #{skucode,jdbcType=VARCHAR}, #{cnname,jdbcType=VARCHAR},
+        #{enname,jdbcType=VARCHAR}, #{registeredlength,jdbcType=DOUBLE}, #{registeredwidth,jdbcType=DOUBLE},
+        #{registeredheight,jdbcType=DOUBLE}, #{branded,jdbcType=VARCHAR}, #{brandedname,jdbcType=VARCHAR},
+        #{model,jdbcType=VARCHAR}, #{displaypageurl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+        #{inportdeclaredvalue,jdbcType=VARCHAR}, #{exportdeclaredvalue,jdbcType=VARCHAR},
+        #{battery,jdbcType=VARCHAR}, #{exportcountry,jdbcType=VARCHAR}, #{inporcountry,jdbcType=VARCHAR},
+        #{registeredweight,jdbcType=DOUBLE}, #{isnew,jdbcType=VARCHAR}, #{warehouseid,jdbcType=BIGINT},
+        #{warehousename,jdbcType=VARCHAR}, #{headwaytype,jdbcType=VARCHAR}, #{productlevel,jdbcType=VARCHAR},
+        #{salegroupid,jdbcType=INTEGER}, #{salegroupname,jdbcType=VARCHAR}, #{productgroupid,jdbcType=INTEGER},
+        #{productgroupname,jdbcType=VARCHAR}, #{isactive,jdbcType=VARCHAR}, #{isdelete,jdbcType=VARCHAR},
+        #{isplus,jdbcType=VARCHAR}, #{registeredvolume,jdbcType=DOUBLE}, #{imgurl,jdbcType=VARCHAR},
+        #{cost,jdbcType=DOUBLE}, #{mid,jdbcType=INTEGER}, #{mcode,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER},
+        #{suppliername,jdbcType=VARCHAR}, #{supplierlink1,jdbcType=VARCHAR}, #{supplierlink2,jdbcType=VARCHAR},
+        #{supplierlink3,jdbcType=VARCHAR}, #{deliverytime,jdbcType=INTEGER}, #{registerlink,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productid"
+            parameterType="com.heeexy.example.model.Product">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+            <if test="cnname != null">
+                cnName,
+            </if>
+            <if test="enname != null">
+                enName,
+            </if>
+            <if test="registeredlength != null">
+                registeredLength,
+            </if>
+            <if test="registeredwidth != null">
+                registeredWidth,
+            </if>
+            <if test="registeredheight != null">
+                registeredHeight,
+            </if>
+            <if test="branded != null">
+                branded,
+            </if>
+            <if test="brandedname != null">
+                brandedName,
+            </if>
+            <if test="model != null">
+                model,
+            </if>
+            <if test="displaypageurl != null">
+                displayPageUrl,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="inportdeclaredvalue != null">
+                inportDeclaredvalue,
+            </if>
+            <if test="exportdeclaredvalue != null">
+                exportDeclaredvalue,
+            </if>
+            <if test="battery != null">
+                battery,
+            </if>
+            <if test="exportcountry != null">
+                exportcountry,
+            </if>
+            <if test="inporcountry != null">
+                inporCountry,
+            </if>
+            <if test="registeredweight != null">
+                registeredWeight,
+            </if>
+            <if test="isnew != null">
+                isNew,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+            <if test="headwaytype != null">
+                headwayType,
+            </if>
+            <if test="productlevel != null">
+                productlevel,
+            </if>
+            <if test="salegroupid != null">
+                salegroupID,
+            </if>
+            <if test="salegroupname != null">
+                salegroupName,
+            </if>
+            <if test="productgroupid != null">
+                productgroupID,
+            </if>
+            <if test="productgroupname != null">
+                productgroupName,
+            </if>
+            <if test="isactive != null">
+                isActive,
+            </if>
+            <if test="isdelete != null">
+                isDelete,
+            </if>
+            <if test="isplus != null">
+                isPlus,
+            </if>
+            <if test="registeredvolume != null">
+                registeredVolume,
+            </if>
+            <if test="imgurl != null">
+                imgurl,
+            </if>
+            <if test="cost != null">
+                cost,
+            </if>
+            <if test="mid != null">
+                mid,
+            </if>
+            <if test="mcode != null">
+                mcode,
+            </if>
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="supplierlink1 != null">
+                supplierlink1,
+            </if>
+            <if test="supplierlink2 != null">
+                supplierlink2,
+            </if>
+            <if test="supplierlink3 != null">
+                supplierlink3,
+            </if>
+            <if test="deliverytime != null">
+                deliverytime,
+            </if>
+            <if test="registerlink != null">
+                registerlink,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="enname != null">
+                #{enname,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredlength != null">
+                #{registeredlength,jdbcType=DOUBLE},
+            </if>
+            <if test="registeredwidth != null">
+                #{registeredwidth,jdbcType=DOUBLE},
+            </if>
+            <if test="registeredheight != null">
+                #{registeredheight,jdbcType=DOUBLE},
+            </if>
+            <if test="branded != null">
+                #{branded,jdbcType=VARCHAR},
+            </if>
+            <if test="brandedname != null">
+                #{brandedname,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="displaypageurl != null">
+                #{displaypageurl,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="inportdeclaredvalue != null">
+                #{inportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="exportdeclaredvalue != null">
+                #{exportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="battery != null">
+                #{battery,jdbcType=VARCHAR},
+            </if>
+            <if test="exportcountry != null">
+                #{exportcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="inporcountry != null">
+                #{inporcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredweight != null">
+                #{registeredweight,jdbcType=DOUBLE},
+            </if>
+            <if test="isnew != null">
+                #{isnew,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="headwaytype != null">
+                #{headwaytype,jdbcType=VARCHAR},
+            </if>
+            <if test="productlevel != null">
+                #{productlevel,jdbcType=VARCHAR},
+            </if>
+            <if test="salegroupid != null">
+                #{salegroupid,jdbcType=INTEGER},
+            </if>
+            <if test="salegroupname != null">
+                #{salegroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="productgroupid != null">
+                #{productgroupid,jdbcType=INTEGER},
+            </if>
+            <if test="productgroupname != null">
+                #{productgroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                #{isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="isdelete != null">
+                #{isdelete,jdbcType=VARCHAR},
+            </if>
+            <if test="isplus != null">
+                #{isplus,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredvolume != null">
+                #{registeredvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="imgurl != null">
+                #{imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="cost != null">
+                #{cost,jdbcType=DOUBLE},
+            </if>
+            <if test="mid != null">
+                #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="mcode != null">
+                #{mcode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink1 != null">
+                #{supplierlink1,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink2 != null">
+                #{supplierlink2,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink3 != null">
+                #{supplierlink3,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverytime != null">
+                #{deliverytime,jdbcType=INTEGER},
+            </if>
+            <if test="registerlink != null">
+                #{registerlink,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.ProductExample" resultType="java.lang.Integer">
+        select count(*) from product
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update product
+        <set>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnname != null">
+                cnName = #{record.cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.enname != null">
+                enName = #{record.enname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registeredlength != null">
+                registeredLength = #{record.registeredlength,jdbcType=DOUBLE},
+            </if>
+            <if test="record.registeredwidth != null">
+                registeredWidth = #{record.registeredwidth,jdbcType=DOUBLE},
+            </if>
+            <if test="record.registeredheight != null">
+                registeredHeight = #{record.registeredheight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.branded != null">
+                branded = #{record.branded,jdbcType=VARCHAR},
+            </if>
+            <if test="record.brandedname != null">
+                brandedName = #{record.brandedname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.model != null">
+                model = #{record.model,jdbcType=VARCHAR},
+            </if>
+            <if test="record.displaypageurl != null">
+                displayPageUrl = #{record.displaypageurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.inportdeclaredvalue != null">
+                inportDeclaredvalue = #{record.inportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="record.exportdeclaredvalue != null">
+                exportDeclaredvalue = #{record.exportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="record.battery != null">
+                battery = #{record.battery,jdbcType=VARCHAR},
+            </if>
+            <if test="record.exportcountry != null">
+                exportcountry = #{record.exportcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="record.inporcountry != null">
+                inporCountry = #{record.inporcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registeredweight != null">
+                registeredWeight = #{record.registeredweight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.isnew != null">
+                isNew = #{record.isnew,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.headwaytype != null">
+                headwayType = #{record.headwaytype,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productlevel != null">
+                productlevel = #{record.productlevel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.salegroupid != null">
+                salegroupID = #{record.salegroupid,jdbcType=INTEGER},
+            </if>
+            <if test="record.salegroupname != null">
+                salegroupName = #{record.salegroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productgroupid != null">
+                productgroupID = #{record.productgroupid,jdbcType=INTEGER},
+            </if>
+            <if test="record.productgroupname != null">
+                productgroupName = #{record.productgroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isactive != null">
+                isActive = #{record.isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isdelete != null">
+                isDelete = #{record.isdelete,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isplus != null">
+                isPlus = #{record.isplus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registeredvolume != null">
+                registeredVolume = #{record.registeredvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="record.imgurl != null">
+                imgurl = #{record.imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cost != null">
+                cost = #{record.cost,jdbcType=DOUBLE},
+            </if>
+            <if test="record.mid != null">
+                mid = #{record.mid,jdbcType=INTEGER},
+            </if>
+            <if test="record.mcode != null">
+                mcode = #{record.mcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierlink1 != null">
+                supplierlink1 = #{record.supplierlink1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierlink2 != null">
+                supplierlink2 = #{record.supplierlink2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierlink3 != null">
+                supplierlink3 = #{record.supplierlink3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deliverytime != null">
+                deliverytime = #{record.deliverytime,jdbcType=INTEGER},
+            </if>
+            <if test="record.registerlink != null">
+                registerlink = #{record.registerlink,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update product
+        set productID = #{record.productid,jdbcType=INTEGER},
+        skuCode = #{record.skucode,jdbcType=VARCHAR},
+        cnName = #{record.cnname,jdbcType=VARCHAR},
+        enName = #{record.enname,jdbcType=VARCHAR},
+        registeredLength = #{record.registeredlength,jdbcType=DOUBLE},
+        registeredWidth = #{record.registeredwidth,jdbcType=DOUBLE},
+        registeredHeight = #{record.registeredheight,jdbcType=DOUBLE},
+        branded = #{record.branded,jdbcType=VARCHAR},
+        brandedName = #{record.brandedname,jdbcType=VARCHAR},
+        model = #{record.model,jdbcType=VARCHAR},
+        displayPageUrl = #{record.displaypageurl,jdbcType=VARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        inportDeclaredvalue = #{record.inportdeclaredvalue,jdbcType=VARCHAR},
+        exportDeclaredvalue = #{record.exportdeclaredvalue,jdbcType=VARCHAR},
+        battery = #{record.battery,jdbcType=VARCHAR},
+        exportcountry = #{record.exportcountry,jdbcType=VARCHAR},
+        inporCountry = #{record.inporcountry,jdbcType=VARCHAR},
+        registeredWeight = #{record.registeredweight,jdbcType=DOUBLE},
+        isNew = #{record.isnew,jdbcType=VARCHAR},
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+        headwayType = #{record.headwaytype,jdbcType=VARCHAR},
+        productlevel = #{record.productlevel,jdbcType=VARCHAR},
+        salegroupID = #{record.salegroupid,jdbcType=INTEGER},
+        salegroupName = #{record.salegroupname,jdbcType=VARCHAR},
+        productgroupID = #{record.productgroupid,jdbcType=INTEGER},
+        productgroupName = #{record.productgroupname,jdbcType=VARCHAR},
+        isActive = #{record.isactive,jdbcType=VARCHAR},
+        isDelete = #{record.isdelete,jdbcType=VARCHAR},
+        isPlus = #{record.isplus,jdbcType=VARCHAR},
+        registeredVolume = #{record.registeredvolume,jdbcType=DOUBLE},
+        imgurl = #{record.imgurl,jdbcType=VARCHAR},
+        cost = #{record.cost,jdbcType=DOUBLE},
+        mid = #{record.mid,jdbcType=INTEGER},
+        mcode = #{record.mcode,jdbcType=VARCHAR},
+        supplierID = #{record.supplierid,jdbcType=INTEGER},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        supplierlink1 = #{record.supplierlink1,jdbcType=VARCHAR},
+        supplierlink2 = #{record.supplierlink2,jdbcType=VARCHAR},
+        supplierlink3 = #{record.supplierlink3,jdbcType=VARCHAR},
+        deliverytime = #{record.deliverytime,jdbcType=INTEGER},
+        registerlink = #{record.registerlink,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Product">
+        update product
+        <set>
+            <if test="skucode != null">
+                skuCode = #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                cnName = #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="enname != null">
+                enName = #{enname,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredlength != null">
+                registeredLength = #{registeredlength,jdbcType=DOUBLE},
+            </if>
+            <if test="registeredwidth != null">
+                registeredWidth = #{registeredwidth,jdbcType=DOUBLE},
+            </if>
+            <if test="registeredheight != null">
+                registeredHeight = #{registeredheight,jdbcType=DOUBLE},
+            </if>
+            <if test="branded != null">
+                branded = #{branded,jdbcType=VARCHAR},
+            </if>
+            <if test="brandedname != null">
+                brandedName = #{brandedname,jdbcType=VARCHAR},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=VARCHAR},
+            </if>
+            <if test="displaypageurl != null">
+                displayPageUrl = #{displaypageurl,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="inportdeclaredvalue != null">
+                inportDeclaredvalue = #{inportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="exportdeclaredvalue != null">
+                exportDeclaredvalue = #{exportdeclaredvalue,jdbcType=VARCHAR},
+            </if>
+            <if test="battery != null">
+                battery = #{battery,jdbcType=VARCHAR},
+            </if>
+            <if test="exportcountry != null">
+                exportcountry = #{exportcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="inporcountry != null">
+                inporCountry = #{inporcountry,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredweight != null">
+                registeredWeight = #{registeredweight,jdbcType=DOUBLE},
+            </if>
+            <if test="isnew != null">
+                isNew = #{isnew,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="headwaytype != null">
+                headwayType = #{headwaytype,jdbcType=VARCHAR},
+            </if>
+            <if test="productlevel != null">
+                productlevel = #{productlevel,jdbcType=VARCHAR},
+            </if>
+            <if test="salegroupid != null">
+                salegroupID = #{salegroupid,jdbcType=INTEGER},
+            </if>
+            <if test="salegroupname != null">
+                salegroupName = #{salegroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="productgroupid != null">
+                productgroupID = #{productgroupid,jdbcType=INTEGER},
+            </if>
+            <if test="productgroupname != null">
+                productgroupName = #{productgroupname,jdbcType=VARCHAR},
+            </if>
+            <if test="isactive != null">
+                isActive = #{isactive,jdbcType=VARCHAR},
+            </if>
+            <if test="isdelete != null">
+                isDelete = #{isdelete,jdbcType=VARCHAR},
+            </if>
+            <if test="isplus != null">
+                isPlus = #{isplus,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredvolume != null">
+                registeredVolume = #{registeredvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="imgurl != null">
+                imgurl = #{imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="cost != null">
+                cost = #{cost,jdbcType=DOUBLE},
+            </if>
+            <if test="mid != null">
+                mid = #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="mcode != null">
+                mcode = #{mcode,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                supplierID = #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                supplierName = #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink1 != null">
+                supplierlink1 = #{supplierlink1,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink2 != null">
+                supplierlink2 = #{supplierlink2,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierlink3 != null">
+                supplierlink3 = #{supplierlink3,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverytime != null">
+                deliverytime = #{deliverytime,jdbcType=INTEGER},
+            </if>
+            <if test="registerlink != null">
+                registerlink = #{registerlink,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Product">
+        update product
+        set skuCode = #{skucode,jdbcType=VARCHAR},
+        cnName = #{cnname,jdbcType=VARCHAR},
+        enName = #{enname,jdbcType=VARCHAR},
+        registeredLength = #{registeredlength,jdbcType=DOUBLE},
+        registeredWidth = #{registeredwidth,jdbcType=DOUBLE},
+        registeredHeight = #{registeredheight,jdbcType=DOUBLE},
+        branded = #{branded,jdbcType=VARCHAR},
+        brandedName = #{brandedname,jdbcType=VARCHAR},
+        model = #{model,jdbcType=VARCHAR},
+        displayPageUrl = #{displaypageurl,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        inportDeclaredvalue = #{inportdeclaredvalue,jdbcType=VARCHAR},
+        exportDeclaredvalue = #{exportdeclaredvalue,jdbcType=VARCHAR},
+        battery = #{battery,jdbcType=VARCHAR},
+        exportcountry = #{exportcountry,jdbcType=VARCHAR},
+        inporCountry = #{inporcountry,jdbcType=VARCHAR},
+        registeredWeight = #{registeredweight,jdbcType=DOUBLE},
+        isNew = #{isnew,jdbcType=VARCHAR},
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+        headwayType = #{headwaytype,jdbcType=VARCHAR},
+        productlevel = #{productlevel,jdbcType=VARCHAR},
+        salegroupID = #{salegroupid,jdbcType=INTEGER},
+        salegroupName = #{salegroupname,jdbcType=VARCHAR},
+        productgroupID = #{productgroupid,jdbcType=INTEGER},
+        productgroupName = #{productgroupname,jdbcType=VARCHAR},
+        isActive = #{isactive,jdbcType=VARCHAR},
+        isDelete = #{isdelete,jdbcType=VARCHAR},
+        isPlus = #{isplus,jdbcType=VARCHAR},
+        registeredVolume = #{registeredvolume,jdbcType=DOUBLE},
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+        cost = #{cost,jdbcType=DOUBLE},
+        mid = #{mid,jdbcType=INTEGER},
+        mcode = #{mcode,jdbcType=VARCHAR},
+        supplierID = #{supplierid,jdbcType=INTEGER},
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+        supplierlink1 = #{supplierlink1,jdbcType=VARCHAR},
+        supplierlink2 = #{supplierlink2,jdbcType=VARCHAR},
+        supplierlink3 = #{supplierlink3,jdbcType=VARCHAR},
+        deliverytime = #{deliverytime,jdbcType=INTEGER},
+        registerlink = #{registerlink,jdbcType=VARCHAR}
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+</mapper>

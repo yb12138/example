@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.AftermarketMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Aftermarket">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sku" property="sku" jdbcType="VARCHAR"/>
+        <result column="cnName" property="cnname" jdbcType="VARCHAR"/>
+        <result column="orderID" property="orderid" jdbcType="VARCHAR"/>
+        <result column="customid" property="customid" jdbcType="VARCHAR"/>
+        <result column="reasonid" property="reasonid" jdbcType="INTEGER"/>
+        <result column="reasonname" property="reasonname" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="VARCHAR"/>
+        <result column="way1" property="way1" jdbcType="VARCHAR"/>
+        <result column="way2" property="way2" jdbcType="VARCHAR"/>
+        <result column="imgurl" property="imgurl" jdbcType="VARCHAR"/>
+        <result column="accountid" property="accountid" jdbcType="INTEGER"/>
+        <result column="accountname" property="accountname" jdbcType="VARCHAR"/>
+        <result column="paypalid" property="paypalid" jdbcType="INTEGER"/>
+        <result column="paypaliname" property="paypaliname" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.heeexy.example.model.Aftermarket" extends="BaseResultMap">
+        <result column="afterurl" property="afterurl" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, sku, cnName, orderID, customid, reasonid, reasonname, money, way1, way2, imgurl,
+        accountid, accountname, paypalid, paypaliname, remark, createTime
+    </sql>
+    <sql id="Blob_Column_List">
+        afterurl
+    </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="com.heeexy.example.model.AftermarketExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from aftermarket
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.heeexy.example.model.AftermarketExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from aftermarket
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from aftermarket
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from aftermarket
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.AftermarketExample">
+        delete from aftermarket
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Aftermarket">
+        insert into aftermarket (id, sku, cnName,
+        orderID, customid, reasonid,
+        reasonname, money, way1,
+        way2, imgurl, accountid,
+        accountname, paypalid, paypaliname,
+        remark, createTime, afterurl
+        )
+        values (#{id,jdbcType=INTEGER}, #{sku,jdbcType=VARCHAR}, #{cnname,jdbcType=VARCHAR},
+        #{orderid,jdbcType=VARCHAR}, #{customid,jdbcType=VARCHAR}, #{reasonid,jdbcType=INTEGER},
+        #{reasonname,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{way1,jdbcType=VARCHAR},
+        #{way2,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{accountid,jdbcType=INTEGER},
+        #{accountname,jdbcType=VARCHAR}, #{paypalid,jdbcType=INTEGER}, #{paypaliname,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{afterurl,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.Aftermarket">
+        insert into aftermarket
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sku != null">
+                sku,
+            </if>
+            <if test="cnname != null">
+                cnName,
+            </if>
+            <if test="orderid != null">
+                orderID,
+            </if>
+            <if test="customid != null">
+                customid,
+            </if>
+            <if test="reasonid != null">
+                reasonid,
+            </if>
+            <if test="reasonname != null">
+                reasonname,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="way1 != null">
+                way1,
+            </if>
+            <if test="way2 != null">
+                way2,
+            </if>
+            <if test="imgurl != null">
+                imgurl,
+            </if>
+            <if test="accountid != null">
+                accountid,
+            </if>
+            <if test="accountname != null">
+                accountname,
+            </if>
+            <if test="paypalid != null">
+                paypalid,
+            </if>
+            <if test="paypaliname != null">
+                paypaliname,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="afterurl != null">
+                afterurl,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sku != null">
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="orderid != null">
+                #{orderid,jdbcType=VARCHAR},
+            </if>
+            <if test="customid != null">
+                #{customid,jdbcType=VARCHAR},
+            </if>
+            <if test="reasonid != null">
+                #{reasonid,jdbcType=INTEGER},
+            </if>
+            <if test="reasonname != null">
+                #{reasonname,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=VARCHAR},
+            </if>
+            <if test="way1 != null">
+                #{way1,jdbcType=VARCHAR},
+            </if>
+            <if test="way2 != null">
+                #{way2,jdbcType=VARCHAR},
+            </if>
+            <if test="imgurl != null">
+                #{imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="accountid != null">
+                #{accountid,jdbcType=INTEGER},
+            </if>
+            <if test="accountname != null">
+                #{accountname,jdbcType=VARCHAR},
+            </if>
+            <if test="paypalid != null">
+                #{paypalid,jdbcType=INTEGER},
+            </if>
+            <if test="paypaliname != null">
+                #{paypaliname,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afterurl != null">
+                #{afterurl,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.AftermarketExample"
+            resultType="java.lang.Integer">
+        select count(*) from aftermarket
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update aftermarket
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.sku != null">
+                sku = #{record.sku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnname != null">
+                cnName = #{record.cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderid != null">
+                orderID = #{record.orderid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.customid != null">
+                customid = #{record.customid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reasonid != null">
+                reasonid = #{record.reasonid,jdbcType=INTEGER},
+            </if>
+            <if test="record.reasonname != null">
+                reasonname = #{record.reasonname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.money != null">
+                money = #{record.money,jdbcType=VARCHAR},
+            </if>
+            <if test="record.way1 != null">
+                way1 = #{record.way1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.way2 != null">
+                way2 = #{record.way2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.imgurl != null">
+                imgurl = #{record.imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.accountid != null">
+                accountid = #{record.accountid,jdbcType=INTEGER},
+            </if>
+            <if test="record.accountname != null">
+                accountname = #{record.accountname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.paypalid != null">
+                paypalid = #{record.paypalid,jdbcType=INTEGER},
+            </if>
+            <if test="record.paypaliname != null">
+                paypaliname = #{record.paypaliname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.afterurl != null">
+                afterurl = #{record.afterurl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update aftermarket
+        set id = #{record.id,jdbcType=INTEGER},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        cnName = #{record.cnname,jdbcType=VARCHAR},
+        orderID = #{record.orderid,jdbcType=VARCHAR},
+        customid = #{record.customid,jdbcType=VARCHAR},
+        reasonid = #{record.reasonid,jdbcType=INTEGER},
+        reasonname = #{record.reasonname,jdbcType=VARCHAR},
+        money = #{record.money,jdbcType=VARCHAR},
+        way1 = #{record.way1,jdbcType=VARCHAR},
+        way2 = #{record.way2,jdbcType=VARCHAR},
+        imgurl = #{record.imgurl,jdbcType=VARCHAR},
+        accountid = #{record.accountid,jdbcType=INTEGER},
+        accountname = #{record.accountname,jdbcType=VARCHAR},
+        paypalid = #{record.paypalid,jdbcType=INTEGER},
+        paypaliname = #{record.paypaliname,jdbcType=VARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        afterurl = #{record.afterurl,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update aftermarket
+        set id = #{record.id,jdbcType=INTEGER},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        cnName = #{record.cnname,jdbcType=VARCHAR},
+        orderID = #{record.orderid,jdbcType=VARCHAR},
+        customid = #{record.customid,jdbcType=VARCHAR},
+        reasonid = #{record.reasonid,jdbcType=INTEGER},
+        reasonname = #{record.reasonname,jdbcType=VARCHAR},
+        money = #{record.money,jdbcType=VARCHAR},
+        way1 = #{record.way1,jdbcType=VARCHAR},
+        way2 = #{record.way2,jdbcType=VARCHAR},
+        imgurl = #{record.imgurl,jdbcType=VARCHAR},
+        accountid = #{record.accountid,jdbcType=INTEGER},
+        accountname = #{record.accountname,jdbcType=VARCHAR},
+        paypalid = #{record.paypalid,jdbcType=INTEGER},
+        paypaliname = #{record.paypaliname,jdbcType=VARCHAR},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Aftermarket">
+        update aftermarket
+        <set>
+            <if test="sku != null">
+                sku = #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                cnName = #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="orderid != null">
+                orderID = #{orderid,jdbcType=VARCHAR},
+            </if>
+            <if test="customid != null">
+                customid = #{customid,jdbcType=VARCHAR},
+            </if>
+            <if test="reasonid != null">
+                reasonid = #{reasonid,jdbcType=INTEGER},
+            </if>
+            <if test="reasonname != null">
+                reasonname = #{reasonname,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=VARCHAR},
+            </if>
+            <if test="way1 != null">
+                way1 = #{way1,jdbcType=VARCHAR},
+            </if>
+            <if test="way2 != null">
+                way2 = #{way2,jdbcType=VARCHAR},
+            </if>
+            <if test="imgurl != null">
+                imgurl = #{imgurl,jdbcType=VARCHAR},
+            </if>
+            <if test="accountid != null">
+                accountid = #{accountid,jdbcType=INTEGER},
+            </if>
+            <if test="accountname != null">
+                accountname = #{accountname,jdbcType=VARCHAR},
+            </if>
+            <if test="paypalid != null">
+                paypalid = #{paypalid,jdbcType=INTEGER},
+            </if>
+            <if test="paypaliname != null">
+                paypaliname = #{paypaliname,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="afterurl != null">
+                afterurl = #{afterurl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.heeexy.example.model.Aftermarket">
+        update aftermarket
+        set sku = #{sku,jdbcType=VARCHAR},
+        cnName = #{cnname,jdbcType=VARCHAR},
+        orderID = #{orderid,jdbcType=VARCHAR},
+        customid = #{customid,jdbcType=VARCHAR},
+        reasonid = #{reasonid,jdbcType=INTEGER},
+        reasonname = #{reasonname,jdbcType=VARCHAR},
+        money = #{money,jdbcType=VARCHAR},
+        way1 = #{way1,jdbcType=VARCHAR},
+        way2 = #{way2,jdbcType=VARCHAR},
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+        accountid = #{accountid,jdbcType=INTEGER},
+        accountname = #{accountname,jdbcType=VARCHAR},
+        paypalid = #{paypalid,jdbcType=INTEGER},
+        paypaliname = #{paypaliname,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        afterurl = #{afterurl,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Aftermarket">
+        update aftermarket
+        set sku = #{sku,jdbcType=VARCHAR},
+        cnName = #{cnname,jdbcType=VARCHAR},
+        orderID = #{orderid,jdbcType=VARCHAR},
+        customid = #{customid,jdbcType=VARCHAR},
+        reasonid = #{reasonid,jdbcType=INTEGER},
+        reasonname = #{reasonname,jdbcType=VARCHAR},
+        money = #{money,jdbcType=VARCHAR},
+        way1 = #{way1,jdbcType=VARCHAR},
+        way2 = #{way2,jdbcType=VARCHAR},
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+        accountid = #{accountid,jdbcType=INTEGER},
+        accountname = #{accountname,jdbcType=VARCHAR},
+        paypalid = #{paypalid,jdbcType=INTEGER},
+        paypaliname = #{paypaliname,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR},
+        createTime = #{createtime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

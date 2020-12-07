@@ -1,0 +1,87 @@
+
+b
+java:S1192U"LDefine a constant instead of duplicating this literal "productCode" 3 times.(÷Åµ’
+i
+java:S1192š"MDefine a constant instead of duplicating this literal "reference_no" 5 times.(”÷›Ùùÿÿÿÿ
+b
+java:S1192°"FDefine a constant instead of duplicating this literal "items" 4 times.( ô€‘ûÿÿÿÿ
+j
+java:S1192Ñ"NDefine a constant instead of duplicating this literal "sellerOrderNo" 3 times.(ÁÏ“ùÿÿÿÿ
+e
+java:S1192Â"IDefine a constant instead of duplicating this literal "quantity" 3 times.(ë§ƒ«ÿÿÿÿÿ
+c
+java:S1192¿"LDefine a constant instead of duplicating this literal "product_sku" 3 times.(™‚ä
+`
+java:S1192Ï"IDefine a constant instead of duplicating this literal "pageSize" 4 times.(öüËİ
+b
+java:S1192Ö"FDefine a constant instead of duplicating this literal "error" 3 times.(äşó”ıÿÿÿÿ
+h
+java:S1192µ"LDefine a constant instead of duplicating this literal "fee_details" 4 times.(–õñòùÿÿÿÿ
+F
+java:S1066½"/Merge this if statement with the enclosing one.(÷Éİü
+t	java:S135”"YReduce the total number of break and continue statements in this loop to use at most one.(íôÕ şÿÿÿÿ
+T
+java:S1155b">Use isEmpty() to check whether the collection is empty or not.(â©ßò
+U
+java:S1155ó">Use isEmpty() to check whether the collection is empty or not.(Ÿõß
+Z
+java:S1155£">Use isEmpty() to check whether the collection is empty or not.(êŸ˜©ÿÿÿÿÿ
+l	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øŞ¾Õøÿÿÿÿ
+p
+java:S2229J"Z"getFbaStorage's" @Transactional requirement is incompatible with the one for this method.(ÿ×ßÍ
+m
+java:S3776P"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(î“Õ“ÿÿÿÿÿ
+S	java:S106S"9Replace this use of System.out or System.err by a logger.(ê“ò°ùÿÿÿÿ
+S	java:S106Y"9Replace this use of System.out or System.err by a logger.(Ÿ´óßøÿÿÿÿ
+S	java:S106g"9Replace this use of System.out or System.err by a logger.(±»¹úÿÿÿÿ
+S	java:S106l"9Replace this use of System.out or System.err by a logger.(±»¹úÿÿÿÿ
+\
+java:S3252Ä"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Æ­…ï
+`
+java:S3252Í"DUse static access with "com.alibaba.fastjson.JSON" for "parseArray".(»šË£ùÿÿÿÿ
+\
+java:S3252"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Æ­…ï
+V
+java:S1117Ô":Rename "client" which hides the field declared at line 32.(şİ­Ëøÿÿÿÿ
+[
+java:S3252×"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ã½§7
+a
+java:S3252Ù"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Ø¬›Ìùÿÿÿÿ
+[
+java:S3252ß"DUse static access with "com.alibaba.fastjson.JSON" for "parseArray".(ºö«°
+n
+java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 41 to the 15 allowed.(ãÖÓéûÿÿÿÿ
+Q
+java:S1117œ":Rename "client" which hides the field declared at line 32.(İî”ô
+[
+java:S3252Ÿ"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ã½§7
+a
+java:S3252¡"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Ø¬›Ìùÿÿÿÿ
+[
+java:S3252£"DUse static access with "com.alibaba.fastjson.JSON" for "parseArray".(ºö«°
+n
+java:S3776‚"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¼¯½±ûÿÿÿÿ
+V
+java:S1117Š":Rename "client" which hides the field declared at line 32.(¯ˆ‚üÿÿÿÿ
+[
+java:S3252"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ã½§7
+a
+java:S3252"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Ø¬›Ìùÿÿÿÿ
+`
+java:S3252œ"DUse static access with "com.alibaba.fastjson.JSON" for "parseArray".(ø„‹°ùÿÿÿÿ
+B
+java:S1168Ã"+Return an empty collection instead of null.(¥¹ï
+T	java:S106Í"9Replace this use of System.out or System.err by a logger.(÷ºâÿÿÿÿÿÿ
+\
+java:S3252×"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Æ­…ï
+[
+java:S3252Ù"DUse static access with "com.alibaba.fastjson.JSON" for "parseArray".(§Çøë
+n
+java:S3776é"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(ÃõŸïøÿÿÿÿ
+\
+java:S3252ø"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(Æ­…ï
+W	java:S125ì"<This block of commented-out lines of code should be removed.(Âô…Øşÿÿÿÿ
+R	java:S125Œ"<This block of commented-out lines of code should be removed.(„ƒ‰¨
+R	java:S125„"<This block of commented-out lines of code should be removed.(´¨¹ò
+O
+java:S1144‚"3Remove this unused private "setWinitRebate" method.(¼¯½±ûÿÿÿÿ

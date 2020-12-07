@@ -1,0 +1,23 @@
+
+\
+java:S1128"FRemove this unused import 'com.heeexy.example.util.GetOrredingIdUUID'.(òˆ£¨
+S
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ
+X
+java:S1128"=Remove this unused import 'com.heeexy.example.MyApplication'.(÷¨¤…úÿÿÿÿ
+U
+java:S1128
+"?Remove this unused import 'com.heeexy.example.util.ExcelUtils'.(£”¿Ç
+p
+java:S1128"URemove this unused import 'org.springframework.transaction.annotation.Transactional'.(ðùçøùÿÿÿÿ
+F
+java:S2093‹"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+Q	java:S125x"<This block of commented-out lines of code should be removed.(¬œ¬·
+W	java:S125š"<This block of commented-out lines of code should be removed.(¦„”¯ýÿÿÿÿ
+R	java:S125°"<This block of commented-out lines of code should be removed.(½óâî
+R	java:S125‡"<This block of commented-out lines of code should be removed.(øýû¹
+Q	java:S125²"<This block of commented-out lines of code should be removed.(¸«
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(«¸äÔ
+R	java:S125Í"<This block of commented-out lines of code should be removed.(øýû¹
+Q	java:S125î"<This block of commented-out lines of code should be removed.(¸Á½w
+R	java:S125¸"<This block of commented-out lines of code should be removed.(Ê™×Ø

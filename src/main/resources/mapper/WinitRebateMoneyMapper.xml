@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.WinitRebateMoneyMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WinitRebateMoney">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="businessDocumentNo" property="businessdocumentno" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="VARCHAR"/>
+        <result column="chargeName" property="chargename" jdbcType="VARCHAR"/>
+        <result column="chargeCode" property="chargecode" jdbcType="INTEGER"/>
+        <result column="sourceAmt" property="sourceamt" jdbcType="DOUBLE"/>
+        <result column="sourceCurrency" property="sourcecurrency" jdbcType="VARCHAR"/>
+        <result column="chargeWeight" property="chargeweight" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, businessDocumentNo, created, chargeName, chargeCode, sourceAmt, sourceCurrency,
+        chargeWeight
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.WinitRebateMoneyExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from winit_rebate_money
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from winit_rebate_money
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from winit_rebate_money
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WinitRebateMoneyExample">
+        delete from winit_rebate_money
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WinitRebateMoney">
+        insert into winit_rebate_money (id, businessDocumentNo, created,
+        chargeName, chargeCode, sourceAmt,
+        sourceCurrency, chargeWeight)
+        values (#{id,jdbcType=INTEGER}, #{businessdocumentno,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR},
+        #{chargename,jdbcType=VARCHAR}, #{chargecode,jdbcType=INTEGER}, #{sourceamt,jdbcType=DOUBLE},
+        #{sourcecurrency,jdbcType=VARCHAR}, #{chargeweight,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WinitRebateMoney">
+        insert into winit_rebate_money
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="businessdocumentno != null">
+                businessDocumentNo,
+            </if>
+            <if test="created != null">
+                created,
+            </if>
+            <if test="chargename != null">
+                chargeName,
+            </if>
+            <if test="chargecode != null">
+                chargeCode,
+            </if>
+            <if test="sourceamt != null">
+                sourceAmt,
+            </if>
+            <if test="sourcecurrency != null">
+                sourceCurrency,
+            </if>
+            <if test="chargeweight != null">
+                chargeWeight,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="businessdocumentno != null">
+                #{businessdocumentno,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                #{created,jdbcType=VARCHAR},
+            </if>
+            <if test="chargename != null">
+                #{chargename,jdbcType=VARCHAR},
+            </if>
+            <if test="chargecode != null">
+                #{chargecode,jdbcType=INTEGER},
+            </if>
+            <if test="sourceamt != null">
+                #{sourceamt,jdbcType=DOUBLE},
+            </if>
+            <if test="sourcecurrency != null">
+                #{sourcecurrency,jdbcType=VARCHAR},
+            </if>
+            <if test="chargeweight != null">
+                #{chargeweight,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WinitRebateMoneyExample"
+            resultType="java.lang.Integer">
+        select count(*) from winit_rebate_money
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update winit_rebate_money
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.businessdocumentno != null">
+                businessDocumentNo = #{record.businessdocumentno,jdbcType=VARCHAR},
+            </if>
+            <if test="record.created != null">
+                created = #{record.created,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chargename != null">
+                chargeName = #{record.chargename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chargecode != null">
+                chargeCode = #{record.chargecode,jdbcType=INTEGER},
+            </if>
+            <if test="record.sourceamt != null">
+                sourceAmt = #{record.sourceamt,jdbcType=DOUBLE},
+            </if>
+            <if test="record.sourcecurrency != null">
+                sourceCurrency = #{record.sourcecurrency,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chargeweight != null">
+                chargeWeight = #{record.chargeweight,jdbcType=DOUBLE},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update winit_rebate_money
+        set id = #{record.id,jdbcType=INTEGER},
+        businessDocumentNo = #{record.businessdocumentno,jdbcType=VARCHAR},
+        created = #{record.created,jdbcType=VARCHAR},
+        chargeName = #{record.chargename,jdbcType=VARCHAR},
+        chargeCode = #{record.chargecode,jdbcType=INTEGER},
+        sourceAmt = #{record.sourceamt,jdbcType=DOUBLE},
+        sourceCurrency = #{record.sourcecurrency,jdbcType=VARCHAR},
+        chargeWeight = #{record.chargeweight,jdbcType=DOUBLE}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.WinitRebateMoney">
+        update winit_rebate_money
+        <set>
+            <if test="businessdocumentno != null">
+                businessDocumentNo = #{businessdocumentno,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                created = #{created,jdbcType=VARCHAR},
+            </if>
+            <if test="chargename != null">
+                chargeName = #{chargename,jdbcType=VARCHAR},
+            </if>
+            <if test="chargecode != null">
+                chargeCode = #{chargecode,jdbcType=INTEGER},
+            </if>
+            <if test="sourceamt != null">
+                sourceAmt = #{sourceamt,jdbcType=DOUBLE},
+            </if>
+            <if test="sourcecurrency != null">
+                sourceCurrency = #{sourcecurrency,jdbcType=VARCHAR},
+            </if>
+            <if test="chargeweight != null">
+                chargeWeight = #{chargeweight,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.WinitRebateMoney">
+        update winit_rebate_money
+        set businessDocumentNo = #{businessdocumentno,jdbcType=VARCHAR},
+        created = #{created,jdbcType=VARCHAR},
+        chargeName = #{chargename,jdbcType=VARCHAR},
+        chargeCode = #{chargecode,jdbcType=INTEGER},
+        sourceAmt = #{sourceamt,jdbcType=DOUBLE},
+        sourceCurrency = #{sourcecurrency,jdbcType=VARCHAR},
+        chargeWeight = #{chargeweight,jdbcType=DOUBLE}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

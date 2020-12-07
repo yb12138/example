@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.PurchaseSkuMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.PurchaseSku">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="sku" jdbcType="VARCHAR" property="sku"/>
+        <result column="warehouseID" jdbcType="BIGINT" property="warehouseid"/>
+        <result column="purchaseID" jdbcType="INTEGER" property="purchaseid"/>
+        <result column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="purchaseQuantity" jdbcType="INTEGER" property="purchasequantity"/>
+        <result column="stockInQuantity" jdbcType="INTEGER" property="stockinquantity"/>
+        <result column="defectiveQuantity" jdbcType="INTEGER" property="defectivequantity"/>
+        <result column="unitPrice" jdbcType="DECIMAL" property="unitprice"/>
+        <result column="purchaseAmount" jdbcType="DECIMAL" property="purchaseamount"/>
+        <result column="stockInAmount" jdbcType="DECIMAL" property="stockinamount"/>
+        <result column="defectiveAmount" jdbcType="DECIMAL" property="defectiveamount"/>
+        <result column="appendQuantity" jdbcType="INTEGER" property="appendquantity"/>
+        <result column="createId" jdbcType="INTEGER" property="createid"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="updateId" jdbcType="INTEGER" property="updateid"/>
+        <result column="updateName" jdbcType="VARCHAR" property="updatename"/>
+        <result column="remake" jdbcType="VARCHAR" property="remake"/>
+        <result column="createName" jdbcType="VARCHAR" property="createname"/>
+        <result column="cnName" jdbcType="VARCHAR" property="cnname"/>
+        <result column="useQuantity" jdbcType="INTEGER" property="usequantity"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, productID, sku, warehouseID, purchaseID, supplierID, purchaseQuantity, stockInQuantity,
+        defectiveQuantity, unitPrice, purchaseAmount, stockInAmount, defectiveAmount, appendQuantity,
+        createId, createTime, updateTime, updateId, updateName, remake, createName, cnName,
+        useQuantity
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.PurchaseSkuExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from purchase_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase_sku
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from purchase_sku
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.PurchaseSkuExample">
+        delete from purchase_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.PurchaseSku">
+        insert into purchase_sku (id, productID, sku,
+        warehouseID, purchaseID, supplierID,
+        purchaseQuantity, stockInQuantity, defectiveQuantity,
+        unitPrice, purchaseAmount, stockInAmount,
+        defectiveAmount, appendQuantity, createId,
+        createTime, updateTime, updateId,
+        updateName, remake, createName,
+        cnName, useQuantity)
+        values (#{id,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{sku,jdbcType=VARCHAR},
+        #{warehouseid,jdbcType=BIGINT}, #{purchaseid,jdbcType=INTEGER}, #{supplierid,jdbcType=INTEGER},
+        #{purchasequantity,jdbcType=INTEGER}, #{stockinquantity,jdbcType=INTEGER},
+        #{defectivequantity,jdbcType=INTEGER},
+        #{unitprice,jdbcType=DECIMAL}, #{purchaseamount,jdbcType=DECIMAL}, #{stockinamount,jdbcType=DECIMAL},
+        #{defectiveamount,jdbcType=DECIMAL}, #{appendquantity,jdbcType=INTEGER}, #{createid,jdbcType=INTEGER},
+        #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{updateid,jdbcType=INTEGER},
+        #{updatename,jdbcType=VARCHAR}, #{remake,jdbcType=VARCHAR}, #{createname,jdbcType=VARCHAR},
+        #{cnname,jdbcType=VARCHAR}, #{usequantity,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.PurchaseSku">
+        insert into purchase_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="sku != null">
+                sku,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="purchaseid != null">
+                purchaseID,
+            </if>
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="purchasequantity != null">
+                purchaseQuantity,
+            </if>
+            <if test="stockinquantity != null">
+                stockInQuantity,
+            </if>
+            <if test="defectivequantity != null">
+                defectiveQuantity,
+            </if>
+            <if test="unitprice != null">
+                unitPrice,
+            </if>
+            <if test="purchaseamount != null">
+                purchaseAmount,
+            </if>
+            <if test="stockinamount != null">
+                stockInAmount,
+            </if>
+            <if test="defectiveamount != null">
+                defectiveAmount,
+            </if>
+            <if test="appendquantity != null">
+                appendQuantity,
+            </if>
+            <if test="createid != null">
+                createId,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+            <if test="updateid != null">
+                updateId,
+            </if>
+            <if test="updatename != null">
+                updateName,
+            </if>
+            <if test="remake != null">
+                remake,
+            </if>
+            <if test="createname != null">
+                createName,
+            </if>
+            <if test="cnname != null">
+                cnName,
+            </if>
+            <if test="usequantity != null">
+                useQuantity,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="sku != null">
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="purchaseid != null">
+                #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasequantity != null">
+                #{purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="stockinquantity != null">
+                #{stockinquantity,jdbcType=INTEGER},
+            </if>
+            <if test="defectivequantity != null">
+                #{defectivequantity,jdbcType=INTEGER},
+            </if>
+            <if test="unitprice != null">
+                #{unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="purchaseamount != null">
+                #{purchaseamount,jdbcType=DECIMAL},
+            </if>
+            <if test="stockinamount != null">
+                #{stockinamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectiveamount != null">
+                #{defectiveamount,jdbcType=DECIMAL},
+            </if>
+            <if test="appendquantity != null">
+                #{appendquantity,jdbcType=INTEGER},
+            </if>
+            <if test="createid != null">
+                #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateid != null">
+                #{updateid,jdbcType=INTEGER},
+            </if>
+            <if test="updatename != null">
+                #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="remake != null">
+                #{remake,jdbcType=VARCHAR},
+            </if>
+            <if test="createname != null">
+                #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="usequantity != null">
+                #{usequantity,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.PurchaseSkuExample"
+            resultType="java.lang.Integer">
+        select count(*) from purchase_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update purchase_sku
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.sku != null">
+                sku = #{record.sku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.purchaseid != null">
+                purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasequantity != null">
+                purchaseQuantity = #{record.purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.stockinquantity != null">
+                stockInQuantity = #{record.stockinquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.defectivequantity != null">
+                defectiveQuantity = #{record.defectivequantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.unitprice != null">
+                unitPrice = #{record.unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.purchaseamount != null">
+                purchaseAmount = #{record.purchaseamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.stockinamount != null">
+                stockInAmount = #{record.stockinamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.defectiveamount != null">
+                defectiveAmount = #{record.defectiveamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.appendquantity != null">
+                appendQuantity = #{record.appendquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.createid != null">
+                createId = #{record.createid,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updatetime != null">
+                updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateid != null">
+                updateId = #{record.updateid,jdbcType=INTEGER},
+            </if>
+            <if test="record.updatename != null">
+                updateName = #{record.updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remake != null">
+                remake = #{record.remake,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createname != null">
+                createName = #{record.createname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnname != null">
+                cnName = #{record.cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.usequantity != null">
+                useQuantity = #{record.usequantity,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update purchase_sku
+        set id = #{record.id,jdbcType=INTEGER},
+        productID = #{record.productid,jdbcType=INTEGER},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+        purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+        supplierID = #{record.supplierid,jdbcType=INTEGER},
+        purchaseQuantity = #{record.purchasequantity,jdbcType=INTEGER},
+        stockInQuantity = #{record.stockinquantity,jdbcType=INTEGER},
+        defectiveQuantity = #{record.defectivequantity,jdbcType=INTEGER},
+        unitPrice = #{record.unitprice,jdbcType=DECIMAL},
+        purchaseAmount = #{record.purchaseamount,jdbcType=DECIMAL},
+        stockInAmount = #{record.stockinamount,jdbcType=DECIMAL},
+        defectiveAmount = #{record.defectiveamount,jdbcType=DECIMAL},
+        appendQuantity = #{record.appendquantity,jdbcType=INTEGER},
+        createId = #{record.createid,jdbcType=INTEGER},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+        updateId = #{record.updateid,jdbcType=INTEGER},
+        updateName = #{record.updatename,jdbcType=VARCHAR},
+        remake = #{record.remake,jdbcType=VARCHAR},
+        createName = #{record.createname,jdbcType=VARCHAR},
+        cnName = #{record.cnname,jdbcType=VARCHAR},
+        useQuantity = #{record.usequantity,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.PurchaseSku">
+        update purchase_sku
+        <set>
+            <if test="productid != null">
+                productID = #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="sku != null">
+                sku = #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="purchaseid != null">
+                purchaseID = #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="supplierid != null">
+                supplierID = #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasequantity != null">
+                purchaseQuantity = #{purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="stockinquantity != null">
+                stockInQuantity = #{stockinquantity,jdbcType=INTEGER},
+            </if>
+            <if test="defectivequantity != null">
+                defectiveQuantity = #{defectivequantity,jdbcType=INTEGER},
+            </if>
+            <if test="unitprice != null">
+                unitPrice = #{unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="purchaseamount != null">
+                purchaseAmount = #{purchaseamount,jdbcType=DECIMAL},
+            </if>
+            <if test="stockinamount != null">
+                stockInAmount = #{stockinamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectiveamount != null">
+                defectiveAmount = #{defectiveamount,jdbcType=DECIMAL},
+            </if>
+            <if test="appendquantity != null">
+                appendQuantity = #{appendquantity,jdbcType=INTEGER},
+            </if>
+            <if test="createid != null">
+                createId = #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateid != null">
+                updateId = #{updateid,jdbcType=INTEGER},
+            </if>
+            <if test="updatename != null">
+                updateName = #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="remake != null">
+                remake = #{remake,jdbcType=VARCHAR},
+            </if>
+            <if test="createname != null">
+                createName = #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                cnName = #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="usequantity != null">
+                useQuantity = #{usequantity,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.PurchaseSku">
+        update purchase_sku
+        set productID = #{productid,jdbcType=INTEGER},
+        sku = #{sku,jdbcType=VARCHAR},
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+        purchaseID = #{purchaseid,jdbcType=INTEGER},
+        supplierID = #{supplierid,jdbcType=INTEGER},
+        purchaseQuantity = #{purchasequantity,jdbcType=INTEGER},
+        stockInQuantity = #{stockinquantity,jdbcType=INTEGER},
+        defectiveQuantity = #{defectivequantity,jdbcType=INTEGER},
+        unitPrice = #{unitprice,jdbcType=DECIMAL},
+        purchaseAmount = #{purchaseamount,jdbcType=DECIMAL},
+        stockInAmount = #{stockinamount,jdbcType=DECIMAL},
+        defectiveAmount = #{defectiveamount,jdbcType=DECIMAL},
+        appendQuantity = #{appendquantity,jdbcType=INTEGER},
+        createId = #{createid,jdbcType=INTEGER},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+        updateId = #{updateid,jdbcType=INTEGER},
+        updateName = #{updatename,jdbcType=VARCHAR},
+        remake = #{remake,jdbcType=VARCHAR},
+        createName = #{createname,jdbcType=VARCHAR},
+        cnName = #{cnname,jdbcType=VARCHAR},
+        useQuantity = #{usequantity,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

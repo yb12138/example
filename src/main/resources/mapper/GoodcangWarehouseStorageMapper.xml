@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.GoodcangWarehouseStorageMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.GoodcangWarehouseStorage">
+        <id column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="product_sku" jdbcType="VARCHAR" property="productSku"/>
+        <result column="warehouse_code" jdbcType="VARCHAR" property="warehouseCode"/>
+        <result column="warehouseName" jdbcType="VARCHAR" property="warehousename"/>
+        <result column="onway" jdbcType="INTEGER" property="onway"/>
+        <result column="pending" jdbcType="INTEGER" property="pending"/>
+        <result column="sellable" jdbcType="INTEGER" property="sellable"/>
+        <result column="unsellable" jdbcType="INTEGER" property="unsellable"/>
+        <result column="reserved" jdbcType="INTEGER" property="reserved"/>
+        <result column="shipped" jdbcType="INTEGER" property="shipped"/>
+        <result column="product_barcode" jdbcType="VARCHAR" property="productBarcode"/>
+        <result column="sold_shared" jdbcType="INTEGER" property="soldShared"/>
+        <result column="stocking" jdbcType="INTEGER" property="stocking"/>
+        <result column="pi_no_stock" jdbcType="INTEGER" property="piNoStock"/>
+        <result column="tune_out" jdbcType="INTEGER" property="tuneOut"/>
+        <result column="tune_in" jdbcType="INTEGER" property="tuneIn"/>
+        <result column="product_sales_value" jdbcType="DOUBLE" property="productSalesValue"/>
+        <result column="warehouse_desc" jdbcType="VARCHAR" property="warehouseDesc"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        productID, product_sku, warehouse_code, warehouseName, onway, pending, sellable,
+        unsellable, reserved, shipped, product_barcode, sold_shared, stocking, pi_no_stock,
+        tune_out, tune_in, product_sales_value, warehouse_desc
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.GoodcangWarehouseStorageExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from goodcang_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goodcang_warehouse_storage
+        where productID = #{productid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from goodcang_warehouse_storage
+        where productID = #{productid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.GoodcangWarehouseStorageExample">
+        delete from goodcang_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.GoodcangWarehouseStorage">
+        insert into goodcang_warehouse_storage (productID, product_sku, warehouse_code,
+        warehouseName, onway, pending,
+        sellable, unsellable, reserved,
+        shipped, product_barcode, sold_shared,
+        stocking, pi_no_stock, tune_out,
+        tune_in, product_sales_value, warehouse_desc
+        )
+        values (#{productid,jdbcType=INTEGER}, #{productSku,jdbcType=VARCHAR}, #{warehouseCode,jdbcType=VARCHAR},
+        #{warehousename,jdbcType=VARCHAR}, #{onway,jdbcType=INTEGER}, #{pending,jdbcType=INTEGER},
+        #{sellable,jdbcType=INTEGER}, #{unsellable,jdbcType=INTEGER}, #{reserved,jdbcType=INTEGER},
+        #{shipped,jdbcType=INTEGER}, #{productBarcode,jdbcType=VARCHAR}, #{soldShared,jdbcType=INTEGER},
+        #{stocking,jdbcType=INTEGER}, #{piNoStock,jdbcType=INTEGER}, #{tuneOut,jdbcType=INTEGER},
+        #{tuneIn,jdbcType=INTEGER}, #{productSalesValue,jdbcType=DOUBLE}, #{warehouseDesc,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.GoodcangWarehouseStorage">
+        insert into goodcang_warehouse_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="productSku != null">
+                product_sku,
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+            <if test="onway != null">
+                onway,
+            </if>
+            <if test="pending != null">
+                pending,
+            </if>
+            <if test="sellable != null">
+                sellable,
+            </if>
+            <if test="unsellable != null">
+                unsellable,
+            </if>
+            <if test="reserved != null">
+                reserved,
+            </if>
+            <if test="shipped != null">
+                shipped,
+            </if>
+            <if test="productBarcode != null">
+                product_barcode,
+            </if>
+            <if test="soldShared != null">
+                sold_shared,
+            </if>
+            <if test="stocking != null">
+                stocking,
+            </if>
+            <if test="piNoStock != null">
+                pi_no_stock,
+            </if>
+            <if test="tuneOut != null">
+                tune_out,
+            </if>
+            <if test="tuneIn != null">
+                tune_in,
+            </if>
+            <if test="productSalesValue != null">
+                product_sales_value,
+            </if>
+            <if test="warehouseDesc != null">
+                warehouse_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="productSku != null">
+                #{productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="onway != null">
+                #{onway,jdbcType=INTEGER},
+            </if>
+            <if test="pending != null">
+                #{pending,jdbcType=INTEGER},
+            </if>
+            <if test="sellable != null">
+                #{sellable,jdbcType=INTEGER},
+            </if>
+            <if test="unsellable != null">
+                #{unsellable,jdbcType=INTEGER},
+            </if>
+            <if test="reserved != null">
+                #{reserved,jdbcType=INTEGER},
+            </if>
+            <if test="shipped != null">
+                #{shipped,jdbcType=INTEGER},
+            </if>
+            <if test="productBarcode != null">
+                #{productBarcode,jdbcType=VARCHAR},
+            </if>
+            <if test="soldShared != null">
+                #{soldShared,jdbcType=INTEGER},
+            </if>
+            <if test="stocking != null">
+                #{stocking,jdbcType=INTEGER},
+            </if>
+            <if test="piNoStock != null">
+                #{piNoStock,jdbcType=INTEGER},
+            </if>
+            <if test="tuneOut != null">
+                #{tuneOut,jdbcType=INTEGER},
+            </if>
+            <if test="tuneIn != null">
+                #{tuneIn,jdbcType=INTEGER},
+            </if>
+            <if test="productSalesValue != null">
+                #{productSalesValue,jdbcType=DOUBLE},
+            </if>
+            <if test="warehouseDesc != null">
+                #{warehouseDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.GoodcangWarehouseStorageExample"
+            resultType="java.lang.Integer">
+        select count(*) from goodcang_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update goodcang_warehouse_storage
+        <set>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.productSku != null">
+                product_sku = #{record.productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseCode != null">
+                warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.onway != null">
+                onway = #{record.onway,jdbcType=INTEGER},
+            </if>
+            <if test="record.pending != null">
+                pending = #{record.pending,jdbcType=INTEGER},
+            </if>
+            <if test="record.sellable != null">
+                sellable = #{record.sellable,jdbcType=INTEGER},
+            </if>
+            <if test="record.unsellable != null">
+                unsellable = #{record.unsellable,jdbcType=INTEGER},
+            </if>
+            <if test="record.reserved != null">
+                reserved = #{record.reserved,jdbcType=INTEGER},
+            </if>
+            <if test="record.shipped != null">
+                shipped = #{record.shipped,jdbcType=INTEGER},
+            </if>
+            <if test="record.productBarcode != null">
+                product_barcode = #{record.productBarcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.soldShared != null">
+                sold_shared = #{record.soldShared,jdbcType=INTEGER},
+            </if>
+            <if test="record.stocking != null">
+                stocking = #{record.stocking,jdbcType=INTEGER},
+            </if>
+            <if test="record.piNoStock != null">
+                pi_no_stock = #{record.piNoStock,jdbcType=INTEGER},
+            </if>
+            <if test="record.tuneOut != null">
+                tune_out = #{record.tuneOut,jdbcType=INTEGER},
+            </if>
+            <if test="record.tuneIn != null">
+                tune_in = #{record.tuneIn,jdbcType=INTEGER},
+            </if>
+            <if test="record.productSalesValue != null">
+                product_sales_value = #{record.productSalesValue,jdbcType=DOUBLE},
+            </if>
+            <if test="record.warehouseDesc != null">
+                warehouse_desc = #{record.warehouseDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update goodcang_warehouse_storage
+        set productID = #{record.productid,jdbcType=INTEGER},
+        product_sku = #{record.productSku,jdbcType=VARCHAR},
+        warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+        onway = #{record.onway,jdbcType=INTEGER},
+        pending = #{record.pending,jdbcType=INTEGER},
+        sellable = #{record.sellable,jdbcType=INTEGER},
+        unsellable = #{record.unsellable,jdbcType=INTEGER},
+        reserved = #{record.reserved,jdbcType=INTEGER},
+        shipped = #{record.shipped,jdbcType=INTEGER},
+        product_barcode = #{record.productBarcode,jdbcType=VARCHAR},
+        sold_shared = #{record.soldShared,jdbcType=INTEGER},
+        stocking = #{record.stocking,jdbcType=INTEGER},
+        pi_no_stock = #{record.piNoStock,jdbcType=INTEGER},
+        tune_out = #{record.tuneOut,jdbcType=INTEGER},
+        tune_in = #{record.tuneIn,jdbcType=INTEGER},
+        product_sales_value = #{record.productSalesValue,jdbcType=DOUBLE},
+        warehouse_desc = #{record.warehouseDesc,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.GoodcangWarehouseStorage">
+        update goodcang_warehouse_storage
+        <set>
+            <if test="productSku != null">
+                product_sku = #{productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="onway != null">
+                onway = #{onway,jdbcType=INTEGER},
+            </if>
+            <if test="pending != null">
+                pending = #{pending,jdbcType=INTEGER},
+            </if>
+            <if test="sellable != null">
+                sellable = #{sellable,jdbcType=INTEGER},
+            </if>
+            <if test="unsellable != null">
+                unsellable = #{unsellable,jdbcType=INTEGER},
+            </if>
+            <if test="reserved != null">
+                reserved = #{reserved,jdbcType=INTEGER},
+            </if>
+            <if test="shipped != null">
+                shipped = #{shipped,jdbcType=INTEGER},
+            </if>
+            <if test="productBarcode != null">
+                product_barcode = #{productBarcode,jdbcType=VARCHAR},
+            </if>
+            <if test="soldShared != null">
+                sold_shared = #{soldShared,jdbcType=INTEGER},
+            </if>
+            <if test="stocking != null">
+                stocking = #{stocking,jdbcType=INTEGER},
+            </if>
+            <if test="piNoStock != null">
+                pi_no_stock = #{piNoStock,jdbcType=INTEGER},
+            </if>
+            <if test="tuneOut != null">
+                tune_out = #{tuneOut,jdbcType=INTEGER},
+            </if>
+            <if test="tuneIn != null">
+                tune_in = #{tuneIn,jdbcType=INTEGER},
+            </if>
+            <if test="productSalesValue != null">
+                product_sales_value = #{productSalesValue,jdbcType=DOUBLE},
+            </if>
+            <if test="warehouseDesc != null">
+                warehouse_desc = #{warehouseDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.GoodcangWarehouseStorage">
+        update goodcang_warehouse_storage
+        set product_sku = #{productSku,jdbcType=VARCHAR},
+        warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+        onway = #{onway,jdbcType=INTEGER},
+        pending = #{pending,jdbcType=INTEGER},
+        sellable = #{sellable,jdbcType=INTEGER},
+        unsellable = #{unsellable,jdbcType=INTEGER},
+        reserved = #{reserved,jdbcType=INTEGER},
+        shipped = #{shipped,jdbcType=INTEGER},
+        product_barcode = #{productBarcode,jdbcType=VARCHAR},
+        sold_shared = #{soldShared,jdbcType=INTEGER},
+        stocking = #{stocking,jdbcType=INTEGER},
+        pi_no_stock = #{piNoStock,jdbcType=INTEGER},
+        tune_out = #{tuneOut,jdbcType=INTEGER},
+        tune_in = #{tuneIn,jdbcType=INTEGER},
+        product_sales_value = #{productSalesValue,jdbcType=DOUBLE},
+        warehouse_desc = #{warehouseDesc,jdbcType=VARCHAR}
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+</mapper>

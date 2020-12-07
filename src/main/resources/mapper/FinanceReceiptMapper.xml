@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.FinanceReceiptMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.FinanceReceipt">
+        <id column="receiptID" jdbcType="INTEGER" property="receiptid"/>
+        <result column="receiptNum" jdbcType="VARCHAR" property="receiptnum"/>
+        <result column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="transactionNumber" jdbcType="VARCHAR" property="transactionnumber"/>
+        <result column="supplierOrderNumber" jdbcType="VARCHAR" property="supplierordernumber"/>
+        <result column="isNeedRefund" jdbcType="INTEGER" property="isneedrefund"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="receiveTotalAmount" jdbcType="DOUBLE" property="receivetotalamount"/>
+        <result column="agreedTotalAmount" jdbcType="DOUBLE" property="agreedtotalamount"/>
+        <result column="auditOpinion" jdbcType="VARCHAR" property="auditopinion"/>
+        <result column="financeAuditorID" jdbcType="INTEGER" property="financeauditorid"/>
+        <result column="receiverID" jdbcType="INTEGER" property="receiverid"/>
+        <result column="receiveTime" jdbcType="TIMESTAMP" property="receivetime"/>
+        <result column="applyReason" jdbcType="VARCHAR" property="applyreason"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="purchaseID" jdbcType="INTEGER" property="purchaseid"/>
+        <result column="purchaseNum" jdbcType="VARCHAR" property="purchasenum"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        receiptID, receiptNum, supplierID, supplierName, transactionNumber, supplierOrderNumber,
+        isNeedRefund, type, status, receiveTotalAmount, agreedTotalAmount, auditOpinion,
+        financeAuditorID, receiverID, receiveTime, applyReason, createTime, purchaseID, purchaseNum
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.FinanceReceiptExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from finance_receipt
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from finance_receipt
+        where receiptID = #{receiptid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from finance_receipt
+        where receiptID = #{receiptid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.FinanceReceiptExample">
+        delete from finance_receipt
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.FinanceReceipt">
+        insert into finance_receipt (receiptID, receiptNum, supplierID,
+        supplierName, transactionNumber, supplierOrderNumber,
+        isNeedRefund, type, status,
+        receiveTotalAmount, agreedTotalAmount, auditOpinion,
+        financeAuditorID, receiverID, receiveTime,
+        applyReason, createTime, purchaseID,
+        purchaseNum)
+        values (#{receiptid,jdbcType=INTEGER}, #{receiptnum,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER},
+        #{suppliername,jdbcType=VARCHAR}, #{transactionnumber,jdbcType=VARCHAR},
+        #{supplierordernumber,jdbcType=VARCHAR},
+        #{isneedrefund,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{receivetotalamount,jdbcType=DOUBLE}, #{agreedtotalamount,jdbcType=DOUBLE}, #{auditopinion,jdbcType=VARCHAR},
+        #{financeauditorid,jdbcType=INTEGER}, #{receiverid,jdbcType=INTEGER}, #{receivetime,jdbcType=TIMESTAMP},
+        #{applyreason,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{purchaseid,jdbcType=INTEGER},
+        #{purchasenum,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="receiptid"
+            parameterType="com.heeexy.example.model.FinanceReceipt">
+        insert into finance_receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="receiptid != null">
+                receiptID,
+            </if>
+            <if test="receiptnum != null">
+                receiptNum,
+            </if>
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="transactionnumber != null">
+                transactionNumber,
+            </if>
+            <if test="supplierordernumber != null">
+                supplierOrderNumber,
+            </if>
+            <if test="isneedrefund != null">
+                isNeedRefund,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="receivetotalamount != null">
+                receiveTotalAmount,
+            </if>
+            <if test="agreedtotalamount != null">
+                agreedTotalAmount,
+            </if>
+            <if test="auditopinion != null">
+                auditOpinion,
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID,
+            </if>
+            <if test="receiverid != null">
+                receiverID,
+            </if>
+            <if test="receivetime != null">
+                receiveTime,
+            </if>
+            <if test="applyreason != null">
+                applyReason,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="purchaseid != null">
+                purchaseID,
+            </if>
+            <if test="purchasenum != null">
+                purchaseNum,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="receiptid != null">
+                #{receiptid,jdbcType=INTEGER},
+            </if>
+            <if test="receiptnum != null">
+                #{receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionnumber != null">
+                #{transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierordernumber != null">
+                #{supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="isneedrefund != null">
+                #{isneedrefund,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="receivetotalamount != null">
+                #{receivetotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="agreedtotalamount != null">
+                #{agreedtotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="auditopinion != null">
+                #{auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="financeauditorid != null">
+                #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="receiverid != null">
+                #{receiverid,jdbcType=INTEGER},
+            </if>
+            <if test="receivetime != null">
+                #{receivetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="applyreason != null">
+                #{applyreason,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="purchaseid != null">
+                #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasenum != null">
+                #{purchasenum,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.FinanceReceiptExample"
+            resultType="java.lang.Integer">
+        select count(*) from finance_receipt
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update finance_receipt
+        <set>
+            <if test="record.receiptid != null">
+                receiptID = #{record.receiptid,jdbcType=INTEGER},
+            </if>
+            <if test="record.receiptnum != null">
+                receiptNum = #{record.receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.transactionnumber != null">
+                transactionNumber = #{record.transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierordernumber != null">
+                supplierOrderNumber = #{record.supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isneedrefund != null">
+                isNeedRefund = #{record.isneedrefund,jdbcType=INTEGER},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.receivetotalamount != null">
+                receiveTotalAmount = #{record.receivetotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.agreedtotalamount != null">
+                agreedTotalAmount = #{record.agreedtotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.auditopinion != null">
+                auditOpinion = #{record.auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="record.financeauditorid != null">
+                financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="record.receiverid != null">
+                receiverID = #{record.receiverid,jdbcType=INTEGER},
+            </if>
+            <if test="record.receivetime != null">
+                receiveTime = #{record.receivetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.applyreason != null">
+                applyReason = #{record.applyreason,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.purchaseid != null">
+                purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasenum != null">
+                purchaseNum = #{record.purchasenum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update finance_receipt
+        set receiptID = #{record.receiptid,jdbcType=INTEGER},
+        receiptNum = #{record.receiptnum,jdbcType=VARCHAR},
+        supplierID = #{record.supplierid,jdbcType=INTEGER},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        transactionNumber = #{record.transactionnumber,jdbcType=VARCHAR},
+        supplierOrderNumber = #{record.supplierordernumber,jdbcType=VARCHAR},
+        isNeedRefund = #{record.isneedrefund,jdbcType=INTEGER},
+        type = #{record.type,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        receiveTotalAmount = #{record.receivetotalamount,jdbcType=DOUBLE},
+        agreedTotalAmount = #{record.agreedtotalamount,jdbcType=DOUBLE},
+        auditOpinion = #{record.auditopinion,jdbcType=VARCHAR},
+        financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+        receiverID = #{record.receiverid,jdbcType=INTEGER},
+        receiveTime = #{record.receivetime,jdbcType=TIMESTAMP},
+        applyReason = #{record.applyreason,jdbcType=VARCHAR},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+        purchaseNum = #{record.purchasenum,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.FinanceReceipt">
+        update finance_receipt
+        <set>
+            <if test="receiptnum != null">
+                receiptNum = #{receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                supplierID = #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                supplierName = #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionnumber != null">
+                transactionNumber = #{transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierordernumber != null">
+                supplierOrderNumber = #{supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="isneedrefund != null">
+                isNeedRefund = #{isneedrefund,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="receivetotalamount != null">
+                receiveTotalAmount = #{receivetotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="agreedtotalamount != null">
+                agreedTotalAmount = #{agreedtotalamount,jdbcType=DOUBLE},
+            </if>
+            <if test="auditopinion != null">
+                auditOpinion = #{auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="receiverid != null">
+                receiverID = #{receiverid,jdbcType=INTEGER},
+            </if>
+            <if test="receivetime != null">
+                receiveTime = #{receivetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="applyreason != null">
+                applyReason = #{applyreason,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="purchaseid != null">
+                purchaseID = #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasenum != null">
+                purchaseNum = #{purchasenum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where receiptID = #{receiptid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.FinanceReceipt">
+        update finance_receipt
+        set receiptNum = #{receiptnum,jdbcType=VARCHAR},
+        supplierID = #{supplierid,jdbcType=INTEGER},
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+        transactionNumber = #{transactionnumber,jdbcType=VARCHAR},
+        supplierOrderNumber = #{supplierordernumber,jdbcType=VARCHAR},
+        isNeedRefund = #{isneedrefund,jdbcType=INTEGER},
+        type = #{type,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        receiveTotalAmount = #{receivetotalamount,jdbcType=DOUBLE},
+        agreedTotalAmount = #{agreedtotalamount,jdbcType=DOUBLE},
+        auditOpinion = #{auditopinion,jdbcType=VARCHAR},
+        financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+        receiverID = #{receiverid,jdbcType=INTEGER},
+        receiveTime = #{receivetime,jdbcType=TIMESTAMP},
+        applyReason = #{applyreason,jdbcType=VARCHAR},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        purchaseID = #{purchaseid,jdbcType=INTEGER},
+        purchaseNum = #{purchasenum,jdbcType=VARCHAR}
+        where receiptID = #{receiptid,jdbcType=INTEGER}
+    </update>
+</mapper>

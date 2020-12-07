@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.FinanceReceiptSkuMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.FinanceReceiptSku">
+        <id column="receiptSkuID" jdbcType="INTEGER" property="receiptskuid"/>
+        <result column="receiptID" jdbcType="INTEGER" property="receiptid"/>
+        <result column="receiptNum" jdbcType="VARCHAR" property="receiptnum"/>
+        <result column="outQuantity" jdbcType="INTEGER" property="outquantity"/>
+        <result column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+        <result column="purchaseSkuID" jdbcType="INTEGER" property="purchaseskuid"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        receiptSkuID, receiptID, receiptNum, outQuantity, productID, skuCode, purchaseSkuID
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.FinanceReceiptSkuExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from finance_receipt_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from finance_receipt_sku
+        where receiptSkuID = #{receiptskuid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from finance_receipt_sku
+        where receiptSkuID = #{receiptskuid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.FinanceReceiptSkuExample">
+        delete from finance_receipt_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.FinanceReceiptSku">
+        insert into finance_receipt_sku (receiptSkuID, receiptID, receiptNum,
+        outQuantity, productID, skuCode,
+        purchaseSkuID)
+        values (#{receiptskuid,jdbcType=INTEGER}, #{receiptid,jdbcType=INTEGER}, #{receiptnum,jdbcType=VARCHAR},
+        #{outquantity,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{skucode,jdbcType=VARCHAR},
+        #{purchaseskuid,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.FinanceReceiptSku">
+        insert into finance_receipt_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="receiptskuid != null">
+                receiptSkuID,
+            </if>
+            <if test="receiptid != null">
+                receiptID,
+            </if>
+            <if test="receiptnum != null">
+                receiptNum,
+            </if>
+            <if test="outquantity != null">
+                outQuantity,
+            </if>
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+            <if test="purchaseskuid != null">
+                purchaseSkuID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="receiptskuid != null">
+                #{receiptskuid,jdbcType=INTEGER},
+            </if>
+            <if test="receiptid != null">
+                #{receiptid,jdbcType=INTEGER},
+            </if>
+            <if test="receiptnum != null">
+                #{receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="outquantity != null">
+                #{outquantity,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseskuid != null">
+                #{purchaseskuid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.FinanceReceiptSkuExample"
+            resultType="java.lang.Integer">
+        select count(*) from finance_receipt_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update finance_receipt_sku
+        <set>
+            <if test="record.receiptskuid != null">
+                receiptSkuID = #{record.receiptskuid,jdbcType=INTEGER},
+            </if>
+            <if test="record.receiptid != null">
+                receiptID = #{record.receiptid,jdbcType=INTEGER},
+            </if>
+            <if test="record.receiptnum != null">
+                receiptNum = #{record.receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.outquantity != null">
+                outQuantity = #{record.outquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.purchaseskuid != null">
+                purchaseSkuID = #{record.purchaseskuid,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update finance_receipt_sku
+        set receiptSkuID = #{record.receiptskuid,jdbcType=INTEGER},
+        receiptID = #{record.receiptid,jdbcType=INTEGER},
+        receiptNum = #{record.receiptnum,jdbcType=VARCHAR},
+        outQuantity = #{record.outquantity,jdbcType=INTEGER},
+        productID = #{record.productid,jdbcType=INTEGER},
+        skuCode = #{record.skucode,jdbcType=VARCHAR},
+        purchaseSkuID = #{record.purchaseskuid,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.FinanceReceiptSku">
+        update finance_receipt_sku
+        <set>
+            <if test="receiptid != null">
+                receiptID = #{receiptid,jdbcType=INTEGER},
+            </if>
+            <if test="receiptnum != null">
+                receiptNum = #{receiptnum,jdbcType=VARCHAR},
+            </if>
+            <if test="outquantity != null">
+                outQuantity = #{outquantity,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                productID = #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="skucode != null">
+                skuCode = #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseskuid != null">
+                purchaseSkuID = #{purchaseskuid,jdbcType=INTEGER},
+            </if>
+        </set>
+        where receiptSkuID = #{receiptskuid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.FinanceReceiptSku">
+        update finance_receipt_sku
+        set receiptID = #{receiptid,jdbcType=INTEGER},
+        receiptNum = #{receiptnum,jdbcType=VARCHAR},
+        outQuantity = #{outquantity,jdbcType=INTEGER},
+        productID = #{productid,jdbcType=INTEGER},
+        skuCode = #{skucode,jdbcType=VARCHAR},
+        purchaseSkuID = #{purchaseskuid,jdbcType=INTEGER}
+        where receiptSkuID = #{receiptskuid,jdbcType=INTEGER}
+    </update>
+</mapper>

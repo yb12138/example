@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.WinitWarehouseStorageMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WinitWarehouseStorage">
+        <id column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="worehouseID" jdbcType="BIGINT" property="worehouseid"/>
+        <result column="worehouseName" jdbcType="VARCHAR" property="worehousename"/>
+        <result column="productlength" jdbcType="DOUBLE" property="productlength"/>
+        <result column="weight" jdbcType="DOUBLE" property="weight"/>
+        <result column="height" jdbcType="DOUBLE" property="height"/>
+        <result column="volume" jdbcType="DOUBLE" property="volume"/>
+        <result column="qtyAvailable" jdbcType="VARCHAR" property="qtyavailable"/>
+        <result column="DOI" jdbcType="VARCHAR" property="doi"/>
+        <result column="averageSalesQty7" jdbcType="VARCHAR" property="averagesalesqty7"/>
+        <result column="averageSalesQty15" jdbcType="VARCHAR" property="averagesalesqty15"/>
+        <result column="averageSalesQty" jdbcType="VARCHAR" property="averagesalesqty"/>
+        <result column="qtyOrdered" jdbcType="VARCHAR" property="qtyordered"/>
+        <result column="qtyReserved" jdbcType="VARCHAR" property="qtyreserved"/>
+        <result column="avaDay" jdbcType="DOUBLE" property="avaday"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        productID, worehouseID, worehouseName, productlength, weight, height, volume, qtyAvailable,
+        DOI, averageSalesQty7, averageSalesQty15, averageSalesQty, qtyOrdered, qtyReserved,
+        avaDay, skuCode
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.WinitWarehouseStorageExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from winit_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from winit_warehouse_storage
+        where productID = #{productid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from winit_warehouse_storage
+        where productID = #{productid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WinitWarehouseStorageExample">
+        delete from winit_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WinitWarehouseStorage">
+        insert into winit_warehouse_storage (productID, worehouseID, worehouseName,
+        productlength, weight, height,
+        volume, qtyAvailable, DOI,
+        averageSalesQty7, averageSalesQty15, averageSalesQty,
+        qtyOrdered, qtyReserved, avaDay,
+        skuCode)
+        values (#{productid,jdbcType=INTEGER}, #{worehouseid,jdbcType=BIGINT}, #{worehousename,jdbcType=VARCHAR},
+        #{productlength,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{height,jdbcType=DOUBLE},
+        #{volume,jdbcType=DOUBLE}, #{qtyavailable,jdbcType=VARCHAR}, #{doi,jdbcType=VARCHAR},
+        #{averagesalesqty7,jdbcType=VARCHAR}, #{averagesalesqty15,jdbcType=VARCHAR},
+        #{averagesalesqty,jdbcType=VARCHAR},
+        #{qtyordered,jdbcType=VARCHAR}, #{qtyreserved,jdbcType=VARCHAR}, #{avaday,jdbcType=DOUBLE},
+        #{skucode,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WinitWarehouseStorage">
+        insert into winit_warehouse_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="worehouseid != null">
+                worehouseID,
+            </if>
+            <if test="worehousename != null">
+                worehouseName,
+            </if>
+            <if test="productlength != null">
+                productlength,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="height != null">
+                height,
+            </if>
+            <if test="volume != null">
+                volume,
+            </if>
+            <if test="qtyavailable != null">
+                qtyAvailable,
+            </if>
+            <if test="doi != null">
+                DOI,
+            </if>
+            <if test="averagesalesqty7 != null">
+                averageSalesQty7,
+            </if>
+            <if test="averagesalesqty15 != null">
+                averageSalesQty15,
+            </if>
+            <if test="averagesalesqty != null">
+                averageSalesQty,
+            </if>
+            <if test="qtyordered != null">
+                qtyOrdered,
+            </if>
+            <if test="qtyreserved != null">
+                qtyReserved,
+            </if>
+            <if test="avaday != null">
+                avaDay,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="worehouseid != null">
+                #{worehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="worehousename != null">
+                #{worehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="productlength != null">
+                #{productlength,jdbcType=DOUBLE},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="height != null">
+                #{height,jdbcType=DOUBLE},
+            </if>
+            <if test="volume != null">
+                #{volume,jdbcType=DOUBLE},
+            </if>
+            <if test="qtyavailable != null">
+                #{qtyavailable,jdbcType=VARCHAR},
+            </if>
+            <if test="doi != null">
+                #{doi,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty7 != null">
+                #{averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty15 != null">
+                #{averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty != null">
+                #{averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="qtyordered != null">
+                #{qtyordered,jdbcType=VARCHAR},
+            </if>
+            <if test="qtyreserved != null">
+                #{qtyreserved,jdbcType=VARCHAR},
+            </if>
+            <if test="avaday != null">
+                #{avaday,jdbcType=DOUBLE},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WinitWarehouseStorageExample"
+            resultType="java.lang.Integer">
+        select count(*) from winit_warehouse_storage
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update winit_warehouse_storage
+        <set>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.worehouseid != null">
+                worehouseID = #{record.worehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.worehousename != null">
+                worehouseName = #{record.worehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productlength != null">
+                productlength = #{record.productlength,jdbcType=DOUBLE},
+            </if>
+            <if test="record.weight != null">
+                weight = #{record.weight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.height != null">
+                height = #{record.height,jdbcType=DOUBLE},
+            </if>
+            <if test="record.volume != null">
+                volume = #{record.volume,jdbcType=DOUBLE},
+            </if>
+            <if test="record.qtyavailable != null">
+                qtyAvailable = #{record.qtyavailable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.doi != null">
+                DOI = #{record.doi,jdbcType=VARCHAR},
+            </if>
+            <if test="record.averagesalesqty7 != null">
+                averageSalesQty7 = #{record.averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="record.averagesalesqty15 != null">
+                averageSalesQty15 = #{record.averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="record.averagesalesqty != null">
+                averageSalesQty = #{record.averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qtyordered != null">
+                qtyOrdered = #{record.qtyordered,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qtyreserved != null">
+                qtyReserved = #{record.qtyreserved,jdbcType=VARCHAR},
+            </if>
+            <if test="record.avaday != null">
+                avaDay = #{record.avaday,jdbcType=DOUBLE},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update winit_warehouse_storage
+        set productID = #{record.productid,jdbcType=INTEGER},
+        worehouseID = #{record.worehouseid,jdbcType=BIGINT},
+        worehouseName = #{record.worehousename,jdbcType=VARCHAR},
+        productlength = #{record.productlength,jdbcType=DOUBLE},
+        weight = #{record.weight,jdbcType=DOUBLE},
+        height = #{record.height,jdbcType=DOUBLE},
+        volume = #{record.volume,jdbcType=DOUBLE},
+        qtyAvailable = #{record.qtyavailable,jdbcType=VARCHAR},
+        DOI = #{record.doi,jdbcType=VARCHAR},
+        averageSalesQty7 = #{record.averagesalesqty7,jdbcType=VARCHAR},
+        averageSalesQty15 = #{record.averagesalesqty15,jdbcType=VARCHAR},
+        averageSalesQty = #{record.averagesalesqty,jdbcType=VARCHAR},
+        qtyOrdered = #{record.qtyordered,jdbcType=VARCHAR},
+        qtyReserved = #{record.qtyreserved,jdbcType=VARCHAR},
+        avaDay = #{record.avaday,jdbcType=DOUBLE},
+        skuCode = #{record.skucode,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.WinitWarehouseStorage">
+        update winit_warehouse_storage
+        <set>
+            <if test="worehouseid != null">
+                worehouseID = #{worehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="worehousename != null">
+                worehouseName = #{worehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="productlength != null">
+                productlength = #{productlength,jdbcType=DOUBLE},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="height != null">
+                height = #{height,jdbcType=DOUBLE},
+            </if>
+            <if test="volume != null">
+                volume = #{volume,jdbcType=DOUBLE},
+            </if>
+            <if test="qtyavailable != null">
+                qtyAvailable = #{qtyavailable,jdbcType=VARCHAR},
+            </if>
+            <if test="doi != null">
+                DOI = #{doi,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty7 != null">
+                averageSalesQty7 = #{averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty15 != null">
+                averageSalesQty15 = #{averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty != null">
+                averageSalesQty = #{averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="qtyordered != null">
+                qtyOrdered = #{qtyordered,jdbcType=VARCHAR},
+            </if>
+            <if test="qtyreserved != null">
+                qtyReserved = #{qtyreserved,jdbcType=VARCHAR},
+            </if>
+            <if test="avaday != null">
+                avaDay = #{avaday,jdbcType=DOUBLE},
+            </if>
+            <if test="skucode != null">
+                skuCode = #{skucode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.WinitWarehouseStorage">
+        update winit_warehouse_storage
+        set worehouseID = #{worehouseid,jdbcType=BIGINT},
+        worehouseName = #{worehousename,jdbcType=VARCHAR},
+        productlength = #{productlength,jdbcType=DOUBLE},
+        weight = #{weight,jdbcType=DOUBLE},
+        height = #{height,jdbcType=DOUBLE},
+        volume = #{volume,jdbcType=DOUBLE},
+        qtyAvailable = #{qtyavailable,jdbcType=VARCHAR},
+        DOI = #{doi,jdbcType=VARCHAR},
+        averageSalesQty7 = #{averagesalesqty7,jdbcType=VARCHAR},
+        averageSalesQty15 = #{averagesalesqty15,jdbcType=VARCHAR},
+        averageSalesQty = #{averagesalesqty,jdbcType=VARCHAR},
+        qtyOrdered = #{qtyordered,jdbcType=VARCHAR},
+        qtyReserved = #{qtyreserved,jdbcType=VARCHAR},
+        avaDay = #{avaday,jdbcType=DOUBLE},
+        skuCode = #{skucode,jdbcType=VARCHAR}
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+</mapper>

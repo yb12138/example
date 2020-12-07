@@ -1,0 +1,108 @@
+
+d
+java:S1192¯"HDefine a constant instead of duplicating this literal "' and '" 4 times.(±Î³ùÿÿÿÿ
+j
+java:S1192ú"SDefine a constant instead of duplicating this literal "æ‰¾ä¸åˆ°å‡ºåº“å•" 3 times.(ò®´
+o
+java:S1192º"SDefine a constant instead of duplicating this literal "è®¢å•å¯¹åº”å¼‚å¸¸" 3 times.( ­Àïıÿÿÿÿ
+f
+java:S1192Ù"ODefine a constant instead of duplicating this literal "arriveTime ASC" 4 times.(¢¶Ô’
+j
+java:S1192Õ"SDefine a constant instead of duplicating this literal "æ•°é‡å¯¹åº”å¼‚å¸¸" 3 times.(ş—îë
+`
+java:S1192Û"IDefine a constant instead of duplicating this literal "(return)" 4 times.(Å´Æ”
+W	java:S107Ú"<Method has 8 parameters, which is greater than 7 authorized.(éÚÛ°ÿÿÿÿÿ
+[	java:S112å"FDefine and throw a dedicated exception instead of using a generic one.(ÖÂ¥O
+a	java:S112º"FDefine and throw a dedicated exception instead of using a generic one.( ­Àïıÿÿÿÿ
+\	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(ş—îë
+a	java:S112õ"FDefine and throw a dedicated exception instead of using a generic one.( ­Àïıÿÿÿÿ
+\	java:S112“"FDefine and throw a dedicated exception instead of using a generic one.(ş—îë
+a	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.( ­Àïıÿÿÿÿ
+\	java:S112Ï"FDefine and throw a dedicated exception instead of using a generic one.(ş—îë
+a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(÷×ßÙüÿÿÿÿ
+o	java:S135õ"YReduce the total number of break and continue statements in this loop to use at most one.(÷¶í
+o	java:S135¯"YReduce the total number of break and continue statements in this loop to use at most one.(”Â€œ
+t	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(íôÕ şÿÿÿÿ
+o	java:S135æ"YReduce the total number of break and continue statements in this loop to use at most one.(İ„‰
+o	java:S135’"YReduce the total number of break and continue statements in this loop to use at most one.(İ„‰
+o	java:S135•"YReduce the total number of break and continue statements in this loop to use at most one.(İ„‰
+n	java:S135ó"YReduce the total number of break and continue statements in this loop to use at most one.(³ò…M
+U
+java:S1155ƒ">Use isEmpty() to check whether the collection is empty or not.(Å“Å»
+U
+java:S1155¹">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+U
+java:S1155ô">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+U
+java:S1155°">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+Z
+java:S1155Œ">Use isEmpty() to check whether the collection is empty or not.(Ÿû°øøÿÿÿÿ
+U
+java:S1155§">Use isEmpty() to check whether the collection is empty or not.(ü¤ÎÀ
+Z
+java:S1155¬">Use isEmpty() to check whether the collection is empty or not.(şºåÌúÿÿÿÿ
+Z
+java:S1155Î">Use isEmpty() to check whether the collection is empty or not.(àıºƒøÿÿÿÿ
+U
+java:S1155Û">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+Z
+java:S1155î">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155ù">Use isEmpty() to check whether the collection is empty or not.(àıºƒøÿÿÿÿ
+U
+java:S1155†">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+Z
+java:S1155š">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155º">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155ë">Use isEmpty() to check whether the collection is empty or not.(àıºƒøÿÿÿÿ
+U
+java:S1155÷">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+U
+java:S1155Š">Use isEmpty() to check whether the collection is empty or not.(Äª’¢
+Z
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155¼">Use isEmpty() to check whether the collection is empty or not.(€Æ´Æıÿÿÿÿ
+Z
+java:S1155Ğ">Use isEmpty() to check whether the collection is empty or not.(Ê•æ÷øÿÿÿÿ
+g	java:S117Á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…áª
+}
+java:S1488‘	"aImmediately return this expression instead of assigning it to the temporary variable "strtodate".(Û¥š«ùÿÿÿÿ
+~
+java:S1488–	"bImmediately return this expression instead of assigning it to the temporary variable "dateString".(”ì¼÷ùÿÿÿÿ
+f
+java:S1128"KRemove this unused import 'com.heeexy.example.service.WarehouseOutService'.(ôÙàÕÿÿÿÿÿ
+J
+java:S1128"4Remove this unused import 'org.joda.time.LocalDate'.(åÂóş
+I
+java:S1128".Remove this unused import 'org.omg.CORBA.ORB'.(æ‡µ³üÿÿÿÿ
+i
+java:S3776Ÿ"SRefactor this method to reduce its Cognitive Complexity from 241 to the 15 allowed.(õø~
+T	java:S106ô"9Replace this use of System.out or System.err by a logger.(öÍ¥©ûÿÿÿÿ
+2
+java:S3626¶"Remove this redundant jump.(ÉŠ©ƒ
+2
+java:S3626¸"Remove this redundant jump.(ÉŠ©ƒ
+i
+java:S3776À"RRefactor this method to reduce its Cognitive Complexity from 67 to the 15 allowed.(êïŠ¼
+L
+java:S1751”"5Remove this "break" statement or make it conditional.(›ûä·
+n
+java:S3776Ô"RRefactor this method to reduce its Cognitive Complexity from 75 to the 15 allowed.(–üÄ£ıÿÿÿÿ
+O	java:S106ú"9Replace this use of System.out or System.err by a logger.(ò®´
+O	java:S106‡"9Replace this use of System.out or System.err by a logger.(ò®´
+L
+java:S1751Á"5Remove this "break" statement or make it conditional.(›ûä·
+n
+java:S3776Î"RRefactor this method to reduce its Cognitive Complexity from 81 to the 15 allowed.(‘œœİøÿÿÿÿ
+L
+java:S1751Ã"5Remove this "break" statement or make it conditional.(›ûä·
+i	java:S100”	"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿³÷Êûÿÿÿÿ
+J
+java:S1481Å".Remove this unused "skuamount" local variable.(„ğ…øÿÿÿÿ
+W	java:S125 "<This block of commented-out lines of code should be removed.(½ê”Õûÿÿÿÿ
+Q	java:S125Ğ"<This block of commented-out lines of code should be removed.(’Ú•-

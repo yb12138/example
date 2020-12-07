@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.GcOutOrderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.GcOutOrderDetail">
+        <id column="order_code" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="reference_no" property="referenceNo" jdbcType="VARCHAR"/>
+        <result column="platform" property="platform" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="abnormal_problem_reason" property="abnormalProblemReason" jdbcType="VARCHAR"/>
+        <result column="shipping_method" property="shippingMethod" jdbcType="VARCHAR"/>
+        <result column="tracking_no" property="trackingNo" jdbcType="VARCHAR"/>
+        <result column="warehouse_code" property="warehouseCode" jdbcType="VARCHAR"/>
+        <result column="order_weight" property="orderWeight" jdbcType="REAL"/>
+        <result column="order_desc" property="orderDesc" jdbcType="VARCHAR"/>
+        <result column="date_create" property="dateCreate" jdbcType="TIMESTAMP"/>
+        <result column="date_release" property="dateRelease" jdbcType="TIMESTAMP"/>
+        <result column="date_shipping" property="dateShipping" jdbcType="TIMESTAMP"/>
+        <result column="date_modify" property="dateModify" jdbcType="TIMESTAMP"/>
+        <result column="totalFee" property="totalfee" jdbcType="REAL"/>
+        <result column="SHIPPING" property="shipping" jdbcType="REAL"/>
+        <result column="OPF" property="opf" jdbcType="REAL"/>
+        <result column="FSC" property="fsc" jdbcType="REAL"/>
+        <result column="DT" property="dt" jdbcType="REAL"/>
+        <result column="RSF" property="rsf" jdbcType="REAL"/>
+        <result column="OTF" property="otf" jdbcType="REAL"/>
+        <result column="currency_code" property="currencyCode" jdbcType="VARCHAR"/>
+        <result column="product_sku" property="productSku" jdbcType="VARCHAR"/>
+        <result column="fba_product_code" property="fbaProductCode" jdbcType="VARCHAR"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
+        <result column="item_id" property="itemId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        order_code, reference_no, platform, order_status, abnormal_problem_reason, shipping_method,
+        tracking_no, warehouse_code, order_weight, order_desc, date_create, date_release,
+        date_shipping, date_modify, totalFee, SHIPPING, OPF, FSC, DT, RSF, OTF, currency_code,
+        product_sku, fba_product_code, quantity, transaction_id, item_id
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.GcOutOrderDetailExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from gc_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from gc_out_order_detail
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from gc_out_order_detail
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.GcOutOrderDetailExample">
+        delete from gc_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.GcOutOrderDetail">
+        insert into gc_out_order_detail (order_code, reference_no, platform,
+        order_status, abnormal_problem_reason, shipping_method,
+        tracking_no, warehouse_code, order_weight,
+        order_desc, date_create, date_release,
+        date_shipping, date_modify, totalFee,
+        SHIPPING, OPF, FSC, DT,
+        RSF, OTF, currency_code, product_sku,
+        fba_product_code, quantity, transaction_id,
+        item_id)
+        values (#{orderCode,jdbcType=VARCHAR}, #{referenceNo,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR},
+        #{orderStatus,jdbcType=VARCHAR}, #{abnormalProblemReason,jdbcType=VARCHAR}, #{shippingMethod,jdbcType=VARCHAR},
+        #{trackingNo,jdbcType=VARCHAR}, #{warehouseCode,jdbcType=VARCHAR}, #{orderWeight,jdbcType=REAL},
+        #{orderDesc,jdbcType=VARCHAR}, #{dateCreate,jdbcType=TIMESTAMP}, #{dateRelease,jdbcType=TIMESTAMP},
+        #{dateShipping,jdbcType=TIMESTAMP}, #{dateModify,jdbcType=TIMESTAMP}, #{totalfee,jdbcType=REAL},
+        #{shipping,jdbcType=REAL}, #{opf,jdbcType=REAL}, #{fsc,jdbcType=REAL}, #{dt,jdbcType=REAL},
+        #{rsf,jdbcType=REAL}, #{otf,jdbcType=REAL}, #{currencyCode,jdbcType=VARCHAR}, #{productSku,jdbcType=VARCHAR},
+        #{fbaProductCode,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{transactionId,jdbcType=VARCHAR},
+        #{itemId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.GcOutOrderDetail">
+        insert into gc_out_order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderCode != null">
+                order_code,
+            </if>
+            <if test="referenceNo != null">
+                reference_no,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="abnormalProblemReason != null">
+                abnormal_problem_reason,
+            </if>
+            <if test="shippingMethod != null">
+                shipping_method,
+            </if>
+            <if test="trackingNo != null">
+                tracking_no,
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code,
+            </if>
+            <if test="orderWeight != null">
+                order_weight,
+            </if>
+            <if test="orderDesc != null">
+                order_desc,
+            </if>
+            <if test="dateCreate != null">
+                date_create,
+            </if>
+            <if test="dateRelease != null">
+                date_release,
+            </if>
+            <if test="dateShipping != null">
+                date_shipping,
+            </if>
+            <if test="dateModify != null">
+                date_modify,
+            </if>
+            <if test="totalfee != null">
+                totalFee,
+            </if>
+            <if test="shipping != null">
+                SHIPPING,
+            </if>
+            <if test="opf != null">
+                OPF,
+            </if>
+            <if test="fsc != null">
+                FSC,
+            </if>
+            <if test="dt != null">
+                DT,
+            </if>
+            <if test="rsf != null">
+                RSF,
+            </if>
+            <if test="otf != null">
+                OTF,
+            </if>
+            <if test="currencyCode != null">
+                currency_code,
+            </if>
+            <if test="productSku != null">
+                product_sku,
+            </if>
+            <if test="fbaProductCode != null">
+                fba_product_code,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="transactionId != null">
+                transaction_id,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="referenceNo != null">
+                #{referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="platform != null">
+                #{platform,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="abnormalProblemReason != null">
+                #{abnormalProblemReason,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingMethod != null">
+                #{shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trackingNo != null">
+                #{trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderWeight != null">
+                #{orderWeight,jdbcType=REAL},
+            </if>
+            <if test="orderDesc != null">
+                #{orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreate != null">
+                #{dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateRelease != null">
+                #{dateRelease,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateShipping != null">
+                #{dateShipping,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateModify != null">
+                #{dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="totalfee != null">
+                #{totalfee,jdbcType=REAL},
+            </if>
+            <if test="shipping != null">
+                #{shipping,jdbcType=REAL},
+            </if>
+            <if test="opf != null">
+                #{opf,jdbcType=REAL},
+            </if>
+            <if test="fsc != null">
+                #{fsc,jdbcType=REAL},
+            </if>
+            <if test="dt != null">
+                #{dt,jdbcType=REAL},
+            </if>
+            <if test="rsf != null">
+                #{rsf,jdbcType=REAL},
+            </if>
+            <if test="otf != null">
+                #{otf,jdbcType=REAL},
+            </if>
+            <if test="currencyCode != null">
+                #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productSku != null">
+                #{productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="fbaProductCode != null">
+                #{fbaProductCode,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="transactionId != null">
+                #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.GcOutOrderDetailExample"
+            resultType="java.lang.Integer">
+        select count(*) from gc_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update gc_out_order_detail
+        <set>
+            <if test="record.orderCode != null">
+                order_code = #{record.orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.referenceNo != null">
+                reference_no = #{record.referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.platform != null">
+                platform = #{record.platform,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderStatus != null">
+                order_status = #{record.orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.abnormalProblemReason != null">
+                abnormal_problem_reason = #{record.abnormalProblemReason,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shippingMethod != null">
+                shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="record.trackingNo != null">
+                tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseCode != null">
+                warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderWeight != null">
+                order_weight = #{record.orderWeight,jdbcType=REAL},
+            </if>
+            <if test="record.orderDesc != null">
+                order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dateCreate != null">
+                date_create = #{record.dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.dateRelease != null">
+                date_release = #{record.dateRelease,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.dateShipping != null">
+                date_shipping = #{record.dateShipping,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.dateModify != null">
+                date_modify = #{record.dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.totalfee != null">
+                totalFee = #{record.totalfee,jdbcType=REAL},
+            </if>
+            <if test="record.shipping != null">
+                SHIPPING = #{record.shipping,jdbcType=REAL},
+            </if>
+            <if test="record.opf != null">
+                OPF = #{record.opf,jdbcType=REAL},
+            </if>
+            <if test="record.fsc != null">
+                FSC = #{record.fsc,jdbcType=REAL},
+            </if>
+            <if test="record.dt != null">
+                DT = #{record.dt,jdbcType=REAL},
+            </if>
+            <if test="record.rsf != null">
+                RSF = #{record.rsf,jdbcType=REAL},
+            </if>
+            <if test="record.otf != null">
+                OTF = #{record.otf,jdbcType=REAL},
+            </if>
+            <if test="record.currencyCode != null">
+                currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productSku != null">
+                product_sku = #{record.productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fbaProductCode != null">
+                fba_product_code = #{record.fbaProductCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.quantity != null">
+                quantity = #{record.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.transactionId != null">
+                transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.itemId != null">
+                item_id = #{record.itemId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update gc_out_order_detail
+        set order_code = #{record.orderCode,jdbcType=VARCHAR},
+        reference_no = #{record.referenceNo,jdbcType=VARCHAR},
+        platform = #{record.platform,jdbcType=VARCHAR},
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
+        abnormal_problem_reason = #{record.abnormalProblemReason,jdbcType=VARCHAR},
+        shipping_method = #{record.shippingMethod,jdbcType=VARCHAR},
+        tracking_no = #{record.trackingNo,jdbcType=VARCHAR},
+        warehouse_code = #{record.warehouseCode,jdbcType=VARCHAR},
+        order_weight = #{record.orderWeight,jdbcType=REAL},
+        order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+        date_create = #{record.dateCreate,jdbcType=TIMESTAMP},
+        date_release = #{record.dateRelease,jdbcType=TIMESTAMP},
+        date_shipping = #{record.dateShipping,jdbcType=TIMESTAMP},
+        date_modify = #{record.dateModify,jdbcType=TIMESTAMP},
+        totalFee = #{record.totalfee,jdbcType=REAL},
+        SHIPPING = #{record.shipping,jdbcType=REAL},
+        OPF = #{record.opf,jdbcType=REAL},
+        FSC = #{record.fsc,jdbcType=REAL},
+        DT = #{record.dt,jdbcType=REAL},
+        RSF = #{record.rsf,jdbcType=REAL},
+        OTF = #{record.otf,jdbcType=REAL},
+        currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+        product_sku = #{record.productSku,jdbcType=VARCHAR},
+        fba_product_code = #{record.fbaProductCode,jdbcType=VARCHAR},
+        quantity = #{record.quantity,jdbcType=INTEGER},
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+        item_id = #{record.itemId,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.GcOutOrderDetail">
+        update gc_out_order_detail
+        <set>
+            <if test="referenceNo != null">
+                reference_no = #{referenceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="platform != null">
+                platform = #{platform,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="abnormalProblemReason != null">
+                abnormal_problem_reason = #{abnormalProblemReason,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingMethod != null">
+                shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="trackingNo != null">
+                tracking_no = #{trackingNo,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseCode != null">
+                warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="orderWeight != null">
+                order_weight = #{orderWeight,jdbcType=REAL},
+            </if>
+            <if test="orderDesc != null">
+                order_desc = #{orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreate != null">
+                date_create = #{dateCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateRelease != null">
+                date_release = #{dateRelease,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateShipping != null">
+                date_shipping = #{dateShipping,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dateModify != null">
+                date_modify = #{dateModify,jdbcType=TIMESTAMP},
+            </if>
+            <if test="totalfee != null">
+                totalFee = #{totalfee,jdbcType=REAL},
+            </if>
+            <if test="shipping != null">
+                SHIPPING = #{shipping,jdbcType=REAL},
+            </if>
+            <if test="opf != null">
+                OPF = #{opf,jdbcType=REAL},
+            </if>
+            <if test="fsc != null">
+                FSC = #{fsc,jdbcType=REAL},
+            </if>
+            <if test="dt != null">
+                DT = #{dt,jdbcType=REAL},
+            </if>
+            <if test="rsf != null">
+                RSF = #{rsf,jdbcType=REAL},
+            </if>
+            <if test="otf != null">
+                OTF = #{otf,jdbcType=REAL},
+            </if>
+            <if test="currencyCode != null">
+                currency_code = #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productSku != null">
+                product_sku = #{productSku,jdbcType=VARCHAR},
+            </if>
+            <if test="fbaProductCode != null">
+                fba_product_code = #{fbaProductCode,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="transactionId != null">
+                transaction_id = #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null">
+                item_id = #{itemId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.GcOutOrderDetail">
+        update gc_out_order_detail
+        set reference_no = #{referenceNo,jdbcType=VARCHAR},
+        platform = #{platform,jdbcType=VARCHAR},
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+        abnormal_problem_reason = #{abnormalProblemReason,jdbcType=VARCHAR},
+        shipping_method = #{shippingMethod,jdbcType=VARCHAR},
+        tracking_no = #{trackingNo,jdbcType=VARCHAR},
+        warehouse_code = #{warehouseCode,jdbcType=VARCHAR},
+        order_weight = #{orderWeight,jdbcType=REAL},
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+        date_create = #{dateCreate,jdbcType=TIMESTAMP},
+        date_release = #{dateRelease,jdbcType=TIMESTAMP},
+        date_shipping = #{dateShipping,jdbcType=TIMESTAMP},
+        date_modify = #{dateModify,jdbcType=TIMESTAMP},
+        totalFee = #{totalfee,jdbcType=REAL},
+        SHIPPING = #{shipping,jdbcType=REAL},
+        OPF = #{opf,jdbcType=REAL},
+        FSC = #{fsc,jdbcType=REAL},
+        DT = #{dt,jdbcType=REAL},
+        RSF = #{rsf,jdbcType=REAL},
+        OTF = #{otf,jdbcType=REAL},
+        currency_code = #{currencyCode,jdbcType=VARCHAR},
+        product_sku = #{productSku,jdbcType=VARCHAR},
+        fba_product_code = #{fbaProductCode,jdbcType=VARCHAR},
+        quantity = #{quantity,jdbcType=INTEGER},
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+        item_id = #{itemId,jdbcType=VARCHAR}
+        where order_code = #{orderCode,jdbcType=VARCHAR}
+    </update>
+</mapper>

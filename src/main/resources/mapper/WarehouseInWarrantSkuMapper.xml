@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.WarehouseInWarrantSkuMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WarehouseInWarrantSku">
+        <id column="inSkuID" jdbcType="INTEGER" property="inskuid"/>
+        <result column="inID" jdbcType="INTEGER" property="inid"/>
+        <result column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="typeCount" jdbcType="INTEGER" property="typecount"/>
+        <result column="inCount" jdbcType="INTEGER" property="incount"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+        <result column="unitprice" jdbcType="DECIMAL" property="unitprice"/>
+        <result column="fare" jdbcType="DECIMAL" property="fare"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="outCount" jdbcType="INTEGER" property="outcount"/>
+        <result column="inNum" jdbcType="VARCHAR" property="innum"/>
+        <result column="purchaseSkuID" jdbcType="INTEGER" property="purchaseskuid"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        inSkuID, inID, productID, typeCount, inCount, createTime, skuCode, unitprice, fare,
+        status, outCount, inNum, purchaseSkuID, remark
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.WarehouseInWarrantSkuExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from warehouse_in_warrant_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warehouse_in_warrant_sku
+        where inSkuID = #{inskuid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from warehouse_in_warrant_sku
+        where inSkuID = #{inskuid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WarehouseInWarrantSkuExample">
+        delete from warehouse_in_warrant_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WarehouseInWarrantSku">
+        insert into warehouse_in_warrant_sku (inSkuID, inID, productID,
+        typeCount, inCount, createTime,
+        skuCode, unitprice, fare,
+        status, outCount, inNum,
+        purchaseSkuID, remark)
+        values (#{inskuid,jdbcType=INTEGER}, #{inid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER},
+        #{typecount,jdbcType=INTEGER}, #{incount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP},
+        #{skucode,jdbcType=VARCHAR}, #{unitprice,jdbcType=DECIMAL}, #{fare,jdbcType=DECIMAL},
+        #{status,jdbcType=TINYINT}, #{outcount,jdbcType=INTEGER}, #{innum,jdbcType=VARCHAR},
+        #{purchaseskuid,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WarehouseInWarrantSku">
+        insert into warehouse_in_warrant_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inskuid != null">
+                inSkuID,
+            </if>
+            <if test="inid != null">
+                inID,
+            </if>
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="typecount != null">
+                typeCount,
+            </if>
+            <if test="incount != null">
+                inCount,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+            <if test="unitprice != null">
+                unitprice,
+            </if>
+            <if test="fare != null">
+                fare,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="outcount != null">
+                outCount,
+            </if>
+            <if test="innum != null">
+                inNum,
+            </if>
+            <if test="purchaseskuid != null">
+                purchaseSkuID,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inskuid != null">
+                #{inskuid,jdbcType=INTEGER},
+            </if>
+            <if test="inid != null">
+                #{inid,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="typecount != null">
+                #{typecount,jdbcType=INTEGER},
+            </if>
+            <if test="incount != null">
+                #{incount,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="unitprice != null">
+                #{unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="fare != null">
+                #{fare,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="outcount != null">
+                #{outcount,jdbcType=INTEGER},
+            </if>
+            <if test="innum != null">
+                #{innum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseskuid != null">
+                #{purchaseskuid,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WarehouseInWarrantSkuExample"
+            resultType="java.lang.Integer">
+        select count(*) from warehouse_in_warrant_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update warehouse_in_warrant_sku
+        <set>
+            <if test="record.inskuid != null">
+                inSkuID = #{record.inskuid,jdbcType=INTEGER},
+            </if>
+            <if test="record.inid != null">
+                inID = #{record.inid,jdbcType=INTEGER},
+            </if>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.typecount != null">
+                typeCount = #{record.typecount,jdbcType=INTEGER},
+            </if>
+            <if test="record.incount != null">
+                inCount = #{record.incount,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.unitprice != null">
+                unitprice = #{record.unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.fare != null">
+                fare = #{record.fare,jdbcType=DECIMAL},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.outcount != null">
+                outCount = #{record.outcount,jdbcType=INTEGER},
+            </if>
+            <if test="record.innum != null">
+                inNum = #{record.innum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.purchaseskuid != null">
+                purchaseSkuID = #{record.purchaseskuid,jdbcType=INTEGER},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update warehouse_in_warrant_sku
+        set inSkuID = #{record.inskuid,jdbcType=INTEGER},
+        inID = #{record.inid,jdbcType=INTEGER},
+        productID = #{record.productid,jdbcType=INTEGER},
+        typeCount = #{record.typecount,jdbcType=INTEGER},
+        inCount = #{record.incount,jdbcType=INTEGER},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        skuCode = #{record.skucode,jdbcType=VARCHAR},
+        unitprice = #{record.unitprice,jdbcType=DECIMAL},
+        fare = #{record.fare,jdbcType=DECIMAL},
+        status = #{record.status,jdbcType=TINYINT},
+        outCount = #{record.outcount,jdbcType=INTEGER},
+        inNum = #{record.innum,jdbcType=VARCHAR},
+        purchaseSkuID = #{record.purchaseskuid,jdbcType=INTEGER},
+        remark = #{record.remark,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.WarehouseInWarrantSku">
+        update warehouse_in_warrant_sku
+        <set>
+            <if test="inid != null">
+                inID = #{inid,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                productID = #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="typecount != null">
+                typeCount = #{typecount,jdbcType=INTEGER},
+            </if>
+            <if test="incount != null">
+                inCount = #{incount,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="skucode != null">
+                skuCode = #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="unitprice != null">
+                unitprice = #{unitprice,jdbcType=DECIMAL},
+            </if>
+            <if test="fare != null">
+                fare = #{fare,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="outcount != null">
+                outCount = #{outcount,jdbcType=INTEGER},
+            </if>
+            <if test="innum != null">
+                inNum = #{innum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseskuid != null">
+                purchaseSkuID = #{purchaseskuid,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where inSkuID = #{inskuid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.WarehouseInWarrantSku">
+        update warehouse_in_warrant_sku
+        set inID = #{inid,jdbcType=INTEGER},
+        productID = #{productid,jdbcType=INTEGER},
+        typeCount = #{typecount,jdbcType=INTEGER},
+        inCount = #{incount,jdbcType=INTEGER},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        skuCode = #{skucode,jdbcType=VARCHAR},
+        unitprice = #{unitprice,jdbcType=DECIMAL},
+        fare = #{fare,jdbcType=DECIMAL},
+        status = #{status,jdbcType=TINYINT},
+        outCount = #{outcount,jdbcType=INTEGER},
+        inNum = #{innum,jdbcType=VARCHAR},
+        purchaseSkuID = #{purchaseskuid,jdbcType=INTEGER},
+        remark = #{remark,jdbcType=VARCHAR}
+        where inSkuID = #{inskuid,jdbcType=INTEGER}
+    </update>
+</mapper>

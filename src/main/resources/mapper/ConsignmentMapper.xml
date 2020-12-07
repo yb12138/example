@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.ConsignmentMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Consignment">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="delivery_service_id" jdbcType="INTEGER" property="deliveryServiceId"/>
+        <result column="sales_reference" jdbcType="VARCHAR" property="salesReference"/>
+        <result column="payment_reference" jdbcType="VARCHAR" property="paymentReference"/>
+        <result column="delivery_reference" jdbcType="VARCHAR" property="deliveryReference"/>
+        <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="currency_code" jdbcType="VARCHAR" property="currencyCode"/>
+        <result column="product_client_ref" jdbcType="VARCHAR" property="productClientRef"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="total_delivery_fee" jdbcType="DOUBLE" property="totalDeliveryFee"/>
+        <result column="total_handling_fee" jdbcType="DOUBLE" property="totalHandlingFee"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="custom_identity_reference" jdbcType="VARCHAR" property="customIdentityReference"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, delivery_service_id, sales_reference, payment_reference, delivery_reference,
+        arrive_time, update_time, type, currency_code, product_client_ref, quantity, total_delivery_fee,
+        total_handling_fee, create_time, status, custom_identity_reference
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.ConsignmentExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from consignment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consignment
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from consignment
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.ConsignmentExample">
+        delete from consignment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Consignment">
+        insert into consignment (id, delivery_service_id, sales_reference,
+        payment_reference, delivery_reference, arrive_time,
+        update_time, type, currency_code,
+        product_client_ref, quantity, total_delivery_fee,
+        total_handling_fee, create_time, status,
+        custom_identity_reference)
+        values (#{id,jdbcType=BIGINT}, #{deliveryServiceId,jdbcType=INTEGER}, #{salesReference,jdbcType=VARCHAR},
+        #{paymentReference,jdbcType=VARCHAR}, #{deliveryReference,jdbcType=VARCHAR}, #{arriveTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{currencyCode,jdbcType=VARCHAR},
+        #{productClientRef,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{totalDeliveryFee,jdbcType=DOUBLE},
+        #{totalHandlingFee,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR},
+        #{customIdentityReference,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.Consignment">
+        insert into consignment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="deliveryServiceId != null">
+                delivery_service_id,
+            </if>
+            <if test="salesReference != null">
+                sales_reference,
+            </if>
+            <if test="paymentReference != null">
+                payment_reference,
+            </if>
+            <if test="deliveryReference != null">
+                delivery_reference,
+            </if>
+            <if test="arriveTime != null">
+                arrive_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="currencyCode != null">
+                currency_code,
+            </if>
+            <if test="productClientRef != null">
+                product_client_ref,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="totalDeliveryFee != null">
+                total_delivery_fee,
+            </if>
+            <if test="totalHandlingFee != null">
+                total_handling_fee,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="customIdentityReference != null">
+                custom_identity_reference,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="deliveryServiceId != null">
+                #{deliveryServiceId,jdbcType=INTEGER},
+            </if>
+            <if test="salesReference != null">
+                #{salesReference,jdbcType=VARCHAR},
+            </if>
+            <if test="paymentReference != null">
+                #{paymentReference,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryReference != null">
+                #{deliveryReference,jdbcType=VARCHAR},
+            </if>
+            <if test="arriveTime != null">
+                #{arriveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyCode != null">
+                #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productClientRef != null">
+                #{productClientRef,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="totalDeliveryFee != null">
+                #{totalDeliveryFee,jdbcType=DOUBLE},
+            </if>
+            <if test="totalHandlingFee != null">
+                #{totalHandlingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="customIdentityReference != null">
+                #{customIdentityReference,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.ConsignmentExample"
+            resultType="java.lang.Integer">
+        select count(*) from consignment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update consignment
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.deliveryServiceId != null">
+                delivery_service_id = #{record.deliveryServiceId,jdbcType=INTEGER},
+            </if>
+            <if test="record.salesReference != null">
+                sales_reference = #{record.salesReference,jdbcType=VARCHAR},
+            </if>
+            <if test="record.paymentReference != null">
+                payment_reference = #{record.paymentReference,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deliveryReference != null">
+                delivery_reference = #{record.deliveryReference,jdbcType=VARCHAR},
+            </if>
+            <if test="record.arriveTime != null">
+                arrive_time = #{record.arriveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=VARCHAR},
+            </if>
+            <if test="record.currencyCode != null">
+                currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productClientRef != null">
+                product_client_ref = #{record.productClientRef,jdbcType=VARCHAR},
+            </if>
+            <if test="record.quantity != null">
+                quantity = #{record.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.totalDeliveryFee != null">
+                total_delivery_fee = #{record.totalDeliveryFee,jdbcType=DOUBLE},
+            </if>
+            <if test="record.totalHandlingFee != null">
+                total_handling_fee = #{record.totalHandlingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.customIdentityReference != null">
+                custom_identity_reference = #{record.customIdentityReference,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update consignment
+        set id = #{record.id,jdbcType=BIGINT},
+        delivery_service_id = #{record.deliveryServiceId,jdbcType=INTEGER},
+        sales_reference = #{record.salesReference,jdbcType=VARCHAR},
+        payment_reference = #{record.paymentReference,jdbcType=VARCHAR},
+        delivery_reference = #{record.deliveryReference,jdbcType=VARCHAR},
+        arrive_time = #{record.arriveTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        type = #{record.type,jdbcType=VARCHAR},
+        currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+        product_client_ref = #{record.productClientRef,jdbcType=VARCHAR},
+        quantity = #{record.quantity,jdbcType=INTEGER},
+        total_delivery_fee = #{record.totalDeliveryFee,jdbcType=DOUBLE},
+        total_handling_fee = #{record.totalHandlingFee,jdbcType=DOUBLE},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=VARCHAR},
+        custom_identity_reference = #{record.customIdentityReference,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Consignment">
+        update consignment
+        <set>
+            <if test="deliveryServiceId != null">
+                delivery_service_id = #{deliveryServiceId,jdbcType=INTEGER},
+            </if>
+            <if test="salesReference != null">
+                sales_reference = #{salesReference,jdbcType=VARCHAR},
+            </if>
+            <if test="paymentReference != null">
+                payment_reference = #{paymentReference,jdbcType=VARCHAR},
+            </if>
+            <if test="deliveryReference != null">
+                delivery_reference = #{deliveryReference,jdbcType=VARCHAR},
+            </if>
+            <if test="arriveTime != null">
+                arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyCode != null">
+                currency_code = #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productClientRef != null">
+                product_client_ref = #{productClientRef,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="totalDeliveryFee != null">
+                total_delivery_fee = #{totalDeliveryFee,jdbcType=DOUBLE},
+            </if>
+            <if test="totalHandlingFee != null">
+                total_handling_fee = #{totalHandlingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="customIdentityReference != null">
+                custom_identity_reference = #{customIdentityReference,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Consignment">
+        update consignment
+        set delivery_service_id = #{deliveryServiceId,jdbcType=INTEGER},
+        sales_reference = #{salesReference,jdbcType=VARCHAR},
+        payment_reference = #{paymentReference,jdbcType=VARCHAR},
+        delivery_reference = #{deliveryReference,jdbcType=VARCHAR},
+        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        type = #{type,jdbcType=VARCHAR},
+        currency_code = #{currencyCode,jdbcType=VARCHAR},
+        product_client_ref = #{productClientRef,jdbcType=VARCHAR},
+        quantity = #{quantity,jdbcType=INTEGER},
+        total_delivery_fee = #{totalDeliveryFee,jdbcType=DOUBLE},
+        total_handling_fee = #{totalHandlingFee,jdbcType=DOUBLE},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        status = #{status,jdbcType=VARCHAR},
+        custom_identity_reference = #{customIdentityReference,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

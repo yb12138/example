@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.AlgorithmicruleMapper">
+  <resultMap id="BaseResultMap" type="com.heeexy.example.model.Algorithmicrule">
+    <id column="alID" jdbcType="INTEGER" property="alid" />
+    <result column="delivery_time_air" jdbcType="INTEGER" property="deliveryTimeAir" />
+    <result column="delivery_time_ship" jdbcType="INTEGER" property="deliveryTimeShip" />
+    <result column="process_time_air" jdbcType="INTEGER" property="processTimeAir" />
+    <result column="safestock_air" jdbcType="INTEGER" property="safestockAir" />
+    <result column="safestock_ship" jdbcType="INTEGER" property="safestockShip" />
+    <result column="first_replenish_air" jdbcType="INTEGER" property="firstReplenishAir" />
+    <result column="replenish_amount_air" jdbcType="INTEGER" property="replenishAmountAir" />
+    <result column="replenish_amount_ship" jdbcType="INTEGER" property="replenishAmountShip" />
+    <result column="warehouseID" jdbcType="BIGINT" property="warehouseid" />
+    <result column="warehouseName" jdbcType="VARCHAR" property="warehousename" />
+    <result column="first_replenish_ship" jdbcType="INTEGER" property="firstReplenishShip" />
+    <result column="headwaytime_air" jdbcType="INTEGER" property="headwaytimeAir" />
+    <result column="headwaytime_ship" jdbcType="INTEGER" property="headwaytimeShip" />
+    <result column="second_air_time" jdbcType="INTEGER" property="secondAirTime" />
+    <result column="second_ship_time" jdbcType="INTEGER" property="secondShipTime" />
+    <result column="process_time_ship" jdbcType="INTEGER" property="processTimeShip" />
+    <result column="delivery_time_train" jdbcType="INTEGER" property="deliveryTimeTrain" />
+    <result column="process_time_train" jdbcType="INTEGER" property="processTimeTrain" />
+    <result column="safestock_train" jdbcType="INTEGER" property="safestockTrain" />
+    <result column="replenish_amount_train" jdbcType="INTEGER" property="replenishAmountTrain" />
+    <result column="first_replenish_train" jdbcType="INTEGER" property="firstReplenishTrain" />
+    <result column="headwaytime_train" jdbcType="INTEGER" property="headwaytimeTrain" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    alID, delivery_time_air, delivery_time_ship, process_time_air, safestock_air, safestock_ship, 
+    first_replenish_air, replenish_amount_air, replenish_amount_ship, warehouseID, warehouseName, 
+    first_replenish_ship, headwaytime_air, headwaytime_ship, second_air_time, second_ship_time, 
+    process_time_ship, delivery_time_train, process_time_train, safestock_train, replenish_amount_train, 
+    first_replenish_train, headwaytime_train
+  </sql>
+  <select id="selectByExample" parameterType="com.heeexy.example.model.AlgorithmicruleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from algorithmicrule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from algorithmicrule
+    where alID = #{alid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from algorithmicrule
+    where alID = #{alid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.heeexy.example.model.AlgorithmicruleExample">
+    delete from algorithmicrule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.heeexy.example.model.Algorithmicrule">
+    insert into algorithmicrule (alID, delivery_time_air, delivery_time_ship, 
+      process_time_air, safestock_air, safestock_ship, 
+      first_replenish_air, replenish_amount_air, 
+      replenish_amount_ship, warehouseID, warehouseName, 
+      first_replenish_ship, headwaytime_air, headwaytime_ship, 
+      second_air_time, second_ship_time, process_time_ship, 
+      delivery_time_train, process_time_train, safestock_train, 
+      replenish_amount_train, first_replenish_train, 
+      headwaytime_train)
+    values (#{alid,jdbcType=INTEGER}, #{deliveryTimeAir,jdbcType=INTEGER}, #{deliveryTimeShip,jdbcType=INTEGER}, 
+      #{processTimeAir,jdbcType=INTEGER}, #{safestockAir,jdbcType=INTEGER}, #{safestockShip,jdbcType=INTEGER}, 
+      #{firstReplenishAir,jdbcType=INTEGER}, #{replenishAmountAir,jdbcType=INTEGER}, 
+      #{replenishAmountShip,jdbcType=INTEGER}, #{warehouseid,jdbcType=BIGINT}, #{warehousename,jdbcType=VARCHAR}, 
+      #{firstReplenishShip,jdbcType=INTEGER}, #{headwaytimeAir,jdbcType=INTEGER}, #{headwaytimeShip,jdbcType=INTEGER}, 
+      #{secondAirTime,jdbcType=INTEGER}, #{secondShipTime,jdbcType=INTEGER}, #{processTimeShip,jdbcType=INTEGER}, 
+      #{deliveryTimeTrain,jdbcType=INTEGER}, #{processTimeTrain,jdbcType=INTEGER}, #{safestockTrain,jdbcType=INTEGER}, 
+      #{replenishAmountTrain,jdbcType=INTEGER}, #{firstReplenishTrain,jdbcType=INTEGER}, 
+      #{headwaytimeTrain,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.heeexy.example.model.Algorithmicrule">
+    insert into algorithmicrule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alid != null">
+        alID,
+      </if>
+      <if test="deliveryTimeAir != null">
+        delivery_time_air,
+      </if>
+      <if test="deliveryTimeShip != null">
+        delivery_time_ship,
+      </if>
+      <if test="processTimeAir != null">
+        process_time_air,
+      </if>
+      <if test="safestockAir != null">
+        safestock_air,
+      </if>
+      <if test="safestockShip != null">
+        safestock_ship,
+      </if>
+      <if test="firstReplenishAir != null">
+        first_replenish_air,
+      </if>
+      <if test="replenishAmountAir != null">
+        replenish_amount_air,
+      </if>
+      <if test="replenishAmountShip != null">
+        replenish_amount_ship,
+      </if>
+      <if test="warehouseid != null">
+        warehouseID,
+      </if>
+      <if test="warehousename != null">
+        warehouseName,
+      </if>
+      <if test="firstReplenishShip != null">
+        first_replenish_ship,
+      </if>
+      <if test="headwaytimeAir != null">
+        headwaytime_air,
+      </if>
+      <if test="headwaytimeShip != null">
+        headwaytime_ship,
+      </if>
+      <if test="secondAirTime != null">
+        second_air_time,
+      </if>
+      <if test="secondShipTime != null">
+        second_ship_time,
+      </if>
+      <if test="processTimeShip != null">
+        process_time_ship,
+      </if>
+      <if test="deliveryTimeTrain != null">
+        delivery_time_train,
+      </if>
+      <if test="processTimeTrain != null">
+        process_time_train,
+      </if>
+      <if test="safestockTrain != null">
+        safestock_train,
+      </if>
+      <if test="replenishAmountTrain != null">
+        replenish_amount_train,
+      </if>
+      <if test="firstReplenishTrain != null">
+        first_replenish_train,
+      </if>
+      <if test="headwaytimeTrain != null">
+        headwaytime_train,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alid != null">
+        #{alid,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTimeAir != null">
+        #{deliveryTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTimeShip != null">
+        #{deliveryTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeAir != null">
+        #{processTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="safestockAir != null">
+        #{safestockAir,jdbcType=INTEGER},
+      </if>
+      <if test="safestockShip != null">
+        #{safestockShip,jdbcType=INTEGER},
+      </if>
+      <if test="firstReplenishAir != null">
+        #{firstReplenishAir,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountAir != null">
+        #{replenishAmountAir,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountShip != null">
+        #{replenishAmountShip,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseid != null">
+        #{warehouseid,jdbcType=BIGINT},
+      </if>
+      <if test="warehousename != null">
+        #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReplenishShip != null">
+        #{firstReplenishShip,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeAir != null">
+        #{headwaytimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeShip != null">
+        #{headwaytimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="secondAirTime != null">
+        #{secondAirTime,jdbcType=INTEGER},
+      </if>
+      <if test="secondShipTime != null">
+        #{secondShipTime,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeShip != null">
+        #{processTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTimeTrain != null">
+        #{deliveryTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeTrain != null">
+        #{processTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="safestockTrain != null">
+        #{safestockTrain,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountTrain != null">
+        #{replenishAmountTrain,jdbcType=INTEGER},
+      </if>
+      <if test="firstReplenishTrain != null">
+        #{firstReplenishTrain,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeTrain != null">
+        #{headwaytimeTrain,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.heeexy.example.model.AlgorithmicruleExample" resultType="java.lang.Integer">
+    select count(*) from algorithmicrule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update algorithmicrule
+    <set>
+      <if test="record.alid != null">
+        alID = #{record.alid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTimeAir != null">
+        delivery_time_air = #{record.deliveryTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTimeShip != null">
+        delivery_time_ship = #{record.deliveryTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.processTimeAir != null">
+        process_time_air = #{record.processTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.safestockAir != null">
+        safestock_air = #{record.safestockAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.safestockShip != null">
+        safestock_ship = #{record.safestockShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstReplenishAir != null">
+        first_replenish_air = #{record.firstReplenishAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.replenishAmountAir != null">
+        replenish_amount_air = #{record.replenishAmountAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.replenishAmountShip != null">
+        replenish_amount_ship = #{record.replenishAmountShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.warehouseid != null">
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+      </if>
+      <if test="record.warehousename != null">
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstReplenishShip != null">
+        first_replenish_ship = #{record.firstReplenishShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.headwaytimeAir != null">
+        headwaytime_air = #{record.headwaytimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="record.headwaytimeShip != null">
+        headwaytime_ship = #{record.headwaytimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.secondAirTime != null">
+        second_air_time = #{record.secondAirTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.secondShipTime != null">
+        second_ship_time = #{record.secondShipTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.processTimeShip != null">
+        process_time_ship = #{record.processTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTimeTrain != null">
+        delivery_time_train = #{record.deliveryTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="record.processTimeTrain != null">
+        process_time_train = #{record.processTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="record.safestockTrain != null">
+        safestock_train = #{record.safestockTrain,jdbcType=INTEGER},
+      </if>
+      <if test="record.replenishAmountTrain != null">
+        replenish_amount_train = #{record.replenishAmountTrain,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstReplenishTrain != null">
+        first_replenish_train = #{record.firstReplenishTrain,jdbcType=INTEGER},
+      </if>
+      <if test="record.headwaytimeTrain != null">
+        headwaytime_train = #{record.headwaytimeTrain,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update algorithmicrule
+    set alID = #{record.alid,jdbcType=INTEGER},
+      delivery_time_air = #{record.deliveryTimeAir,jdbcType=INTEGER},
+      delivery_time_ship = #{record.deliveryTimeShip,jdbcType=INTEGER},
+      process_time_air = #{record.processTimeAir,jdbcType=INTEGER},
+      safestock_air = #{record.safestockAir,jdbcType=INTEGER},
+      safestock_ship = #{record.safestockShip,jdbcType=INTEGER},
+      first_replenish_air = #{record.firstReplenishAir,jdbcType=INTEGER},
+      replenish_amount_air = #{record.replenishAmountAir,jdbcType=INTEGER},
+      replenish_amount_ship = #{record.replenishAmountShip,jdbcType=INTEGER},
+      warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+      warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+      first_replenish_ship = #{record.firstReplenishShip,jdbcType=INTEGER},
+      headwaytime_air = #{record.headwaytimeAir,jdbcType=INTEGER},
+      headwaytime_ship = #{record.headwaytimeShip,jdbcType=INTEGER},
+      second_air_time = #{record.secondAirTime,jdbcType=INTEGER},
+      second_ship_time = #{record.secondShipTime,jdbcType=INTEGER},
+      process_time_ship = #{record.processTimeShip,jdbcType=INTEGER},
+      delivery_time_train = #{record.deliveryTimeTrain,jdbcType=INTEGER},
+      process_time_train = #{record.processTimeTrain,jdbcType=INTEGER},
+      safestock_train = #{record.safestockTrain,jdbcType=INTEGER},
+      replenish_amount_train = #{record.replenishAmountTrain,jdbcType=INTEGER},
+      first_replenish_train = #{record.firstReplenishTrain,jdbcType=INTEGER},
+      headwaytime_train = #{record.headwaytimeTrain,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Algorithmicrule">
+    update algorithmicrule
+    <set>
+      <if test="deliveryTimeAir != null">
+        delivery_time_air = #{deliveryTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTimeShip != null">
+        delivery_time_ship = #{deliveryTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeAir != null">
+        process_time_air = #{processTimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="safestockAir != null">
+        safestock_air = #{safestockAir,jdbcType=INTEGER},
+      </if>
+      <if test="safestockShip != null">
+        safestock_ship = #{safestockShip,jdbcType=INTEGER},
+      </if>
+      <if test="firstReplenishAir != null">
+        first_replenish_air = #{firstReplenishAir,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountAir != null">
+        replenish_amount_air = #{replenishAmountAir,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountShip != null">
+        replenish_amount_ship = #{replenishAmountShip,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseid != null">
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+      </if>
+      <if test="warehousename != null">
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReplenishShip != null">
+        first_replenish_ship = #{firstReplenishShip,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeAir != null">
+        headwaytime_air = #{headwaytimeAir,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeShip != null">
+        headwaytime_ship = #{headwaytimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="secondAirTime != null">
+        second_air_time = #{secondAirTime,jdbcType=INTEGER},
+      </if>
+      <if test="secondShipTime != null">
+        second_ship_time = #{secondShipTime,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeShip != null">
+        process_time_ship = #{processTimeShip,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTimeTrain != null">
+        delivery_time_train = #{deliveryTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="processTimeTrain != null">
+        process_time_train = #{processTimeTrain,jdbcType=INTEGER},
+      </if>
+      <if test="safestockTrain != null">
+        safestock_train = #{safestockTrain,jdbcType=INTEGER},
+      </if>
+      <if test="replenishAmountTrain != null">
+        replenish_amount_train = #{replenishAmountTrain,jdbcType=INTEGER},
+      </if>
+      <if test="firstReplenishTrain != null">
+        first_replenish_train = #{firstReplenishTrain,jdbcType=INTEGER},
+      </if>
+      <if test="headwaytimeTrain != null">
+        headwaytime_train = #{headwaytimeTrain,jdbcType=INTEGER},
+      </if>
+    </set>
+    where alID = #{alid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Algorithmicrule">
+    update algorithmicrule
+    set delivery_time_air = #{deliveryTimeAir,jdbcType=INTEGER},
+      delivery_time_ship = #{deliveryTimeShip,jdbcType=INTEGER},
+      process_time_air = #{processTimeAir,jdbcType=INTEGER},
+      safestock_air = #{safestockAir,jdbcType=INTEGER},
+      safestock_ship = #{safestockShip,jdbcType=INTEGER},
+      first_replenish_air = #{firstReplenishAir,jdbcType=INTEGER},
+      replenish_amount_air = #{replenishAmountAir,jdbcType=INTEGER},
+      replenish_amount_ship = #{replenishAmountShip,jdbcType=INTEGER},
+      warehouseID = #{warehouseid,jdbcType=BIGINT},
+      warehouseName = #{warehousename,jdbcType=VARCHAR},
+      first_replenish_ship = #{firstReplenishShip,jdbcType=INTEGER},
+      headwaytime_air = #{headwaytimeAir,jdbcType=INTEGER},
+      headwaytime_ship = #{headwaytimeShip,jdbcType=INTEGER},
+      second_air_time = #{secondAirTime,jdbcType=INTEGER},
+      second_ship_time = #{secondShipTime,jdbcType=INTEGER},
+      process_time_ship = #{processTimeShip,jdbcType=INTEGER},
+      delivery_time_train = #{deliveryTimeTrain,jdbcType=INTEGER},
+      process_time_train = #{processTimeTrain,jdbcType=INTEGER},
+      safestock_train = #{safestockTrain,jdbcType=INTEGER},
+      replenish_amount_train = #{replenishAmountTrain,jdbcType=INTEGER},
+      first_replenish_train = #{firstReplenishTrain,jdbcType=INTEGER},
+      headwaytime_train = #{headwaytimeTrain,jdbcType=INTEGER}
+    where alID = #{alid,jdbcType=INTEGER}
+  </update>
+</mapper>

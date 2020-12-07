@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.CollectAmountMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.CollectAmount">
+        <id column="amountID" property="amountid" jdbcType="INTEGER"/>
+        <result column="year" property="year" jdbcType="INTEGER"/>
+        <result column="month" property="month" jdbcType="INTEGER"/>
+        <result column="onSellAllAmount" property="onsellallamount" jdbcType="DOUBLE"/>
+        <result column="purchaseAllAmount" property="purchaseallamount" jdbcType="DOUBLE"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        amountID, year, month, onSellAllAmount, purchaseAllAmount
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.CollectAmountExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from collect_amount
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from collect_amount
+        where amountID = #{amountid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from collect_amount
+        where amountID = #{amountid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.CollectAmountExample">
+        delete from collect_amount
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.CollectAmount">
+        insert into collect_amount (amountID, year, month,
+        onSellAllAmount, purchaseAllAmount)
+        values (#{amountid,jdbcType=INTEGER}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER},
+        #{onsellallamount,jdbcType=DOUBLE}, #{purchaseallamount,jdbcType=DOUBLE})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.CollectAmount">
+        insert into collect_amount
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="amountid != null">
+                amountID,
+            </if>
+            <if test="year != null">
+                year,
+            </if>
+            <if test="month != null">
+                month,
+            </if>
+            <if test="onsellallamount != null">
+                onSellAllAmount,
+            </if>
+            <if test="purchaseallamount != null">
+                purchaseAllAmount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="amountid != null">
+                #{amountid,jdbcType=INTEGER},
+            </if>
+            <if test="year != null">
+                #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                #{month,jdbcType=INTEGER},
+            </if>
+            <if test="onsellallamount != null">
+                #{onsellallamount,jdbcType=DOUBLE},
+            </if>
+            <if test="purchaseallamount != null">
+                #{purchaseallamount,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.CollectAmountExample"
+            resultType="java.lang.Integer">
+        select count(*) from collect_amount
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update collect_amount
+        <set>
+            <if test="record.amountid != null">
+                amountID = #{record.amountid,jdbcType=INTEGER},
+            </if>
+            <if test="record.year != null">
+                year = #{record.year,jdbcType=INTEGER},
+            </if>
+            <if test="record.month != null">
+                month = #{record.month,jdbcType=INTEGER},
+            </if>
+            <if test="record.onsellallamount != null">
+                onSellAllAmount = #{record.onsellallamount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.purchaseallamount != null">
+                purchaseAllAmount = #{record.purchaseallamount,jdbcType=DOUBLE},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update collect_amount
+        set amountID = #{record.amountid,jdbcType=INTEGER},
+        year = #{record.year,jdbcType=INTEGER},
+        month = #{record.month,jdbcType=INTEGER},
+        onSellAllAmount = #{record.onsellallamount,jdbcType=DOUBLE},
+        purchaseAllAmount = #{record.purchaseallamount,jdbcType=DOUBLE}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.CollectAmount">
+        update collect_amount
+        <set>
+            <if test="year != null">
+                year = #{year,jdbcType=INTEGER},
+            </if>
+            <if test="month != null">
+                month = #{month,jdbcType=INTEGER},
+            </if>
+            <if test="onsellallamount != null">
+                onSellAllAmount = #{onsellallamount,jdbcType=DOUBLE},
+            </if>
+            <if test="purchaseallamount != null">
+                purchaseAllAmount = #{purchaseallamount,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where amountID = #{amountid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.CollectAmount">
+        update collect_amount
+        set year = #{year,jdbcType=INTEGER},
+        month = #{month,jdbcType=INTEGER},
+        onSellAllAmount = #{onsellallamount,jdbcType=DOUBLE},
+        purchaseAllAmount = #{purchaseallamount,jdbcType=DOUBLE}
+        where amountID = #{amountid,jdbcType=INTEGER}
+    </update>
+</mapper>

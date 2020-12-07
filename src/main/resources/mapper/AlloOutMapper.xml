@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.AlloOutMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.AlloOut">
+        <id column="alloID" jdbcType="INTEGER" property="alloid"/>
+        <result column="alloNum" jdbcType="VARCHAR" property="allonum"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="userID" jdbcType="INTEGER" property="userid"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="warehouseID" jdbcType="BIGINT" property="warehouseid"/>
+        <result column="warehouseName" jdbcType="VARCHAR" property="warehousename"/>
+        <result column="userName" jdbcType="VARCHAR" property="username"/>
+        <result column="outID" jdbcType="INTEGER" property="outid"/>
+        <result column="outNum" jdbcType="VARCHAR" property="outnum"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="fare" jdbcType="DOUBLE" property="fare"/>
+        <result column="storageFare" jdbcType="DOUBLE" property="storagefare"/>
+        <result column="valueTax" jdbcType="DOUBLE" property="valuetax"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+        <result column="warehouseOrder" jdbcType="VARCHAR" property="warehouseorder"/>
+        <result column="allWeight" jdbcType="DOUBLE" property="allweight"/>
+        <result column="allVolume" jdbcType="DOUBLE" property="allvolume"/>
+        <result column="skuQuantity" jdbcType="INTEGER" property="skuquantity"/>
+        <result column="arriveTime" jdbcType="TIMESTAMP" property="arrivetime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        alloID, alloNum, status, userID, createTime, warehouseID, warehouseName, userName,
+        outID, outNum, updateTime, fare, storageFare, valueTax, type, warehouseOrder, allWeight,
+        allVolume, skuQuantity, arriveTime
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.AlloOutExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from allo_out
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from allo_out
+        where alloID = #{alloid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from allo_out
+        where alloID = #{alloid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.AlloOutExample">
+        delete from allo_out
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.AlloOut">
+        insert into allo_out (alloID, alloNum, status,
+        userID, createTime, warehouseID,
+        warehouseName, userName, outID,
+        outNum, updateTime, fare,
+        storageFare, valueTax, type,
+        warehouseOrder, allWeight, allVolume,
+        skuQuantity, arriveTime)
+        values (#{alloid,jdbcType=INTEGER}, #{allonum,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+        #{userid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{warehouseid,jdbcType=BIGINT},
+        #{warehousename,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{outid,jdbcType=INTEGER},
+        #{outnum,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{fare,jdbcType=DOUBLE},
+        #{storagefare,jdbcType=DOUBLE}, #{valuetax,jdbcType=DOUBLE}, #{type,jdbcType=CHAR},
+        #{warehouseorder,jdbcType=VARCHAR}, #{allweight,jdbcType=DOUBLE}, #{allvolume,jdbcType=DOUBLE},
+        #{skuquantity,jdbcType=INTEGER}, #{arrivetime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="alloid"
+            parameterType="com.heeexy.example.model.AlloOut">
+        insert into allo_out
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="alloid != null">
+                alloID,
+            </if>
+            <if test="allonum != null">
+                alloNum,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="userid != null">
+                userID,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+            <if test="username != null">
+                userName,
+            </if>
+            <if test="outid != null">
+                outID,
+            </if>
+            <if test="outnum != null">
+                outNum,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+            <if test="fare != null">
+                fare,
+            </if>
+            <if test="storagefare != null">
+                storageFare,
+            </if>
+            <if test="valuetax != null">
+                valueTax,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="warehouseorder != null">
+                warehouseOrder,
+            </if>
+            <if test="allweight != null">
+                allWeight,
+            </if>
+            <if test="allvolume != null">
+                allVolume,
+            </if>
+            <if test="skuquantity != null">
+                skuQuantity,
+            </if>
+            <if test="arrivetime != null">
+                arriveTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="alloid != null">
+                #{alloid,jdbcType=INTEGER},
+            </if>
+            <if test="allonum != null">
+                #{allonum,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="outid != null">
+                #{outid,jdbcType=INTEGER},
+            </if>
+            <if test="outnum != null">
+                #{outnum,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fare != null">
+                #{fare,jdbcType=DOUBLE},
+            </if>
+            <if test="storagefare != null">
+                #{storagefare,jdbcType=DOUBLE},
+            </if>
+            <if test="valuetax != null">
+                #{valuetax,jdbcType=DOUBLE},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="warehouseorder != null">
+                #{warehouseorder,jdbcType=VARCHAR},
+            </if>
+            <if test="allweight != null">
+                #{allweight,jdbcType=DOUBLE},
+            </if>
+            <if test="allvolume != null">
+                #{allvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="skuquantity != null">
+                #{skuquantity,jdbcType=INTEGER},
+            </if>
+            <if test="arrivetime != null">
+                #{arrivetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.AlloOutExample" resultType="java.lang.Integer">
+        select count(*) from allo_out
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update allo_out
+        <set>
+            <if test="record.alloid != null">
+                alloID = #{record.alloid,jdbcType=INTEGER},
+            </if>
+            <if test="record.allonum != null">
+                alloNum = #{record.allonum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null">
+                userID = #{record.userid,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.username != null">
+                userName = #{record.username,jdbcType=VARCHAR},
+            </if>
+            <if test="record.outid != null">
+                outID = #{record.outid,jdbcType=INTEGER},
+            </if>
+            <if test="record.outnum != null">
+                outNum = #{record.outnum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updatetime != null">
+                updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.fare != null">
+                fare = #{record.fare,jdbcType=DOUBLE},
+            </if>
+            <if test="record.storagefare != null">
+                storageFare = #{record.storagefare,jdbcType=DOUBLE},
+            </if>
+            <if test="record.valuetax != null">
+                valueTax = #{record.valuetax,jdbcType=DOUBLE},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=CHAR},
+            </if>
+            <if test="record.warehouseorder != null">
+                warehouseOrder = #{record.warehouseorder,jdbcType=VARCHAR},
+            </if>
+            <if test="record.allweight != null">
+                allWeight = #{record.allweight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.allvolume != null">
+                allVolume = #{record.allvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="record.skuquantity != null">
+                skuQuantity = #{record.skuquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.arrivetime != null">
+                arriveTime = #{record.arrivetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update allo_out
+        set alloID = #{record.alloid,jdbcType=INTEGER},
+        alloNum = #{record.allonum,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        userID = #{record.userid,jdbcType=INTEGER},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+        userName = #{record.username,jdbcType=VARCHAR},
+        outID = #{record.outid,jdbcType=INTEGER},
+        outNum = #{record.outnum,jdbcType=VARCHAR},
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+        fare = #{record.fare,jdbcType=DOUBLE},
+        storageFare = #{record.storagefare,jdbcType=DOUBLE},
+        valueTax = #{record.valuetax,jdbcType=DOUBLE},
+        type = #{record.type,jdbcType=CHAR},
+        warehouseOrder = #{record.warehouseorder,jdbcType=VARCHAR},
+        allWeight = #{record.allweight,jdbcType=DOUBLE},
+        allVolume = #{record.allvolume,jdbcType=DOUBLE},
+        skuQuantity = #{record.skuquantity,jdbcType=INTEGER},
+        arriveTime = #{record.arrivetime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.AlloOut">
+        update allo_out
+        <set>
+            <if test="allonum != null">
+                alloNum = #{allonum,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                userID = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                userName = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="outid != null">
+                outID = #{outid,jdbcType=INTEGER},
+            </if>
+            <if test="outnum != null">
+                outNum = #{outnum,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fare != null">
+                fare = #{fare,jdbcType=DOUBLE},
+            </if>
+            <if test="storagefare != null">
+                storageFare = #{storagefare,jdbcType=DOUBLE},
+            </if>
+            <if test="valuetax != null">
+                valueTax = #{valuetax,jdbcType=DOUBLE},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="warehouseorder != null">
+                warehouseOrder = #{warehouseorder,jdbcType=VARCHAR},
+            </if>
+            <if test="allweight != null">
+                allWeight = #{allweight,jdbcType=DOUBLE},
+            </if>
+            <if test="allvolume != null">
+                allVolume = #{allvolume,jdbcType=DOUBLE},
+            </if>
+            <if test="skuquantity != null">
+                skuQuantity = #{skuquantity,jdbcType=INTEGER},
+            </if>
+            <if test="arrivetime != null">
+                arriveTime = #{arrivetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where alloID = #{alloid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.AlloOut">
+        update allo_out
+        set alloNum = #{allonum,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        userID = #{userid,jdbcType=INTEGER},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+        userName = #{username,jdbcType=VARCHAR},
+        outID = #{outid,jdbcType=INTEGER},
+        outNum = #{outnum,jdbcType=VARCHAR},
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+        fare = #{fare,jdbcType=DOUBLE},
+        storageFare = #{storagefare,jdbcType=DOUBLE},
+        valueTax = #{valuetax,jdbcType=DOUBLE},
+        type = #{type,jdbcType=CHAR},
+        warehouseOrder = #{warehouseorder,jdbcType=VARCHAR},
+        allWeight = #{allweight,jdbcType=DOUBLE},
+        allVolume = #{allvolume,jdbcType=DOUBLE},
+        skuQuantity = #{skuquantity,jdbcType=INTEGER},
+        arriveTime = #{arrivetime,jdbcType=TIMESTAMP}
+        where alloID = #{alloid,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.PurchaseMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Purchase">
+        <id column="purchaseID" jdbcType="INTEGER" property="purchaseid"/>
+        <result column="purchaseNum" jdbcType="VARCHAR" property="purchasenum"/>
+        <result column="warehouseID" jdbcType="BIGINT" property="warehouseid"/>
+        <result column="warehouseName" jdbcType="VARCHAR" property="warehousename"/>
+        <result column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="supplierOrderNumber" jdbcType="VARCHAR" property="supplierordernumber"/>
+        <result column="specialStatus" jdbcType="TINYINT" property="specialstatus"/>
+        <result column="purchaseStatus" jdbcType="TINYINT" property="purchasestatus"/>
+        <result column="financeStatus" jdbcType="TINYINT" property="financestatus"/>
+        <result column="cnWarehouseInStatus" jdbcType="TINYINT" property="cnwarehouseinstatus"/>
+        <result column="cnWarehouseOutStatus" jdbcType="TINYINT" property="cnwarehouseoutstatus"/>
+        <result column="purchaseTotalQuantity" jdbcType="INTEGER" property="purchasetotalquantity"/>
+        <result column="purchaseTotalAmount" jdbcType="DECIMAL" property="purchasetotalamount"/>
+        <result column="hasPayTotalAmount" jdbcType="DECIMAL" property="haspaytotalamount"/>
+        <result column="transactionNumber" jdbcType="VARCHAR" property="transactionnumber"/>
+        <result column="paidTotalAmount" jdbcType="DECIMAL" property="paidtotalamount"/>
+        <result column="freightTotalAmount" jdbcType="DECIMAL" property="freighttotalamount"/>
+        <result column="createID" jdbcType="INTEGER" property="createid"/>
+        <result column="createName" jdbcType="VARCHAR" property="createname"/>
+        <result column="financeAuditorID" jdbcType="INTEGER" property="financeauditorid"/>
+        <result column="financeAuditorName" jdbcType="VARCHAR" property="financeauditorname"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="stockInTotalQuantity" jdbcType="INTEGER" property="stockintotalquantity"/>
+        <result column="defectiveTotalQuantity" jdbcType="INTEGER" property="defectivetotalquantity"/>
+        <result column="stockInTotalAmount" jdbcType="DECIMAL" property="stockintotalamount"/>
+        <result column="defectiveTotalAmount" jdbcType="DECIMAL" property="defectivetotalamount"/>
+        <result column="updateID" jdbcType="INTEGER" property="updateid"/>
+        <result column="updateName" jdbcType="VARCHAR" property="updatename"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="payTime" jdbcType="TIMESTAMP" property="paytime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        purchaseID, purchaseNum, warehouseID, warehouseName, supplierID, supplierName, supplierOrderNumber,
+        specialStatus, purchaseStatus, financeStatus, cnWarehouseInStatus, cnWarehouseOutStatus,
+        purchaseTotalQuantity, purchaseTotalAmount, hasPayTotalAmount, transactionNumber,
+        paidTotalAmount, freightTotalAmount, createID, createName, financeAuditorID, financeAuditorName,
+        createTime, stockInTotalQuantity, defectiveTotalQuantity, stockInTotalAmount, defectiveTotalAmount,
+        updateID, updateName, updateTime, remark, payTime
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.PurchaseExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from purchase
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase
+        where purchaseID = #{purchaseid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from purchase
+        where purchaseID = #{purchaseid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.PurchaseExample">
+        delete from purchase
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Purchase">
+        insert into purchase (purchaseID, purchaseNum, warehouseID,
+        warehouseName, supplierID, supplierName,
+        supplierOrderNumber, specialStatus, purchaseStatus,
+        financeStatus, cnWarehouseInStatus, cnWarehouseOutStatus,
+        purchaseTotalQuantity, purchaseTotalAmount,
+        hasPayTotalAmount, transactionNumber, paidTotalAmount,
+        freightTotalAmount, createID, createName,
+        financeAuditorID, financeAuditorName, createTime,
+        stockInTotalQuantity, defectiveTotalQuantity,
+        stockInTotalAmount, defectiveTotalAmount,
+        updateID, updateName, updateTime,
+        remark, payTime)
+        values (#{purchaseid,jdbcType=INTEGER}, #{purchasenum,jdbcType=VARCHAR}, #{warehouseid,jdbcType=BIGINT},
+        #{warehousename,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR},
+        #{supplierordernumber,jdbcType=VARCHAR}, #{specialstatus,jdbcType=TINYINT}, #{purchasestatus,jdbcType=TINYINT},
+        #{financestatus,jdbcType=TINYINT}, #{cnwarehouseinstatus,jdbcType=TINYINT},
+        #{cnwarehouseoutstatus,jdbcType=TINYINT},
+        #{purchasetotalquantity,jdbcType=INTEGER}, #{purchasetotalamount,jdbcType=DECIMAL},
+        #{haspaytotalamount,jdbcType=DECIMAL}, #{transactionnumber,jdbcType=VARCHAR},
+        #{paidtotalamount,jdbcType=DECIMAL},
+        #{freighttotalamount,jdbcType=DECIMAL}, #{createid,jdbcType=INTEGER}, #{createname,jdbcType=VARCHAR},
+        #{financeauditorid,jdbcType=INTEGER}, #{financeauditorname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+        #{stockintotalquantity,jdbcType=INTEGER}, #{defectivetotalquantity,jdbcType=INTEGER},
+        #{stockintotalamount,jdbcType=DECIMAL}, #{defectivetotalamount,jdbcType=DECIMAL},
+        #{updateid,jdbcType=INTEGER}, #{updatename,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP},
+        #{remark,jdbcType=VARCHAR}, #{paytime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="purchaseid"
+            parameterType="com.heeexy.example.model.Purchase">
+        insert into purchase
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purchaseid != null">
+                purchaseID,
+            </if>
+            <if test="purchasenum != null">
+                purchaseNum,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="supplierordernumber != null">
+                supplierOrderNumber,
+            </if>
+            <if test="specialstatus != null">
+                specialStatus,
+            </if>
+            <if test="purchasestatus != null">
+                purchaseStatus,
+            </if>
+            <if test="financestatus != null">
+                financeStatus,
+            </if>
+            <if test="cnwarehouseinstatus != null">
+                cnWarehouseInStatus,
+            </if>
+            <if test="cnwarehouseoutstatus != null">
+                cnWarehouseOutStatus,
+            </if>
+            <if test="purchasetotalquantity != null">
+                purchaseTotalQuantity,
+            </if>
+            <if test="purchasetotalamount != null">
+                purchaseTotalAmount,
+            </if>
+            <if test="haspaytotalamount != null">
+                hasPayTotalAmount,
+            </if>
+            <if test="transactionnumber != null">
+                transactionNumber,
+            </if>
+            <if test="paidtotalamount != null">
+                paidTotalAmount,
+            </if>
+            <if test="freighttotalamount != null">
+                freightTotalAmount,
+            </if>
+            <if test="createid != null">
+                createID,
+            </if>
+            <if test="createname != null">
+                createName,
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID,
+            </if>
+            <if test="financeauditorname != null">
+                financeAuditorName,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="stockintotalquantity != null">
+                stockInTotalQuantity,
+            </if>
+            <if test="defectivetotalquantity != null">
+                defectiveTotalQuantity,
+            </if>
+            <if test="stockintotalamount != null">
+                stockInTotalAmount,
+            </if>
+            <if test="defectivetotalamount != null">
+                defectiveTotalAmount,
+            </if>
+            <if test="updateid != null">
+                updateID,
+            </if>
+            <if test="updatename != null">
+                updateName,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="paytime != null">
+                payTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purchaseid != null">
+                #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="purchasenum != null">
+                #{purchasenum,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierordernumber != null">
+                #{supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="specialstatus != null">
+                #{specialstatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchasestatus != null">
+                #{purchasestatus,jdbcType=TINYINT},
+            </if>
+            <if test="financestatus != null">
+                #{financestatus,jdbcType=TINYINT},
+            </if>
+            <if test="cnwarehouseinstatus != null">
+                #{cnwarehouseinstatus,jdbcType=TINYINT},
+            </if>
+            <if test="cnwarehouseoutstatus != null">
+                #{cnwarehouseoutstatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchasetotalquantity != null">
+                #{purchasetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchasetotalamount != null">
+                #{purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="haspaytotalamount != null">
+                #{haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="transactionnumber != null">
+                #{transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="paidtotalamount != null">
+                #{paidtotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="freighttotalamount != null">
+                #{freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="createid != null">
+                #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createname != null">
+                #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="financeauditorid != null">
+                #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="financeauditorname != null">
+                #{financeauditorname,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stockintotalquantity != null">
+                #{stockintotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="defectivetotalquantity != null">
+                #{defectivetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="stockintotalamount != null">
+                #{stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectivetotalamount != null">
+                #{defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="updateid != null">
+                #{updateid,jdbcType=INTEGER},
+            </if>
+            <if test="updatename != null">
+                #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="paytime != null">
+                #{paytime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.PurchaseExample" resultType="java.lang.Integer">
+        select count(*) from purchase
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update purchase
+        <set>
+            <if test="record.purchaseid != null">
+                purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasenum != null">
+                purchaseNum = #{record.purchasenum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierordernumber != null">
+                supplierOrderNumber = #{record.supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.specialstatus != null">
+                specialStatus = #{record.specialstatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.purchasestatus != null">
+                purchaseStatus = #{record.purchasestatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.financestatus != null">
+                financeStatus = #{record.financestatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.cnwarehouseinstatus != null">
+                cnWarehouseInStatus = #{record.cnwarehouseinstatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.cnwarehouseoutstatus != null">
+                cnWarehouseOutStatus = #{record.cnwarehouseoutstatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.purchasetotalquantity != null">
+                purchaseTotalQuantity = #{record.purchasetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasetotalamount != null">
+                purchaseTotalAmount = #{record.purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.haspaytotalamount != null">
+                hasPayTotalAmount = #{record.haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.transactionnumber != null">
+                transactionNumber = #{record.transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.paidtotalamount != null">
+                paidTotalAmount = #{record.paidtotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.freighttotalamount != null">
+                freightTotalAmount = #{record.freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.createid != null">
+                createID = #{record.createid,jdbcType=INTEGER},
+            </if>
+            <if test="record.createname != null">
+                createName = #{record.createname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.financeauditorid != null">
+                financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="record.financeauditorname != null">
+                financeAuditorName = #{record.financeauditorname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.stockintotalquantity != null">
+                stockInTotalQuantity = #{record.stockintotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.defectivetotalquantity != null">
+                defectiveTotalQuantity = #{record.defectivetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.stockintotalamount != null">
+                stockInTotalAmount = #{record.stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.defectivetotalamount != null">
+                defectiveTotalAmount = #{record.defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.updateid != null">
+                updateID = #{record.updateid,jdbcType=INTEGER},
+            </if>
+            <if test="record.updatename != null">
+                updateName = #{record.updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updatetime != null">
+                updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.paytime != null">
+                payTime = #{record.paytime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update purchase
+        set purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+        purchaseNum = #{record.purchasenum,jdbcType=VARCHAR},
+        warehouseID = #{record.warehouseid,jdbcType=BIGINT},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+        supplierID = #{record.supplierid,jdbcType=INTEGER},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        supplierOrderNumber = #{record.supplierordernumber,jdbcType=VARCHAR},
+        specialStatus = #{record.specialstatus,jdbcType=TINYINT},
+        purchaseStatus = #{record.purchasestatus,jdbcType=TINYINT},
+        financeStatus = #{record.financestatus,jdbcType=TINYINT},
+        cnWarehouseInStatus = #{record.cnwarehouseinstatus,jdbcType=TINYINT},
+        cnWarehouseOutStatus = #{record.cnwarehouseoutstatus,jdbcType=TINYINT},
+        purchaseTotalQuantity = #{record.purchasetotalquantity,jdbcType=INTEGER},
+        purchaseTotalAmount = #{record.purchasetotalamount,jdbcType=DECIMAL},
+        hasPayTotalAmount = #{record.haspaytotalamount,jdbcType=DECIMAL},
+        transactionNumber = #{record.transactionnumber,jdbcType=VARCHAR},
+        paidTotalAmount = #{record.paidtotalamount,jdbcType=DECIMAL},
+        freightTotalAmount = #{record.freighttotalamount,jdbcType=DECIMAL},
+        createID = #{record.createid,jdbcType=INTEGER},
+        createName = #{record.createname,jdbcType=VARCHAR},
+        financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+        financeAuditorName = #{record.financeauditorname,jdbcType=VARCHAR},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        stockInTotalQuantity = #{record.stockintotalquantity,jdbcType=INTEGER},
+        defectiveTotalQuantity = #{record.defectivetotalquantity,jdbcType=INTEGER},
+        stockInTotalAmount = #{record.stockintotalamount,jdbcType=DECIMAL},
+        defectiveTotalAmount = #{record.defectivetotalamount,jdbcType=DECIMAL},
+        updateID = #{record.updateid,jdbcType=INTEGER},
+        updateName = #{record.updatename,jdbcType=VARCHAR},
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        payTime = #{record.paytime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Purchase">
+        update purchase
+        <set>
+            <if test="purchasenum != null">
+                purchaseNum = #{purchasenum,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=BIGINT},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                supplierID = #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                supplierName = #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierordernumber != null">
+                supplierOrderNumber = #{supplierordernumber,jdbcType=VARCHAR},
+            </if>
+            <if test="specialstatus != null">
+                specialStatus = #{specialstatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchasestatus != null">
+                purchaseStatus = #{purchasestatus,jdbcType=TINYINT},
+            </if>
+            <if test="financestatus != null">
+                financeStatus = #{financestatus,jdbcType=TINYINT},
+            </if>
+            <if test="cnwarehouseinstatus != null">
+                cnWarehouseInStatus = #{cnwarehouseinstatus,jdbcType=TINYINT},
+            </if>
+            <if test="cnwarehouseoutstatus != null">
+                cnWarehouseOutStatus = #{cnwarehouseoutstatus,jdbcType=TINYINT},
+            </if>
+            <if test="purchasetotalquantity != null">
+                purchaseTotalQuantity = #{purchasetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchasetotalamount != null">
+                purchaseTotalAmount = #{purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="haspaytotalamount != null">
+                hasPayTotalAmount = #{haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="transactionnumber != null">
+                transactionNumber = #{transactionnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="paidtotalamount != null">
+                paidTotalAmount = #{paidtotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="freighttotalamount != null">
+                freightTotalAmount = #{freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="createid != null">
+                createID = #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createname != null">
+                createName = #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="financeauditorname != null">
+                financeAuditorName = #{financeauditorname,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stockintotalquantity != null">
+                stockInTotalQuantity = #{stockintotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="defectivetotalquantity != null">
+                defectiveTotalQuantity = #{defectivetotalquantity,jdbcType=INTEGER},
+            </if>
+            <if test="stockintotalamount != null">
+                stockInTotalAmount = #{stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectivetotalamount != null">
+                defectiveTotalAmount = #{defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="updateid != null">
+                updateID = #{updateid,jdbcType=INTEGER},
+            </if>
+            <if test="updatename != null">
+                updateName = #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="paytime != null">
+                payTime = #{paytime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where purchaseID = #{purchaseid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Purchase">
+        update purchase
+        set purchaseNum = #{purchasenum,jdbcType=VARCHAR},
+        warehouseID = #{warehouseid,jdbcType=BIGINT},
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+        supplierID = #{supplierid,jdbcType=INTEGER},
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+        supplierOrderNumber = #{supplierordernumber,jdbcType=VARCHAR},
+        specialStatus = #{specialstatus,jdbcType=TINYINT},
+        purchaseStatus = #{purchasestatus,jdbcType=TINYINT},
+        financeStatus = #{financestatus,jdbcType=TINYINT},
+        cnWarehouseInStatus = #{cnwarehouseinstatus,jdbcType=TINYINT},
+        cnWarehouseOutStatus = #{cnwarehouseoutstatus,jdbcType=TINYINT},
+        purchaseTotalQuantity = #{purchasetotalquantity,jdbcType=INTEGER},
+        purchaseTotalAmount = #{purchasetotalamount,jdbcType=DECIMAL},
+        hasPayTotalAmount = #{haspaytotalamount,jdbcType=DECIMAL},
+        transactionNumber = #{transactionnumber,jdbcType=VARCHAR},
+        paidTotalAmount = #{paidtotalamount,jdbcType=DECIMAL},
+        freightTotalAmount = #{freighttotalamount,jdbcType=DECIMAL},
+        createID = #{createid,jdbcType=INTEGER},
+        createName = #{createname,jdbcType=VARCHAR},
+        financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+        financeAuditorName = #{financeauditorname,jdbcType=VARCHAR},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        stockInTotalQuantity = #{stockintotalquantity,jdbcType=INTEGER},
+        defectiveTotalQuantity = #{defectivetotalquantity,jdbcType=INTEGER},
+        stockInTotalAmount = #{stockintotalamount,jdbcType=DECIMAL},
+        defectiveTotalAmount = #{defectivetotalamount,jdbcType=DECIMAL},
+        updateID = #{updateid,jdbcType=INTEGER},
+        updateName = #{updatename,jdbcType=VARCHAR},
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+        remark = #{remark,jdbcType=VARCHAR},
+        payTime = #{paytime,jdbcType=TIMESTAMP}
+        where purchaseID = #{purchaseid,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.WinitOutOrderMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WinitOutOrder">
+        <id column="exwarehouseId" property="exwarehouseid" jdbcType="VARCHAR"/>
+        <result column="sku" property="sku" jdbcType="VARCHAR"/>
+        <result column="itemqty" property="itemqty" jdbcType="INTEGER"/>
+        <result column="weight" property="weight" jdbcType="DOUBLE"/>
+        <result column="countryName" property="countryname" jdbcType="VARCHAR"/>
+        <result column="documentNum" property="documentnum" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="eBaySellerID" property="ebaysellerid" jdbcType="VARCHAR"/>
+        <result column="sellerOrderNo" property="sellerorderno" jdbcType="VARCHAR"/>
+        <result column="statusName" property="statusname" jdbcType="VARCHAR"/>
+        <result column="warehouseId" property="warehouseid" jdbcType="INTEGER"/>
+        <result column="warehouseName" property="warehousename" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        exwarehouseId, sku, itemqty, weight, countryName, documentNum, status, eBaySellerID,
+        sellerOrderNo, statusName, warehouseId, warehouseName
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.WinitOutOrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from winit_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from winit_out_order
+        where exwarehouseId = #{exwarehouseid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from winit_out_order
+        where exwarehouseId = #{exwarehouseid,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WinitOutOrderExample">
+        delete from winit_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WinitOutOrder">
+        insert into winit_out_order (exwarehouseId, sku, itemqty,
+        weight, countryName, documentNum,
+        status, eBaySellerID, sellerOrderNo,
+        statusName, warehouseId, warehouseName
+        )
+        values (#{exwarehouseid,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{itemqty,jdbcType=INTEGER},
+        #{weight,jdbcType=DOUBLE}, #{countryname,jdbcType=VARCHAR}, #{documentnum,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{ebaysellerid,jdbcType=VARCHAR}, #{sellerorderno,jdbcType=VARCHAR},
+        #{statusname,jdbcType=VARCHAR}, #{warehouseid,jdbcType=INTEGER}, #{warehousename,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WinitOutOrder">
+        insert into winit_out_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="exwarehouseid != null">
+                exwarehouseId,
+            </if>
+            <if test="sku != null">
+                sku,
+            </if>
+            <if test="itemqty != null">
+                itemqty,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="countryname != null">
+                countryName,
+            </if>
+            <if test="documentnum != null">
+                documentNum,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="ebaysellerid != null">
+                eBaySellerID,
+            </if>
+            <if test="sellerorderno != null">
+                sellerOrderNo,
+            </if>
+            <if test="statusname != null">
+                statusName,
+            </if>
+            <if test="warehouseid != null">
+                warehouseId,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="exwarehouseid != null">
+                #{exwarehouseid,jdbcType=VARCHAR},
+            </if>
+            <if test="sku != null">
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="itemqty != null">
+                #{itemqty,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="countryname != null">
+                #{countryname,jdbcType=VARCHAR},
+            </if>
+            <if test="documentnum != null">
+                #{documentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ebaysellerid != null">
+                #{ebaysellerid,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerorderno != null">
+                #{sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusname != null">
+                #{statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=INTEGER},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WinitOutOrderExample"
+            resultType="java.lang.Integer">
+        select count(*) from winit_out_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update winit_out_order
+        <set>
+            <if test="record.exwarehouseid != null">
+                exwarehouseId = #{record.exwarehouseid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sku != null">
+                sku = #{record.sku,jdbcType=VARCHAR},
+            </if>
+            <if test="record.itemqty != null">
+                itemqty = #{record.itemqty,jdbcType=INTEGER},
+            </if>
+            <if test="record.weight != null">
+                weight = #{record.weight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.countryname != null">
+                countryName = #{record.countryname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.documentnum != null">
+                documentNum = #{record.documentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ebaysellerid != null">
+                eBaySellerID = #{record.ebaysellerid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sellerorderno != null">
+                sellerOrderNo = #{record.sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="record.statusname != null">
+                statusName = #{record.statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseId = #{record.warehouseid,jdbcType=INTEGER},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update winit_out_order
+        set exwarehouseId = #{record.exwarehouseid,jdbcType=VARCHAR},
+        sku = #{record.sku,jdbcType=VARCHAR},
+        itemqty = #{record.itemqty,jdbcType=INTEGER},
+        weight = #{record.weight,jdbcType=DOUBLE},
+        countryName = #{record.countryname,jdbcType=VARCHAR},
+        documentNum = #{record.documentnum,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=VARCHAR},
+        eBaySellerID = #{record.ebaysellerid,jdbcType=VARCHAR},
+        sellerOrderNo = #{record.sellerorderno,jdbcType=VARCHAR},
+        statusName = #{record.statusname,jdbcType=VARCHAR},
+        warehouseId = #{record.warehouseid,jdbcType=INTEGER},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.WinitOutOrder">
+        update winit_out_order
+        <set>
+            <if test="sku != null">
+                sku = #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="itemqty != null">
+                itemqty = #{itemqty,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=DOUBLE},
+            </if>
+            <if test="countryname != null">
+                countryName = #{countryname,jdbcType=VARCHAR},
+            </if>
+            <if test="documentnum != null">
+                documentNum = #{documentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ebaysellerid != null">
+                eBaySellerID = #{ebaysellerid,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerorderno != null">
+                sellerOrderNo = #{sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusname != null">
+                statusName = #{statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseId = #{warehouseid,jdbcType=INTEGER},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where exwarehouseId = #{exwarehouseid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.WinitOutOrder">
+        update winit_out_order
+        set sku = #{sku,jdbcType=VARCHAR},
+        itemqty = #{itemqty,jdbcType=INTEGER},
+        weight = #{weight,jdbcType=DOUBLE},
+        countryName = #{countryname,jdbcType=VARCHAR},
+        documentNum = #{documentnum,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        eBaySellerID = #{ebaysellerid,jdbcType=VARCHAR},
+        sellerOrderNo = #{sellerorderno,jdbcType=VARCHAR},
+        statusName = #{statusname,jdbcType=VARCHAR},
+        warehouseId = #{warehouseid,jdbcType=INTEGER},
+        warehouseName = #{warehousename,jdbcType=VARCHAR}
+        where exwarehouseId = #{exwarehouseid,jdbcType=VARCHAR}
+    </update>
+</mapper>

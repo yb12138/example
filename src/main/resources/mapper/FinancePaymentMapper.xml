@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.FinancePaymentMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.FinancePayment">
+        <id column="paymentID" jdbcType="INTEGER" property="paymentid"/>
+        <result column="paymentNum" jdbcType="VARCHAR" property="paymentnum"/>
+        <result column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="purchaseID" jdbcType="INTEGER" property="purchaseid"/>
+        <result column="financeAuditorID" jdbcType="INTEGER" property="financeauditorid"/>
+        <result column="auditOpinion" jdbcType="VARCHAR" property="auditopinion"/>
+        <result column="needPayTotalAmount" jdbcType="DECIMAL" property="needpaytotalamount"/>
+        <result column="purchaseTotalAmount" jdbcType="DECIMAL" property="purchasetotalamount"/>
+        <result column="freightTotalAmount" jdbcType="DECIMAL" property="freighttotalamount"/>
+        <result column="stockInTotalAmount" jdbcType="DECIMAL" property="stockintotalamount"/>
+        <result column="defectiveTotalAmount" jdbcType="DECIMAL" property="defectivetotalamount"/>
+        <result column="payerID" jdbcType="INTEGER" property="payerid"/>
+        <result column="payerName" jdbcType="VARCHAR" property="payername"/>
+        <result column="payTime" jdbcType="TIMESTAMP" property="paytime"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="createName" jdbcType="VARCHAR" property="createname"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="createID" jdbcType="INTEGER" property="createid"/>
+        <result column="hasPayTotalAmount" jdbcType="DECIMAL" property="haspaytotalamount"/>
+        <result column="FirstTime" jdbcType="TIMESTAMP" property="firsttime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        paymentID, paymentNum, supplierID, type, status, purchaseID, financeAuditorID, auditOpinion,
+        needPayTotalAmount, purchaseTotalAmount, freightTotalAmount, stockInTotalAmount,
+        defectiveTotalAmount, payerID, payerName, payTime, createTime, createName, supplierName,
+        createID, hasPayTotalAmount, FirstTime
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.FinancePaymentExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from finance_payment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from finance_payment
+        where paymentID = #{paymentid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from finance_payment
+        where paymentID = #{paymentid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.FinancePaymentExample">
+        delete from finance_payment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.FinancePayment">
+        insert into finance_payment (paymentID, paymentNum, supplierID,
+        type, status, purchaseID,
+        financeAuditorID, auditOpinion, needPayTotalAmount,
+        purchaseTotalAmount, freightTotalAmount,
+        stockInTotalAmount, defectiveTotalAmount,
+        payerID, payerName, payTime,
+        createTime, createName, supplierName,
+        createID, hasPayTotalAmount, FirstTime
+        )
+        values (#{paymentid,jdbcType=INTEGER}, #{paymentnum,jdbcType=VARCHAR}, #{supplierid,jdbcType=INTEGER},
+        #{type,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, #{purchaseid,jdbcType=INTEGER},
+        #{financeauditorid,jdbcType=INTEGER}, #{auditopinion,jdbcType=VARCHAR}, #{needpaytotalamount,jdbcType=DECIMAL},
+        #{purchasetotalamount,jdbcType=DECIMAL}, #{freighttotalamount,jdbcType=DECIMAL},
+        #{stockintotalamount,jdbcType=DECIMAL}, #{defectivetotalamount,jdbcType=DECIMAL},
+        #{payerid,jdbcType=INTEGER}, #{payername,jdbcType=VARCHAR}, #{paytime,jdbcType=TIMESTAMP},
+        #{createtime,jdbcType=TIMESTAMP}, #{createname,jdbcType=VARCHAR}, #{suppliername,jdbcType=VARCHAR},
+        #{createid,jdbcType=INTEGER}, #{haspaytotalamount,jdbcType=DECIMAL}, #{firsttime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.FinancePayment">
+        insert into finance_payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="paymentid != null">
+                paymentID,
+            </if>
+            <if test="paymentnum != null">
+                paymentNum,
+            </if>
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="purchaseid != null">
+                purchaseID,
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID,
+            </if>
+            <if test="auditopinion != null">
+                auditOpinion,
+            </if>
+            <if test="needpaytotalamount != null">
+                needPayTotalAmount,
+            </if>
+            <if test="purchasetotalamount != null">
+                purchaseTotalAmount,
+            </if>
+            <if test="freighttotalamount != null">
+                freightTotalAmount,
+            </if>
+            <if test="stockintotalamount != null">
+                stockInTotalAmount,
+            </if>
+            <if test="defectivetotalamount != null">
+                defectiveTotalAmount,
+            </if>
+            <if test="payerid != null">
+                payerID,
+            </if>
+            <if test="payername != null">
+                payerName,
+            </if>
+            <if test="paytime != null">
+                payTime,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="createname != null">
+                createName,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="createid != null">
+                createID,
+            </if>
+            <if test="haspaytotalamount != null">
+                hasPayTotalAmount,
+            </if>
+            <if test="firsttime != null">
+                FirstTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="paymentid != null">
+                #{paymentid,jdbcType=INTEGER},
+            </if>
+            <if test="paymentnum != null">
+                #{paymentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="purchaseid != null">
+                #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="financeauditorid != null">
+                #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="auditopinion != null">
+                #{auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="needpaytotalamount != null">
+                #{needpaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="purchasetotalamount != null">
+                #{purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="freighttotalamount != null">
+                #{freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="stockintotalamount != null">
+                #{stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectivetotalamount != null">
+                #{defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="payerid != null">
+                #{payerid,jdbcType=INTEGER},
+            </if>
+            <if test="payername != null">
+                #{payername,jdbcType=VARCHAR},
+            </if>
+            <if test="paytime != null">
+                #{paytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createname != null">
+                #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="createid != null">
+                #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="haspaytotalamount != null">
+                #{haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="firsttime != null">
+                #{firsttime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.FinancePaymentExample"
+            resultType="java.lang.Integer">
+        select count(*) from finance_payment
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update finance_payment
+        <set>
+            <if test="record.paymentid != null">
+                paymentID = #{record.paymentid,jdbcType=INTEGER},
+            </if>
+            <if test="record.paymentnum != null">
+                paymentNum = #{record.paymentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=CHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.purchaseid != null">
+                purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="record.financeauditorid != null">
+                financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="record.auditopinion != null">
+                auditOpinion = #{record.auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="record.needpaytotalamount != null">
+                needPayTotalAmount = #{record.needpaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.purchasetotalamount != null">
+                purchaseTotalAmount = #{record.purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.freighttotalamount != null">
+                freightTotalAmount = #{record.freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.stockintotalamount != null">
+                stockInTotalAmount = #{record.stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.defectivetotalamount != null">
+                defectiveTotalAmount = #{record.defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payerid != null">
+                payerID = #{record.payerid,jdbcType=INTEGER},
+            </if>
+            <if test="record.payername != null">
+                payerName = #{record.payername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.paytime != null">
+                payTime = #{record.paytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createname != null">
+                createName = #{record.createname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createid != null">
+                createID = #{record.createid,jdbcType=INTEGER},
+            </if>
+            <if test="record.haspaytotalamount != null">
+                hasPayTotalAmount = #{record.haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.firsttime != null">
+                FirstTime = #{record.firsttime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update finance_payment
+        set paymentID = #{record.paymentid,jdbcType=INTEGER},
+        paymentNum = #{record.paymentnum,jdbcType=VARCHAR},
+        supplierID = #{record.supplierid,jdbcType=INTEGER},
+        type = #{record.type,jdbcType=CHAR},
+        status = #{record.status,jdbcType=TINYINT},
+        purchaseID = #{record.purchaseid,jdbcType=INTEGER},
+        financeAuditorID = #{record.financeauditorid,jdbcType=INTEGER},
+        auditOpinion = #{record.auditopinion,jdbcType=VARCHAR},
+        needPayTotalAmount = #{record.needpaytotalamount,jdbcType=DECIMAL},
+        purchaseTotalAmount = #{record.purchasetotalamount,jdbcType=DECIMAL},
+        freightTotalAmount = #{record.freighttotalamount,jdbcType=DECIMAL},
+        stockInTotalAmount = #{record.stockintotalamount,jdbcType=DECIMAL},
+        defectiveTotalAmount = #{record.defectivetotalamount,jdbcType=DECIMAL},
+        payerID = #{record.payerid,jdbcType=INTEGER},
+        payerName = #{record.payername,jdbcType=VARCHAR},
+        payTime = #{record.paytime,jdbcType=TIMESTAMP},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        createName = #{record.createname,jdbcType=VARCHAR},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        createID = #{record.createid,jdbcType=INTEGER},
+        hasPayTotalAmount = #{record.haspaytotalamount,jdbcType=DECIMAL},
+        FirstTime = #{record.firsttime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.FinancePayment">
+        update finance_payment
+        <set>
+            <if test="paymentnum != null">
+                paymentNum = #{paymentnum,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierid != null">
+                supplierID = #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="purchaseid != null">
+                purchaseID = #{purchaseid,jdbcType=INTEGER},
+            </if>
+            <if test="financeauditorid != null">
+                financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+            </if>
+            <if test="auditopinion != null">
+                auditOpinion = #{auditopinion,jdbcType=VARCHAR},
+            </if>
+            <if test="needpaytotalamount != null">
+                needPayTotalAmount = #{needpaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="purchasetotalamount != null">
+                purchaseTotalAmount = #{purchasetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="freighttotalamount != null">
+                freightTotalAmount = #{freighttotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="stockintotalamount != null">
+                stockInTotalAmount = #{stockintotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="defectivetotalamount != null">
+                defectiveTotalAmount = #{defectivetotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="payerid != null">
+                payerID = #{payerid,jdbcType=INTEGER},
+            </if>
+            <if test="payername != null">
+                payerName = #{payername,jdbcType=VARCHAR},
+            </if>
+            <if test="paytime != null">
+                payTime = #{paytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createname != null">
+                createName = #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="suppliername != null">
+                supplierName = #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="createid != null">
+                createID = #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="haspaytotalamount != null">
+                hasPayTotalAmount = #{haspaytotalamount,jdbcType=DECIMAL},
+            </if>
+            <if test="firsttime != null">
+                FirstTime = #{firsttime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where paymentID = #{paymentid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.FinancePayment">
+        update finance_payment
+        set paymentNum = #{paymentnum,jdbcType=VARCHAR},
+        supplierID = #{supplierid,jdbcType=INTEGER},
+        type = #{type,jdbcType=CHAR},
+        status = #{status,jdbcType=TINYINT},
+        purchaseID = #{purchaseid,jdbcType=INTEGER},
+        financeAuditorID = #{financeauditorid,jdbcType=INTEGER},
+        auditOpinion = #{auditopinion,jdbcType=VARCHAR},
+        needPayTotalAmount = #{needpaytotalamount,jdbcType=DECIMAL},
+        purchaseTotalAmount = #{purchasetotalamount,jdbcType=DECIMAL},
+        freightTotalAmount = #{freighttotalamount,jdbcType=DECIMAL},
+        stockInTotalAmount = #{stockintotalamount,jdbcType=DECIMAL},
+        defectiveTotalAmount = #{defectivetotalamount,jdbcType=DECIMAL},
+        payerID = #{payerid,jdbcType=INTEGER},
+        payerName = #{payername,jdbcType=VARCHAR},
+        payTime = #{paytime,jdbcType=TIMESTAMP},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        createName = #{createname,jdbcType=VARCHAR},
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+        createID = #{createid,jdbcType=INTEGER},
+        hasPayTotalAmount = #{haspaytotalamount,jdbcType=DECIMAL},
+        FirstTime = #{firsttime,jdbcType=TIMESTAMP}
+        where paymentID = #{paymentid,jdbcType=INTEGER}
+    </update>
+</mapper>

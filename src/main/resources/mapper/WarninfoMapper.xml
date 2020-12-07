@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.WarninfoMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Warninfo">
+        <id column="productID" jdbcType="INTEGER" property="productid"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+        <result column="storageQuantity" jdbcType="INTEGER" property="storagequantity"/>
+        <result column="purchaseQuantity" jdbcType="INTEGER" property="purchasequantity"/>
+        <result column="cnQuantity" jdbcType="INTEGER" property="cnquantity"/>
+        <result column="wayQuantity" jdbcType="INTEGER" property="wayquantity"/>
+        <result column="warnQuantity" jdbcType="INTEGER" property="warnquantity"/>
+        <result column="actualQuantity" jdbcType="INTEGER" property="actualquantity"/>
+        <result column="averageSalesQty7" jdbcType="VARCHAR" property="averagesalesqty7"/>
+        <result column="averageSalesQty15" jdbcType="VARCHAR" property="averagesalesqty15"/>
+        <result column="averageSalesQty" jdbcType="VARCHAR" property="averagesalesqty"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        productID, skuCode, storageQuantity, purchaseQuantity, cnQuantity, wayQuantity, warnQuantity,
+        actualQuantity, averageSalesQty7, averageSalesQty15, averageSalesQty, status, updatetime,
+        type
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.WarninfoExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from warninfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warninfo
+        where productID = #{productid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from warninfo
+        where productID = #{productid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WarninfoExample">
+        delete from warninfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Warninfo">
+        insert into warninfo (productID, skuCode, storageQuantity,
+        purchaseQuantity, cnQuantity, wayQuantity,
+        warnQuantity, actualQuantity, averageSalesQty7,
+        averageSalesQty15, averageSalesQty, status,
+        updatetime, type)
+        values (#{productid,jdbcType=INTEGER}, #{skucode,jdbcType=VARCHAR}, #{storagequantity,jdbcType=INTEGER},
+        #{purchasequantity,jdbcType=INTEGER}, #{cnquantity,jdbcType=INTEGER}, #{wayquantity,jdbcType=INTEGER},
+        #{warnquantity,jdbcType=INTEGER}, #{actualquantity,jdbcType=INTEGER}, #{averagesalesqty7,jdbcType=VARCHAR},
+        #{averagesalesqty15,jdbcType=VARCHAR}, #{averagesalesqty,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+        #{updatetime,jdbcType=TIMESTAMP}, #{type,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.Warninfo">
+        insert into warninfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+            <if test="storagequantity != null">
+                storageQuantity,
+            </if>
+            <if test="purchasequantity != null">
+                purchaseQuantity,
+            </if>
+            <if test="cnquantity != null">
+                cnQuantity,
+            </if>
+            <if test="wayquantity != null">
+                wayQuantity,
+            </if>
+            <if test="warnquantity != null">
+                warnQuantity,
+            </if>
+            <if test="actualquantity != null">
+                actualQuantity,
+            </if>
+            <if test="averagesalesqty7 != null">
+                averageSalesQty7,
+            </if>
+            <if test="averagesalesqty15 != null">
+                averageSalesQty15,
+            </if>
+            <if test="averagesalesqty != null">
+                averageSalesQty,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="updatetime != null">
+                updatetime,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="storagequantity != null">
+                #{storagequantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchasequantity != null">
+                #{purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="cnquantity != null">
+                #{cnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="wayquantity != null">
+                #{wayquantity,jdbcType=INTEGER},
+            </if>
+            <if test="warnquantity != null">
+                #{warnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="actualquantity != null">
+                #{actualquantity,jdbcType=INTEGER},
+            </if>
+            <if test="averagesalesqty7 != null">
+                #{averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty15 != null">
+                #{averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty != null">
+                #{averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WarninfoExample" resultType="java.lang.Integer">
+        select count(*) from warninfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update warninfo
+        <set>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.storagequantity != null">
+                storageQuantity = #{record.storagequantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.purchasequantity != null">
+                purchaseQuantity = #{record.purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.cnquantity != null">
+                cnQuantity = #{record.cnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.wayquantity != null">
+                wayQuantity = #{record.wayquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.warnquantity != null">
+                warnQuantity = #{record.warnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.actualquantity != null">
+                actualQuantity = #{record.actualquantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.averagesalesqty7 != null">
+                averageSalesQty7 = #{record.averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="record.averagesalesqty15 != null">
+                averageSalesQty15 = #{record.averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="record.averagesalesqty != null">
+                averageSalesQty = #{record.averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.updatetime != null">
+                updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=CHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update warninfo
+        set productID = #{record.productid,jdbcType=INTEGER},
+        skuCode = #{record.skucode,jdbcType=VARCHAR},
+        storageQuantity = #{record.storagequantity,jdbcType=INTEGER},
+        purchaseQuantity = #{record.purchasequantity,jdbcType=INTEGER},
+        cnQuantity = #{record.cnquantity,jdbcType=INTEGER},
+        wayQuantity = #{record.wayquantity,jdbcType=INTEGER},
+        warnQuantity = #{record.warnquantity,jdbcType=INTEGER},
+        actualQuantity = #{record.actualquantity,jdbcType=INTEGER},
+        averageSalesQty7 = #{record.averagesalesqty7,jdbcType=VARCHAR},
+        averageSalesQty15 = #{record.averagesalesqty15,jdbcType=VARCHAR},
+        averageSalesQty = #{record.averagesalesqty,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=TINYINT},
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+        type = #{record.type,jdbcType=CHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.Warninfo">
+        update warninfo
+        <set>
+            <if test="skucode != null">
+                skuCode = #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="storagequantity != null">
+                storageQuantity = #{storagequantity,jdbcType=INTEGER},
+            </if>
+            <if test="purchasequantity != null">
+                purchaseQuantity = #{purchasequantity,jdbcType=INTEGER},
+            </if>
+            <if test="cnquantity != null">
+                cnQuantity = #{cnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="wayquantity != null">
+                wayQuantity = #{wayquantity,jdbcType=INTEGER},
+            </if>
+            <if test="warnquantity != null">
+                warnQuantity = #{warnquantity,jdbcType=INTEGER},
+            </if>
+            <if test="actualquantity != null">
+                actualQuantity = #{actualquantity,jdbcType=INTEGER},
+            </if>
+            <if test="averagesalesqty7 != null">
+                averageSalesQty7 = #{averagesalesqty7,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty15 != null">
+                averageSalesQty15 = #{averagesalesqty15,jdbcType=VARCHAR},
+            </if>
+            <if test="averagesalesqty != null">
+                averageSalesQty = #{averagesalesqty,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=CHAR},
+            </if>
+        </set>
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.Warninfo">
+        update warninfo
+        set skuCode = #{skucode,jdbcType=VARCHAR},
+        storageQuantity = #{storagequantity,jdbcType=INTEGER},
+        purchaseQuantity = #{purchasequantity,jdbcType=INTEGER},
+        cnQuantity = #{cnquantity,jdbcType=INTEGER},
+        wayQuantity = #{wayquantity,jdbcType=INTEGER},
+        warnQuantity = #{warnquantity,jdbcType=INTEGER},
+        actualQuantity = #{actualquantity,jdbcType=INTEGER},
+        averageSalesQty7 = #{averagesalesqty7,jdbcType=VARCHAR},
+        averageSalesQty15 = #{averagesalesqty15,jdbcType=VARCHAR},
+        averageSalesQty = #{averagesalesqty,jdbcType=VARCHAR},
+        status = #{status,jdbcType=TINYINT},
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+        type = #{type,jdbcType=CHAR}
+        where productID = #{productid,jdbcType=INTEGER}
+    </update>
+</mapper>

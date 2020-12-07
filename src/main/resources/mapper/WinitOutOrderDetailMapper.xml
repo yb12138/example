@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.WinitOutOrderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.WinitOutOrderDetail">
+        <id column="outboundOrderNum" property="outboundordernum" jdbcType="VARCHAR"/>
+        <result column="sellerOrderNo" property="sellerorderno" jdbcType="VARCHAR"/>
+        <result column="eBayOrderID" property="ebayorderid" jdbcType="VARCHAR"/>
+        <result column="outboundOrderID" property="outboundorderid" jdbcType="VARCHAR"/>
+        <result column="warehouseName" property="warehousename" jdbcType="VARCHAR"/>
+        <result column="warehouseID" property="warehouseid" jdbcType="VARCHAR"/>
+        <result column="orderedTime" property="orderedtime" jdbcType="VARCHAR"/>
+        <result column="outboundDate" property="outbounddate" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="statusName" property="statusname" jdbcType="VARCHAR"/>
+        <result column="reasonForVoid" property="reasonforvoid" jdbcType="VARCHAR"/>
+        <result column="chargeableWeight" property="chargeableweight" jdbcType="DOUBLE"/>
+        <result column="transactionDate" property="transactiondate" jdbcType="VARCHAR"/>
+        <result column="deliveryCosts" property="deliverycosts" jdbcType="DOUBLE"/>
+        <result column="deliveryCostsCode" property="deliverycostscode" jdbcType="VARCHAR"/>
+        <result column="eBayValidateResult" property="ebayvalidateresult" jdbcType="VARCHAR"/>
+        <result column="rebateFeeCosts" property="rebatefeecosts" jdbcType="DOUBLE"/>
+        <result column="rebateFeeCostsCode" property="rebatefeecostscode" jdbcType="VARCHAR"/>
+        <result column="handlingFee" property="handlingfee" jdbcType="DOUBLE"/>
+        <result column="handlingfeeCode" property="handlingfeecode" jdbcType="VARCHAR"/>
+        <result column="totalCost" property="totalcost" jdbcType="DOUBLE"/>
+        <result column="productCode" property="productcode" jdbcType="VARCHAR"/>
+        <result column="productNum" property="productnum" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        outboundOrderNum, sellerOrderNo, eBayOrderID, outboundOrderID, warehouseName, warehouseID,
+        orderedTime, outboundDate, status, statusName, reasonForVoid, chargeableWeight, transactionDate,
+        deliveryCosts, deliveryCostsCode, eBayValidateResult, rebateFeeCosts, rebateFeeCostsCode,
+        handlingFee, handlingfeeCode, totalCost, productCode, productNum
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.WinitOutOrderDetailExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from winit_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from winit_out_order_detail
+        where outboundOrderNum = #{outboundordernum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from winit_out_order_detail
+        where outboundOrderNum = #{outboundordernum,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.WinitOutOrderDetailExample">
+        delete from winit_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.WinitOutOrderDetail">
+        insert into winit_out_order_detail (outboundOrderNum, sellerOrderNo,
+        eBayOrderID, outboundOrderID, warehouseName,
+        warehouseID, orderedTime, outboundDate,
+        status, statusName, reasonForVoid,
+        chargeableWeight, transactionDate, deliveryCosts,
+        deliveryCostsCode, eBayValidateResult,
+        rebateFeeCosts, rebateFeeCostsCode, handlingFee,
+        handlingfeeCode, totalCost, productCode,
+        productNum)
+        values (#{outboundordernum,jdbcType=VARCHAR}, #{sellerorderno,jdbcType=VARCHAR},
+        #{ebayorderid,jdbcType=VARCHAR}, #{outboundorderid,jdbcType=VARCHAR}, #{warehousename,jdbcType=VARCHAR},
+        #{warehouseid,jdbcType=VARCHAR}, #{orderedtime,jdbcType=VARCHAR}, #{outbounddate,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{statusname,jdbcType=VARCHAR}, #{reasonforvoid,jdbcType=VARCHAR},
+        #{chargeableweight,jdbcType=DOUBLE}, #{transactiondate,jdbcType=VARCHAR}, #{deliverycosts,jdbcType=DOUBLE},
+        #{deliverycostscode,jdbcType=VARCHAR}, #{ebayvalidateresult,jdbcType=VARCHAR},
+        #{rebatefeecosts,jdbcType=DOUBLE}, #{rebatefeecostscode,jdbcType=VARCHAR}, #{handlingfee,jdbcType=DOUBLE},
+        #{handlingfeecode,jdbcType=VARCHAR}, #{totalcost,jdbcType=DOUBLE}, #{productcode,jdbcType=VARCHAR},
+        #{productnum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.WinitOutOrderDetail">
+        insert into winit_out_order_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="outboundordernum != null">
+                outboundOrderNum,
+            </if>
+            <if test="sellerorderno != null">
+                sellerOrderNo,
+            </if>
+            <if test="ebayorderid != null">
+                eBayOrderID,
+            </if>
+            <if test="outboundorderid != null">
+                outboundOrderID,
+            </if>
+            <if test="warehousename != null">
+                warehouseName,
+            </if>
+            <if test="warehouseid != null">
+                warehouseID,
+            </if>
+            <if test="orderedtime != null">
+                orderedTime,
+            </if>
+            <if test="outbounddate != null">
+                outboundDate,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="statusname != null">
+                statusName,
+            </if>
+            <if test="reasonforvoid != null">
+                reasonForVoid,
+            </if>
+            <if test="chargeableweight != null">
+                chargeableWeight,
+            </if>
+            <if test="transactiondate != null">
+                transactionDate,
+            </if>
+            <if test="deliverycosts != null">
+                deliveryCosts,
+            </if>
+            <if test="deliverycostscode != null">
+                deliveryCostsCode,
+            </if>
+            <if test="ebayvalidateresult != null">
+                eBayValidateResult,
+            </if>
+            <if test="rebatefeecosts != null">
+                rebateFeeCosts,
+            </if>
+            <if test="rebatefeecostscode != null">
+                rebateFeeCostsCode,
+            </if>
+            <if test="handlingfee != null">
+                handlingFee,
+            </if>
+            <if test="handlingfeecode != null">
+                handlingfeeCode,
+            </if>
+            <if test="totalcost != null">
+                totalCost,
+            </if>
+            <if test="productcode != null">
+                productCode,
+            </if>
+            <if test="productnum != null">
+                productNum,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="outboundordernum != null">
+                #{outboundordernum,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerorderno != null">
+                #{sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="ebayorderid != null">
+                #{ebayorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="outboundorderid != null">
+                #{outboundorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="warehousename != null">
+                #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                #{warehouseid,jdbcType=VARCHAR},
+            </if>
+            <if test="orderedtime != null">
+                #{orderedtime,jdbcType=VARCHAR},
+            </if>
+            <if test="outbounddate != null">
+                #{outbounddate,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="statusname != null">
+                #{statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="reasonforvoid != null">
+                #{reasonforvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="chargeableweight != null">
+                #{chargeableweight,jdbcType=DOUBLE},
+            </if>
+            <if test="transactiondate != null">
+                #{transactiondate,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverycosts != null">
+                #{deliverycosts,jdbcType=DOUBLE},
+            </if>
+            <if test="deliverycostscode != null">
+                #{deliverycostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="ebayvalidateresult != null">
+                #{ebayvalidateresult,jdbcType=VARCHAR},
+            </if>
+            <if test="rebatefeecosts != null">
+                #{rebatefeecosts,jdbcType=DOUBLE},
+            </if>
+            <if test="rebatefeecostscode != null">
+                #{rebatefeecostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="handlingfee != null">
+                #{handlingfee,jdbcType=DOUBLE},
+            </if>
+            <if test="handlingfeecode != null">
+                #{handlingfeecode,jdbcType=VARCHAR},
+            </if>
+            <if test="totalcost != null">
+                #{totalcost,jdbcType=DOUBLE},
+            </if>
+            <if test="productcode != null">
+                #{productcode,jdbcType=VARCHAR},
+            </if>
+            <if test="productnum != null">
+                #{productnum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.WinitOutOrderDetailExample"
+            resultType="java.lang.Integer">
+        select count(*) from winit_out_order_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update winit_out_order_detail
+        <set>
+            <if test="record.outboundordernum != null">
+                outboundOrderNum = #{record.outboundordernum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sellerorderno != null">
+                sellerOrderNo = #{record.sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ebayorderid != null">
+                eBayOrderID = #{record.ebayorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.outboundorderid != null">
+                outboundOrderID = #{record.outboundorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehousename != null">
+                warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.warehouseid != null">
+                warehouseID = #{record.warehouseid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.orderedtime != null">
+                orderedTime = #{record.orderedtime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.outbounddate != null">
+                outboundDate = #{record.outbounddate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.statusname != null">
+                statusName = #{record.statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.reasonforvoid != null">
+                reasonForVoid = #{record.reasonforvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.chargeableweight != null">
+                chargeableWeight = #{record.chargeableweight,jdbcType=DOUBLE},
+            </if>
+            <if test="record.transactiondate != null">
+                transactionDate = #{record.transactiondate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deliverycosts != null">
+                deliveryCosts = #{record.deliverycosts,jdbcType=DOUBLE},
+            </if>
+            <if test="record.deliverycostscode != null">
+                deliveryCostsCode = #{record.deliverycostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ebayvalidateresult != null">
+                eBayValidateResult = #{record.ebayvalidateresult,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rebatefeecosts != null">
+                rebateFeeCosts = #{record.rebatefeecosts,jdbcType=DOUBLE},
+            </if>
+            <if test="record.rebatefeecostscode != null">
+                rebateFeeCostsCode = #{record.rebatefeecostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.handlingfee != null">
+                handlingFee = #{record.handlingfee,jdbcType=DOUBLE},
+            </if>
+            <if test="record.handlingfeecode != null">
+                handlingfeeCode = #{record.handlingfeecode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.totalcost != null">
+                totalCost = #{record.totalcost,jdbcType=DOUBLE},
+            </if>
+            <if test="record.productcode != null">
+                productCode = #{record.productcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.productnum != null">
+                productNum = #{record.productnum,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update winit_out_order_detail
+        set outboundOrderNum = #{record.outboundordernum,jdbcType=VARCHAR},
+        sellerOrderNo = #{record.sellerorderno,jdbcType=VARCHAR},
+        eBayOrderID = #{record.ebayorderid,jdbcType=VARCHAR},
+        outboundOrderID = #{record.outboundorderid,jdbcType=VARCHAR},
+        warehouseName = #{record.warehousename,jdbcType=VARCHAR},
+        warehouseID = #{record.warehouseid,jdbcType=VARCHAR},
+        orderedTime = #{record.orderedtime,jdbcType=VARCHAR},
+        outboundDate = #{record.outbounddate,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=VARCHAR},
+        statusName = #{record.statusname,jdbcType=VARCHAR},
+        reasonForVoid = #{record.reasonforvoid,jdbcType=VARCHAR},
+        chargeableWeight = #{record.chargeableweight,jdbcType=DOUBLE},
+        transactionDate = #{record.transactiondate,jdbcType=VARCHAR},
+        deliveryCosts = #{record.deliverycosts,jdbcType=DOUBLE},
+        deliveryCostsCode = #{record.deliverycostscode,jdbcType=VARCHAR},
+        eBayValidateResult = #{record.ebayvalidateresult,jdbcType=VARCHAR},
+        rebateFeeCosts = #{record.rebatefeecosts,jdbcType=DOUBLE},
+        rebateFeeCostsCode = #{record.rebatefeecostscode,jdbcType=VARCHAR},
+        handlingFee = #{record.handlingfee,jdbcType=DOUBLE},
+        handlingfeeCode = #{record.handlingfeecode,jdbcType=VARCHAR},
+        totalCost = #{record.totalcost,jdbcType=DOUBLE},
+        productCode = #{record.productcode,jdbcType=VARCHAR},
+        productNum = #{record.productnum,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.WinitOutOrderDetail">
+        update winit_out_order_detail
+        <set>
+            <if test="sellerorderno != null">
+                sellerOrderNo = #{sellerorderno,jdbcType=VARCHAR},
+            </if>
+            <if test="ebayorderid != null">
+                eBayOrderID = #{ebayorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="outboundorderid != null">
+                outboundOrderID = #{outboundorderid,jdbcType=VARCHAR},
+            </if>
+            <if test="warehousename != null">
+                warehouseName = #{warehousename,jdbcType=VARCHAR},
+            </if>
+            <if test="warehouseid != null">
+                warehouseID = #{warehouseid,jdbcType=VARCHAR},
+            </if>
+            <if test="orderedtime != null">
+                orderedTime = #{orderedtime,jdbcType=VARCHAR},
+            </if>
+            <if test="outbounddate != null">
+                outboundDate = #{outbounddate,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="statusname != null">
+                statusName = #{statusname,jdbcType=VARCHAR},
+            </if>
+            <if test="reasonforvoid != null">
+                reasonForVoid = #{reasonforvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="chargeableweight != null">
+                chargeableWeight = #{chargeableweight,jdbcType=DOUBLE},
+            </if>
+            <if test="transactiondate != null">
+                transactionDate = #{transactiondate,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverycosts != null">
+                deliveryCosts = #{deliverycosts,jdbcType=DOUBLE},
+            </if>
+            <if test="deliverycostscode != null">
+                deliveryCostsCode = #{deliverycostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="ebayvalidateresult != null">
+                eBayValidateResult = #{ebayvalidateresult,jdbcType=VARCHAR},
+            </if>
+            <if test="rebatefeecosts != null">
+                rebateFeeCosts = #{rebatefeecosts,jdbcType=DOUBLE},
+            </if>
+            <if test="rebatefeecostscode != null">
+                rebateFeeCostsCode = #{rebatefeecostscode,jdbcType=VARCHAR},
+            </if>
+            <if test="handlingfee != null">
+                handlingFee = #{handlingfee,jdbcType=DOUBLE},
+            </if>
+            <if test="handlingfeecode != null">
+                handlingfeeCode = #{handlingfeecode,jdbcType=VARCHAR},
+            </if>
+            <if test="totalcost != null">
+                totalCost = #{totalcost,jdbcType=DOUBLE},
+            </if>
+            <if test="productcode != null">
+                productCode = #{productcode,jdbcType=VARCHAR},
+            </if>
+            <if test="productnum != null">
+                productNum = #{productnum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where outboundOrderNum = #{outboundordernum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.WinitOutOrderDetail">
+        update winit_out_order_detail
+        set sellerOrderNo = #{sellerorderno,jdbcType=VARCHAR},
+        eBayOrderID = #{ebayorderid,jdbcType=VARCHAR},
+        outboundOrderID = #{outboundorderid,jdbcType=VARCHAR},
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+        warehouseID = #{warehouseid,jdbcType=VARCHAR},
+        orderedTime = #{orderedtime,jdbcType=VARCHAR},
+        outboundDate = #{outbounddate,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        statusName = #{statusname,jdbcType=VARCHAR},
+        reasonForVoid = #{reasonforvoid,jdbcType=VARCHAR},
+        chargeableWeight = #{chargeableweight,jdbcType=DOUBLE},
+        transactionDate = #{transactiondate,jdbcType=VARCHAR},
+        deliveryCosts = #{deliverycosts,jdbcType=DOUBLE},
+        deliveryCostsCode = #{deliverycostscode,jdbcType=VARCHAR},
+        eBayValidateResult = #{ebayvalidateresult,jdbcType=VARCHAR},
+        rebateFeeCosts = #{rebatefeecosts,jdbcType=DOUBLE},
+        rebateFeeCostsCode = #{rebatefeecostscode,jdbcType=VARCHAR},
+        handlingFee = #{handlingfee,jdbcType=DOUBLE},
+        handlingfeeCode = #{handlingfeecode,jdbcType=VARCHAR},
+        totalCost = #{totalcost,jdbcType=DOUBLE},
+        productCode = #{productcode,jdbcType=VARCHAR},
+        productNum = #{productnum,jdbcType=INTEGER}
+        where outboundOrderNum = #{outboundordernum,jdbcType=VARCHAR}
+    </update>
+</mapper>

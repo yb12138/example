@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.Sheet1Mapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.Sheet1">
+        <result column="createDate" jdbcType="DATE" property="createdate"/>
+        <result column="purchaseNum" jdbcType="VARCHAR" property="purchasenum"/>
+        <result column="skuCode" jdbcType="VARCHAR" property="skucode"/>
+        <result column="cnName" jdbcType="VARCHAR" property="cnname"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="unitprice" jdbcType="DOUBLE" property="unitprice"/>
+        <result column="amount" jdbcType="DOUBLE" property="amount"/>
+        <result column="fare" jdbcType="DOUBLE" property="fare"/>
+        <result column="purchaseamount" jdbcType="VARCHAR" property="purchaseamount"/>
+        <result column="supplierNum" jdbcType="VARCHAR" property="suppliernum"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        createDate, purchaseNum, skuCode, cnName, supplierName, quantity, unitprice, amount,
+        fare, purchaseamount, supplierNum
+    </sql>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.Sheet1Example" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sheet1
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.Sheet1Example">
+        delete from sheet1
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.Sheet1">
+        insert into sheet1 (createDate, purchaseNum, skuCode,
+        cnName, supplierName, quantity,
+        unitprice, amount, fare,
+        purchaseamount, supplierNum)
+        values (#{createdate,jdbcType=DATE}, #{purchasenum,jdbcType=VARCHAR}, #{skucode,jdbcType=VARCHAR},
+        #{cnname,jdbcType=VARCHAR}, #{suppliername,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER},
+        #{unitprice,jdbcType=DOUBLE}, #{amount,jdbcType=DOUBLE}, #{fare,jdbcType=DOUBLE},
+        #{purchaseamount,jdbcType=VARCHAR}, #{suppliernum,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heeexy.example.model.Sheet1">
+        insert into sheet1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createdate != null">
+                createDate,
+            </if>
+            <if test="purchasenum != null">
+                purchaseNum,
+            </if>
+            <if test="skucode != null">
+                skuCode,
+            </if>
+            <if test="cnname != null">
+                cnName,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="unitprice != null">
+                unitprice,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="fare != null">
+                fare,
+            </if>
+            <if test="purchaseamount != null">
+                purchaseamount,
+            </if>
+            <if test="suppliernum != null">
+                supplierNum,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createdate != null">
+                #{createdate,jdbcType=DATE},
+            </if>
+            <if test="purchasenum != null">
+                #{purchasenum,jdbcType=VARCHAR},
+            </if>
+            <if test="skucode != null">
+                #{skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnname != null">
+                #{cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="unitprice != null">
+                #{unitprice,jdbcType=DOUBLE},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DOUBLE},
+            </if>
+            <if test="fare != null">
+                #{fare,jdbcType=DOUBLE},
+            </if>
+            <if test="purchaseamount != null">
+                #{purchaseamount,jdbcType=VARCHAR},
+            </if>
+            <if test="suppliernum != null">
+                #{suppliernum,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.Sheet1Example" resultType="java.lang.Integer">
+        select count(*) from sheet1
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sheet1
+        <set>
+            <if test="record.createdate != null">
+                createDate = #{record.createdate,jdbcType=DATE},
+            </if>
+            <if test="record.purchasenum != null">
+                purchaseNum = #{record.purchasenum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.skucode != null">
+                skuCode = #{record.skucode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cnname != null">
+                cnName = #{record.cnname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.quantity != null">
+                quantity = #{record.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.unitprice != null">
+                unitprice = #{record.unitprice,jdbcType=DOUBLE},
+            </if>
+            <if test="record.amount != null">
+                amount = #{record.amount,jdbcType=DOUBLE},
+            </if>
+            <if test="record.fare != null">
+                fare = #{record.fare,jdbcType=DOUBLE},
+            </if>
+            <if test="record.purchaseamount != null">
+                purchaseamount = #{record.purchaseamount,jdbcType=VARCHAR},
+            </if>
+            <if test="record.suppliernum != null">
+                supplierNum = #{record.suppliernum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sheet1
+        set createDate = #{record.createdate,jdbcType=DATE},
+        purchaseNum = #{record.purchasenum,jdbcType=VARCHAR},
+        skuCode = #{record.skucode,jdbcType=VARCHAR},
+        cnName = #{record.cnname,jdbcType=VARCHAR},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        quantity = #{record.quantity,jdbcType=INTEGER},
+        unitprice = #{record.unitprice,jdbcType=DOUBLE},
+        amount = #{record.amount,jdbcType=DOUBLE},
+        fare = #{record.fare,jdbcType=DOUBLE},
+        purchaseamount = #{record.purchaseamount,jdbcType=VARCHAR},
+        supplierNum = #{record.suppliernum,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+</mapper>

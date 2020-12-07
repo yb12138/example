@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heeexy.example.dao.PurchaseSupplierMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.PurchaseSupplier">
+        <id column="supplierID" jdbcType="INTEGER" property="supplierid"/>
+        <result column="supplierName" jdbcType="VARCHAR" property="suppliername"/>
+        <result column="linkperson" jdbcType="VARCHAR" property="linkperson"/>
+        <result column="linkphone" jdbcType="VARCHAR" property="linkphone"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="createID" jdbcType="INTEGER" property="createid"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="createName" jdbcType="VARCHAR" property="createname"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.heeexy.example.model.PurchaseSupplier">
+        <result column="linkurl" jdbcType="LONGVARCHAR" property="linkurl"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        supplierID, supplierName, linkperson, linkphone, status, createID, createTime, updateTime,
+        createName
+    </sql>
+    <sql id="Blob_Column_List">
+        linkurl
+    </sql>
+    <select id="selectByExampleWithBLOBs" parameterType="com.heeexy.example.model.PurchaseSupplierExample"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from purchase_supplier
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.heeexy.example.model.PurchaseSupplierExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from purchase_supplier
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from purchase_supplier
+        where supplierID = #{supplierid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from purchase_supplier
+        where supplierID = #{supplierid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.PurchaseSupplierExample">
+        delete from purchase_supplier
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.PurchaseSupplier">
+        insert into purchase_supplier (supplierID, supplierName, linkperson,
+        linkphone, status, createID,
+        createTime, updateTime, createName,
+        linkurl)
+        values (#{supplierid,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, #{linkperson,jdbcType=VARCHAR},
+        #{linkphone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createid,jdbcType=INTEGER},
+        #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{createname,jdbcType=VARCHAR},
+        #{linkurl,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="supplierid"
+            parameterType="com.heeexy.example.model.PurchaseSupplier">
+        insert into purchase_supplier
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplierid != null">
+                supplierID,
+            </if>
+            <if test="suppliername != null">
+                supplierName,
+            </if>
+            <if test="linkperson != null">
+                linkperson,
+            </if>
+            <if test="linkphone != null">
+                linkphone,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createid != null">
+                createID,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+            <if test="createname != null">
+                createName,
+            </if>
+            <if test="linkurl != null">
+                linkurl,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplierid != null">
+                #{supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="suppliername != null">
+                #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="linkperson != null">
+                #{linkperson,jdbcType=VARCHAR},
+            </if>
+            <if test="linkphone != null">
+                #{linkphone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createid != null">
+                #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createname != null">
+                #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="linkurl != null">
+                #{linkurl,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.PurchaseSupplierExample"
+            resultType="java.lang.Integer">
+        select count(*) from purchase_supplier
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update purchase_supplier
+        <set>
+            <if test="record.supplierid != null">
+                supplierID = #{record.supplierid,jdbcType=INTEGER},
+            </if>
+            <if test="record.suppliername != null">
+                supplierName = #{record.suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="record.linkperson != null">
+                linkperson = #{record.linkperson,jdbcType=VARCHAR},
+            </if>
+            <if test="record.linkphone != null">
+                linkphone = #{record.linkphone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.createid != null">
+                createID = #{record.createid,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updatetime != null">
+                updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createname != null">
+                createName = #{record.createname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.linkurl != null">
+                linkurl = #{record.linkurl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update purchase_supplier
+        set supplierID = #{record.supplierid,jdbcType=INTEGER},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        linkperson = #{record.linkperson,jdbcType=VARCHAR},
+        linkphone = #{record.linkphone,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        createID = #{record.createid,jdbcType=INTEGER},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+        createName = #{record.createname,jdbcType=VARCHAR},
+        linkurl = #{record.linkurl,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update purchase_supplier
+        set supplierID = #{record.supplierid,jdbcType=INTEGER},
+        supplierName = #{record.suppliername,jdbcType=VARCHAR},
+        linkperson = #{record.linkperson,jdbcType=VARCHAR},
+        linkphone = #{record.linkphone,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        createID = #{record.createid,jdbcType=INTEGER},
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+        createName = #{record.createname,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.PurchaseSupplier">
+        update purchase_supplier
+        <set>
+            <if test="suppliername != null">
+                supplierName = #{suppliername,jdbcType=VARCHAR},
+            </if>
+            <if test="linkperson != null">
+                linkperson = #{linkperson,jdbcType=VARCHAR},
+            </if>
+            <if test="linkphone != null">
+                linkphone = #{linkphone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createid != null">
+                createID = #{createid,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createname != null">
+                createName = #{createname,jdbcType=VARCHAR},
+            </if>
+            <if test="linkurl != null">
+                linkurl = #{linkurl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where supplierID = #{supplierid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.heeexy.example.model.PurchaseSupplier">
+        update purchase_supplier
+        set supplierName = #{suppliername,jdbcType=VARCHAR},
+        linkperson = #{linkperson,jdbcType=VARCHAR},
+        linkphone = #{linkphone,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        createID = #{createid,jdbcType=INTEGER},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+        createName = #{createname,jdbcType=VARCHAR},
+        linkurl = #{linkurl,jdbcType=LONGVARCHAR}
+        where supplierID = #{supplierid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.PurchaseSupplier">
+        update purchase_supplier
+        set supplierName = #{suppliername,jdbcType=VARCHAR},
+        linkperson = #{linkperson,jdbcType=VARCHAR},
+        linkphone = #{linkphone,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        createID = #{createid,jdbcType=INTEGER},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+        createName = #{createname,jdbcType=VARCHAR}
+        where supplierID = #{supplierid,jdbcType=INTEGER}
+    </update>
+</mapper>

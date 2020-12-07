@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heeexy.example.dao.EbayWarehouseoutSkuMapper">
+    <resultMap id="BaseResultMap" type="com.heeexy.example.model.EbayWarehouseoutSku">
+        <id column="packageSkuID" property="packageskuid" jdbcType="INTEGER"/>
+        <result column="productID" property="productid" jdbcType="INTEGER"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="wowsID" property="wowsid" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="fare" property="fare" jdbcType="DOUBLE"/>
+        <result column="packageID" property="packageid" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        packageSkuID, productID, quantity, wowsID, price, fare, packageID
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.heeexy.example.model.EbayWarehouseoutSkuExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from ebay_warehouseout_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ebay_warehouseout_sku
+        where packageSkuID = #{packageskuid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from ebay_warehouseout_sku
+        where packageSkuID = #{packageskuid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.heeexy.example.model.EbayWarehouseoutSkuExample">
+        delete from ebay_warehouseout_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.heeexy.example.model.EbayWarehouseoutSku">
+        insert into ebay_warehouseout_sku (packageSkuID, productID, quantity,
+        wowsID, price, fare,
+        packageID)
+        values (#{packageskuid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER},
+        #{wowsid,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{fare,jdbcType=DOUBLE},
+        #{packageid,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="packageskuid"
+            parameterType="com.heeexy.example.model.EbayWarehouseoutSku">
+        insert into ebay_warehouseout_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="packageskuid != null">
+                packageSkuID,
+            </if>
+            <if test="productid != null">
+                productID,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="wowsid != null">
+                wowsID,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="fare != null">
+                fare,
+            </if>
+            <if test="packageid != null">
+                packageID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="packageskuid != null">
+                #{packageskuid,jdbcType=INTEGER},
+            </if>
+            <if test="productid != null">
+                #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="wowsid != null">
+                #{wowsid,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="fare != null">
+                #{fare,jdbcType=DOUBLE},
+            </if>
+            <if test="packageid != null">
+                #{packageid,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.heeexy.example.model.EbayWarehouseoutSkuExample"
+            resultType="java.lang.Integer">
+        select count(*) from ebay_warehouseout_sku
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update ebay_warehouseout_sku
+        <set>
+            <if test="record.packageskuid != null">
+                packageSkuID = #{record.packageskuid,jdbcType=INTEGER},
+            </if>
+            <if test="record.productid != null">
+                productID = #{record.productid,jdbcType=INTEGER},
+            </if>
+            <if test="record.quantity != null">
+                quantity = #{record.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.wowsid != null">
+                wowsID = #{record.wowsid,jdbcType=INTEGER},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DOUBLE},
+            </if>
+            <if test="record.fare != null">
+                fare = #{record.fare,jdbcType=DOUBLE},
+            </if>
+            <if test="record.packageid != null">
+                packageID = #{record.packageid,jdbcType=BIGINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update ebay_warehouseout_sku
+        set packageSkuID = #{record.packageskuid,jdbcType=INTEGER},
+        productID = #{record.productid,jdbcType=INTEGER},
+        quantity = #{record.quantity,jdbcType=INTEGER},
+        wowsID = #{record.wowsid,jdbcType=INTEGER},
+        price = #{record.price,jdbcType=DOUBLE},
+        fare = #{record.fare,jdbcType=DOUBLE},
+        packageID = #{record.packageid,jdbcType=BIGINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heeexy.example.model.EbayWarehouseoutSku">
+        update ebay_warehouseout_sku
+        <set>
+            <if test="productid != null">
+                productID = #{productid,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="wowsid != null">
+                wowsID = #{wowsid,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="fare != null">
+                fare = #{fare,jdbcType=DOUBLE},
+            </if>
+            <if test="packageid != null">
+                packageID = #{packageid,jdbcType=BIGINT},
+            </if>
+        </set>
+        where packageSkuID = #{packageskuid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heeexy.example.model.EbayWarehouseoutSku">
+        update ebay_warehouseout_sku
+        set productID = #{productid,jdbcType=INTEGER},
+        quantity = #{quantity,jdbcType=INTEGER},
+        wowsID = #{wowsid,jdbcType=INTEGER},
+        price = #{price,jdbcType=DOUBLE},
+        fare = #{fare,jdbcType=DOUBLE},
+        packageID = #{packageid,jdbcType=BIGINT}
+        where packageSkuID = #{packageskuid,jdbcType=INTEGER}
+    </update>
+</mapper>
