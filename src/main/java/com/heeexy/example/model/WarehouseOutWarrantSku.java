@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class WarehouseOutWarrantSku implements Serializable {
+public class WarehouseOutWarrantSku implements Serializable,Comparable<WarehouseOutWarrantSku>{
     @JsonProperty(value = "wowsID")
     private Integer wowsid;
     @JsonProperty(value = "inID")
@@ -141,5 +141,11 @@ public class WarehouseOutWarrantSku implements Serializable {
 
     public void setInNum(String inNum) {
         this.inNum = inNum;
+    }
+
+
+    @Override
+    public int compareTo(WarehouseOutWarrantSku warehouseOutWarrantSku) {
+        return this.createtime.compareTo(warehouseOutWarrantSku.getCreatetime());
     }
 }

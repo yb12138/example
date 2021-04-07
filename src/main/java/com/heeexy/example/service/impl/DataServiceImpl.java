@@ -67,13 +67,15 @@ public class DataServiceImpl implements DataService {
     WinitOrderDetailSkuMapper winitOrderDetailSkuMapper;
     @Autowired
     GcOutOrderDetailSkuMapper gcOutOrderDetailSkuMapper;
+    @Autowired
+    EcOrderMapper ecOrderMapper;
 
     @Override
     public void updateBasicData() {
-        synStorageData();
+        //synStorageData();
         getFbaStorage();
-        synGoodData();
-        updateWarehouseStorage();
+        //synGoodData();
+        //updateWarehouseStorage();
     }
 
     @Override
@@ -224,7 +226,7 @@ public class DataServiceImpl implements DataService {
 
     public void updateWinitOut() {
         LocalDate date = LocalDate.now();
-        for (int i = 8; i <= 38; i++) {
+        for (int i = 35; i <= 40; i++) {
             DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
             LocalDate enddate = date.minusDays(i);
             LocalDate startdate = date.minusDays(i + 1);
@@ -233,7 +235,7 @@ public class DataServiceImpl implements DataService {
             getOutOrder(200, start, end, 1, null);
         }
         DateTime time = new DateTime();
-        for (int i = 8; i <= 38; i++) {
+        for (int i = 0; i <= 40; i++) {
             DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
             DateTime temptime = time.minusDays(i);
             String end = fmt.print(temptime);
@@ -243,38 +245,35 @@ public class DataServiceImpl implements DataService {
     }
 
     public void updateWinitOut2() {
-        List<String> list = new ArrayList<>();
-        list.add("WO1942435060");
-
-        WinitOutOrderExample winitOutOrderExample = new WinitOutOrderExample();
-        winitOutOrderExample.createCriteria().andDocumentnumIn(list);
-        List<WinitOutOrder> winitOrderDetails = winitOutOrderMapper.selectByExample(winitOutOrderExample);
-        for (WinitOutOrder winitOutOrder : winitOrderDetails) {
-            String order = winitOutOrder.getDocumentnum();
-            setOutDetail(order);
+        WinitOutOrderDetailExample winitOutOrderExample = new WinitOutOrderDetailExample();
+        winitOutOrderExample.createCriteria().andDeliverycostsEqualTo(0.0);
+        List<WinitOutOrderDetail> winitOrderDetails = winitOutOrderDetailMapper.selectByExample(winitOutOrderExample);
+        for (WinitOutOrderDetail winitOutOrder : winitOrderDetails) {
+            setOutDetail(winitOutOrder.getOutboundordernum());
         }
     }
 
     @Override
     public void generateGoodOrder() {
-        generateOrder();
+        //generateOrder();
         generateOrderDetail();
+        //generateEcOnRef();
     }
 
     @Override
     public void generateWinitOrder() {
-        //updateWinitOut();
-         updateWinitOut2();
+        updateWinitOut();
+        updateWinitOut2();
     }
 
     @Override
     public void checkOutData() {
         DatacaciquesPackageExample example = new DatacaciquesPackageExample();
-        example.createCriteria().andCreatetimeBetween("2020-04-01", "2020-05-01").andFlagEqualTo(0);
+        example.createCriteria().andCreatetimeBetween("2020-10-01", "2021-01-01").andFlagEqualTo(0);
         List<DatacaciquesPackage> packages = datacaciquesPackageMapper.selectByExample(example);
         for (DatacaciquesPackage datacaciquesPackage : packages) {
             String code = datacaciquesPackage.getPackagecode() + "-XhB";
-            getOutOrder(200, "2020-04-01", "2020-05-02", 1, code);
+            getOutOrder(200, "2020-10-01", "2021-01-01", 1, code);
             GoodConnectUrl url = new GoodConnectUrl();
             url.setMethod("getOrderByRefCode");
             JSONObject methond = new JSONObject();
@@ -334,6 +333,7 @@ public class DataServiceImpl implements DataService {
         List<String> warehouses = new ArrayList<>();
         warehouses.add("1904670032781115393");
         warehouses.add("1868993962723770369");
+        warehouses.add("1939312746461921281");
         for (String temp : warehouses) {
             JSONObject data = new JSONObject();
             data.put("sql", "select p.sku, w.code, i.* from warehouse_inventory i join product p on i.productID=p.productID join warehouse w on i.warehouseID=w.warehouseID where i.warehouseID=" + temp + " and i.productID>0 order by i.productID limit 300");
@@ -397,6 +397,7 @@ public class DataServiceImpl implements DataService {
                 productWarehouseStorage.setOncnwarehouse(0);
                 productWarehouseStorageMapper.insertSelective(productWarehouseStorage);
             } else {
+
                 productWarehouseStorage.setOnsell(onSell);
                 productWarehouseStorageMapper.updateByPrimaryKeySelective(productWarehouseStorage);
             }
@@ -512,7 +513,8 @@ public class DataServiceImpl implements DataService {
                     winitOutOrderMapper.insertSelective(winitOutOrder);
                     setOutDetail(documentNum);
                 } else {
-                        /*WinitOutOrder winitOutOrder=orders.get(0);
+                        /*
+                        WinitOutOrder winitOutOrder=orders.get(0);
                         winitOutOrder.setExwarehouseid(exwarehouseId);
                         winitOutOrder.setCountryname(countryName);
                         winitOutOrder.setDocumentnum(documentNum);
@@ -526,7 +528,9 @@ public class DataServiceImpl implements DataService {
                         winitOutOrder.setWarehousename(warehouseName);
                         winitOutOrder.setWeight(weight);
                         winitOutOrderMapper.updateByPrimaryKeySelective(winitOutOrder);
-                        setOutDetail(documentNum);*/
+                        setOutDetail(documentNum);
+                        */
+                    setOutDetail(documentNum);
                 }
             }
 
@@ -707,45 +711,154 @@ public class DataServiceImpl implements DataService {
     }
 
     public void generateOrder() {
-        DateTime time = new DateTime();
-        for (int i = 77; i <= 390; i++) {
-            DateTime temptime = time.minusHours(i * 3);
-            DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTime time=new DateTime(fmt.print(DateTime.now()));
+        for (int i=20;i<=42;i++) {
+            DateTime temptime=time.minusDays(i);
             String start = fmt.print(temptime);
-            String end = fmt.print(temptime.plusHours(3));
-            System.out.println(start);
-            GoodConnectUrl url = new GoodConnectUrl();
-            url.setMethod("getOrderList");
-            JSONObject object = new JSONObject();
-            object.put("pageSize", 100);
-            object.put("page", 1);
-            object.put("create_date_from", start);
-            object.put("create_date_to", end);
-            url.setParamjson(object.toJSONString());
-            String result = url.parseConnect();
-            JSONObject json1 = JSONObject.parseObject(result);
-            String data = json1.getString("data");
-            List<GcOutOrder> outOrders = JSONArray.parseArray(data, GcOutOrder.class);
-            if (outOrders == null) {
+            DateTime endTime=temptime.plusDays(1);
+            String end = fmt.print(endTime);
+            generateOrders(start, end, 1);
+        }
+    }
+    public Integer getOrdersSize(String start,String end){
+        GoodConnectUrl url = new GoodConnectUrl();
+        url.setMethod("getOrderList");
+        JSONObject object=new JSONObject();
+        object.put("create_date_from",start);
+        object.put("create_date_to",end);
+        url.setParamjson(object.toJSONString());
+        String result = url.parseConnect();
+        JSONObject json1 = JSONObject.parseObject(result);
+        return  json1.getInteger("count");
+    }
+    public void generateOrders(String start,String end,int page){
+        GoodConnectUrl url = new GoodConnectUrl();
+        url.setMethod("getOrderList");
+        JSONObject object=new JSONObject();
+        object.put("pageSize",100);
+        object.put("page",page);
+        object.put("create_date_from",start);
+        object.put("create_date_to",end);
+        url.setParamjson(object.toJSONString());
+        String result = url.parseConnect();
+        JSONObject json1 = JSONObject.parseObject(result);
+        String data = json1.getString("data");
+        List<GcOutOrder> outOrders = JSONArray.parseArray(data, GcOutOrder.class);
+        if (outOrders==null){
+            return;
+        }
+        if (outOrders.size()==100){
+            generateOrders(start,end,page+1);
+        }
+        for (GcOutOrder gcOutOrder : outOrders) {
+            String order = gcOutOrder.getOrderCode();
+            GcOutOrder gcOutOrder1 = gcOutOrderMapper.selectByPrimaryKey(order);
+            if (gcOutOrder1 != null) {
+                //gcOutOrderMapper.updateByPrimaryKeySelective(gcOutOrder);
                 continue;
+            } else {
+                gcOutOrderMapper.insertSelective(gcOutOrder);
             }
-            for (GcOutOrder gcOutOrder : outOrders) {
-                String order = gcOutOrder.getOrderCode();
-                GcOutOrder gcOutOrder1 = gcOutOrderMapper.selectByPrimaryKey(order);
-                if (gcOutOrder1 != null) {
-                    gcOutOrderMapper.updateByPrimaryKeySelective(gcOutOrder);
-                } else {
-                    gcOutOrderMapper.insertSelective(gcOutOrder);
+        }
+    }
+
+    public void generateEcOnRef(){
+        EcOrderExample ecOrderExample=new EcOrderExample();
+        ecOrderExample.createCriteria().andPlatformshipstatusNotEqualTo(4).andCreateddateBetween(new DateTime("2021-01-01").toDate(),new DateTime("2021-03-01").toDate());
+        List<EcOrder> ecOrders=ecOrderMapper.selectByExample(ecOrderExample);
+        for (EcOrder ecOrder:ecOrders){
+            generateOrderByRef(ecOrder.getSaleordercode());
+        }
+    }
+
+    public void generateOrderByRef(String ref){
+        GoodConnectUrl url = new GoodConnectUrl();
+        url.setMethod("getOrderByRefCode");
+        JSONObject methond = new JSONObject();
+        methond.put("reference_no", ref);
+        url.setParamjson(methond.toJSONString());
+        String result = url.parseConnect();
+        JSONObject json1 = JSONObject.parseObject(result);
+        JSONObject data = json1.getJSONObject("data");
+        if(data==null){
+            return;
+        }
+        GcOutOrderDetail gcOutOrderDetail = new GcOutOrderDetail();
+        String orderCode=data.getString("order_code");
+        gcOutOrderDetail.setOrderCode(orderCode);
+        if (data.getString("reference_no") != null) {
+            gcOutOrderDetail.setReferenceNo(data.getString("reference_no"));
+        }
+        gcOutOrderDetail.setPlatform(data.getString("platform"));
+        String status = data.getString("order_status");
+        gcOutOrderDetail.setOrderStatus(status);
+        gcOutOrderDetail.setTrackingNo(data.getString("tracking_no"));
+        gcOutOrderDetail.setWarehouseCode(data.getString("warehouse_code"));
+        gcOutOrderDetail.setOrderWeight(data.getFloat("order_weight"));
+        gcOutOrderDetail.setDateCreate(data.getDate("date_create"));
+        gcOutOrderDetail.setDateModify(data.getDate("date_modify"));
+        if (data.get("items") == null) {
+            return;
+        }
+        JSONArray items = data.getJSONArray("items");
+        if (data.get("fee_details") != null) {
+            JSONObject fee = data.getJSONObject("fee_details");
+            gcOutOrderDetail.setTotalfee(fee.getFloat("totalFee"));
+            gcOutOrderDetail.setShipping(fee.getFloat("SHIPPING"));
+            gcOutOrderDetail.setOpf(fee.getFloat("OPF"));
+            gcOutOrderDetail.setFsc(fee.getFloat("FSC"));
+            gcOutOrderDetail.setDt(fee.getFloat("DT"));
+            gcOutOrderDetail.setOtf(fee.getFloat("OTF"));
+            gcOutOrderDetail.setCurrencyCode(fee.getString("currency_code"));
+        }
+        GcOutOrderDetail outOrderDetail = gcOutOrderDetailMapper.selectByPrimaryKey(orderCode);
+        if (outOrderDetail == null) {
+
+            GcOutOrderDetailSkuExample gcOutOrderDetailSkuExample = new GcOutOrderDetailSkuExample();
+            gcOutOrderDetailSkuExample.createCriteria().andOrderCodeEqualTo(orderCode);
+            gcOutOrderDetailSkuMapper.deleteByExample(gcOutOrderDetailSkuExample);
+            for (int i = 0; i < items.size(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                String productCode = item.getString("product_sku");
+                Integer quantity = item.getInteger("quantity");
+                GcOutOrderDetailSku gcOutOrderDetailSku = new GcOutOrderDetailSku();
+                gcOutOrderDetailSku.setOrderCode(orderCode);
+                gcOutOrderDetailSku.setProductSku(productCode);
+                gcOutOrderDetailSku.setQuantity(quantity);
+                gcOutOrderDetailSkuMapper.insertSelective(gcOutOrderDetailSku);
+                if (status.equals("W") || status.equals("D")) {
+                    Product product = productService.queryBySku(productCode);
+                    if (product != null) {
+                        productStorageService.min(product.getProductid(), quantity, 4, true);
+                    }
                 }
             }
+            gcOutOrderDetailMapper.insertSelective(gcOutOrderDetail);
+        } else {
+
+            GcOutOrderDetailSkuExample gcOutOrderDetailSkuExample = new GcOutOrderDetailSkuExample();
+            gcOutOrderDetailSkuExample.createCriteria().andOrderCodeEqualTo(orderCode);
+            gcOutOrderDetailSkuMapper.deleteByExample(gcOutOrderDetailSkuExample);
+            for (int i = 0; i < items.size(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                String productCode = item.getString("product_sku");
+                Integer quantity = item.getInteger("quantity");
+                GcOutOrderDetailSku gcOutOrderDetailSku = new GcOutOrderDetailSku();
+                gcOutOrderDetailSku.setOrderCode(orderCode);
+                gcOutOrderDetailSku.setProductSku(productCode);
+                gcOutOrderDetailSku.setQuantity(quantity);
+                gcOutOrderDetailSkuMapper.insertSelective(gcOutOrderDetailSku);
+            }
+            gcOutOrderDetailMapper.updateByPrimaryKeySelective(gcOutOrderDetail);
         }
     }
 
     public void generateOrderDetail() {
         GcOutOrderExample example = new GcOutOrderExample();
         DateTime time = new DateTime();
-        DateTime startTime = time.minusDays(43);
-        DateTime endTime = time.minusDays(10);
+        DateTime startTime = time.minusDays(15);
+        DateTime endTime = time.minusDays(0);
         example.createCriteria().andOrderCodeIsNotNull().andDateCreateGreaterThan(startTime.toDate()).andDateCreateLessThan(endTime.toDate());
         List<GcOutOrder> outOrders = gcOutOrderMapper.selectByExample(example);
         for (GcOutOrder outOrder : outOrders) {

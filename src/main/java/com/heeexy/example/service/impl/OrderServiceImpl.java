@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public void synOrderData() {
         DateTime dateTime = new DateTime().withHourOfDay(0).withMinuteOfHour(0);
-        for (int i = 8; i <= 40; i++) {
+        for (int i = 8; i <= 41; i++) {
             int tempStart = i;
             int tempEnd = i + 1;
             DateTime startTime = dateTime.minusDays(tempStart);
@@ -555,10 +555,9 @@ public class OrderServiceImpl implements OrderService {
     public void circleEcAmount(String start, String end) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         EcOrderExample ecOrderExample=new EcOrderExample();
-        /*
 
-        EbayOrderProfitExample ebayOrderProfitExample=new EbayOrderProfitExample();
-        ebayOrderProfitExample.createCriteria().andHandlingfeeEqualTo(0.0).andCreatetimeBetween(start,end);
+       /* EbayOrderProfitExample ebayOrderProfitExample=new EbayOrderProfitExample();
+        ebayOrderProfitExample.createCriteria().andCostEqualTo(0.0).andCreatetimeBetween(start,end);
         List<EbayOrderProfit> ebayOrderProfits=ebayOrderProfitMapper.selectByExample(ebayOrderProfitExample);
         List<String> ids=new ArrayList<>();
         for (EbayOrderProfit ebayOrderProfit:ebayOrderProfits){
@@ -567,8 +566,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             Date str = sdf.parse(start);
             Date endstr = sdf.parse(end);
-            //ecOrderExample.createCriteria().andCreateddateBetween(str,endstr);
-            ecOrderExample.createCriteria().andRefnoEqualTo("24-05872-99753");
+            ecOrderExample.createCriteria().andCreateddateBetween(str,endstr);
+            //ecOrderExample.createCriteria().andRefnoIn(ids);
             List<EcOrder> ecOrders=ecOrderMapper.selectByExample(ecOrderExample);
             for (EcOrder ecOrder:ecOrders){
                 //winit订单处理费
@@ -908,7 +907,7 @@ public class OrderServiceImpl implements OrderService {
             detailExample.createCriteria().andSellerordernoEqualTo(packageorder).andDeliverycostsNotEqualTo(0.0);
             List<WinitOutOrderDetail> outOrderDetails = winitOutOrderDetailMapper.selectByExample(detailExample);
             if (outOrderDetails == null || outOrderDetails.size() == 0) {
-         /*       //判断是否为谷仓订单
+                //判断是否为谷仓订单
                 GcOutOrderDetailExample gcOutOrderDetailExample = new GcOutOrderDetailExample();
                 gcOutOrderDetailExample.createCriteria().andReferenceNoEqualTo(packageorder);
                 List<GcOutOrderDetail> gcOutOrderDetails = gcOutOrderDetailMapper.selectByExample(gcOutOrderDetailExample);
@@ -923,8 +922,8 @@ public class OrderServiceImpl implements OrderService {
                 if (consignments != null && consignments.size() == 1) {
                     updateConsignPackage(datacaciquesPackage, createTime, consignments);
                     continue;
-                }*/
-                createEcRelation(datacaciquesPackage, createTime);
+                }
+               // createEcRelation(datacaciquesPackage, createTime);
             } else {
                 WinitOutOrderDetail winitOutOrderDetail = outOrderDetails.get(0);
                 updateWinitPackage(datacaciquesPackage, createTime, winitOutOrderDetail);
@@ -943,6 +942,7 @@ public class OrderServiceImpl implements OrderService {
             Date str = sdf.parse(start);
             Date endstr = sdf.parse(end);
             ecOrderExample.createCriteria().andCreateddateBetween(str,endstr).andPlatformshipstatusEqualTo(1);
+            //ecOrderExample.createCriteria().andRefnoEqualTo("01-06162-01372");
             List<EcOrder> ecOrders=ecOrderMapper.selectByExample(ecOrderExample);
             Map<String,List<EcOrder>> map=ecOrders.stream().collect(Collectors.groupingBy(EcOrder::getSaleordercode));
             for(Map.Entry<String,List<EcOrder>> entry:map.entrySet()){
@@ -1184,6 +1184,7 @@ public class OrderServiceImpl implements OrderService {
             if (ecOrder1==null){
                  ecOrderMapper.insertSelective(ecOrder);
             }else {
+                ecOrder.setPlatformshipstatus(null);
                 ecOrderMapper.updateByPrimaryKeySelective(ecOrder);
             }
         }

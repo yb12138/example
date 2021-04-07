@@ -1,10 +1,7 @@
 package com.heeexy.example.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.heeexy.example.dao.ProductCountryMapper;
-import com.heeexy.example.dao.ProductMapper;
-import com.heeexy.example.dao.ProductSellMapper;
-import com.heeexy.example.dao.WarninfoMapper;
+import com.heeexy.example.dao.*;
 import com.heeexy.example.model.*;
 import com.heeexy.example.service.*;
 import com.heeexy.example.util.CommonUtil;
@@ -34,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
     ProductSellMapper productSellMapper;
     @Autowired
     WarnInfoService warnInfoService;
+    @Autowired
+    ProductWarehouseStorageMapper productWarehouseStorageMapper;
 
 
     @Override
@@ -108,6 +107,25 @@ public class ProductServiceImpl implements ProductService {
                     productCountryMapper.insertSelective(productCountry);
                 }
             }
+        }
+        ProductWarehouseStorage warehouseStorage=productWarehouseStorageMapper.selectByPrimaryKey(product.getProductid());
+        if(warehouseStorage==null){
+            warehouseStorage=new ProductWarehouseStorage();
+            warehouseStorage.setProductid(product.getProductid());
+            warehouseStorage.setWarehouseid(product.getWarehouseid());
+            warehouseStorage.setWarehousename(product.getWarehousename());
+            warehouseStorage.setSkucode(product.getSkucode());
+            warehouseStorage.setOnpurchase(0);
+            warehouseStorage.setOnway(0);
+            warehouseStorage.setOnsell(0);
+            warehouseStorage.setOncnwarehouse(0);
+            productWarehouseStorageMapper.insertSelective(warehouseStorage);
+        }else {
+            warehouseStorage.setProductid(product.getProductid());
+            warehouseStorage.setWarehouseid(product.getWarehouseid());
+            warehouseStorage.setWarehousename(product.getWarehousename());
+            warehouseStorage.setSkucode(product.getSkucode());
+            productWarehouseStorageMapper.updateByPrimaryKeySelective(warehouseStorage);
         }
         productSellMapper.updateByPrimaryKeySelective(productSell);
         return CommonUtil.successJson();

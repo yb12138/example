@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
+import  java.util.Map;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -295,8 +296,8 @@ public class DataServiceImplTest {
     @Test
 
     public void exchage() {
-        /*WarehouseInWarrantSkuExample inWarrantSkuExample=new WarehouseInWarrantSkuExample();
-        inWarrantSkuExample.createCriteria().andPurchaseskuidIsNotNull();
+/*        WarehouseInWarrantSkuExample inWarrantSkuExample=new WarehouseInWarrantSkuExample();
+        inWarrantSkuExample.createCriteria().andPurchaseskuidIsNotNull().andUnitpriceEqualTo(new BigDecimal(0.0));
         List<WarehouseInWarrantSku> warehouseInWarrantSkus=warehouseInWarrantSkuMapper.selectByExample(inWarrantSkuExample);
         for (WarehouseInWarrantSku warehouseInWarrantSku:warehouseInWarrantSkus){
             Integer purchaseSkuID=warehouseInWarrantSku.getPurchaseskuid();
@@ -309,15 +310,31 @@ public class DataServiceImplTest {
             Double purchasetotalamount=purchase.getPurchasetotalamount().doubleValue();
             Double skuPurchase=purchaseSku.getPurchaseamount().doubleValue();
             Integer amount=purchaseSku.getPurchasequantity();
+            if(amount==0){
+                continue;
+            }
             DecimalFormat df = new DecimalFormat("#.00");
             Double fare= Double.valueOf(df.format((skuPurchase/purchasetotalamount)*freighttotalamount/amount));
             warehouseInWarrantSku.setFare(new BigDecimal(fare));
             warehouseInWarrantSku.setUnitprice(purchaseSku.getUnitprice());
             warehouseInWarrantSkuMapper.updateByPrimaryKeySelective(warehouseInWarrantSku);
         }*/
+        AlloOutExample outExample=new AlloOutExample();
+        outExample.createCriteria().andOutidIsNotNull();
+        List<AlloOut> alloOuts=alloOutMapper.selectByExample(outExample);
+        for (AlloOut alloOut:alloOuts){
+            Integer outID=alloOut.getOutid();
+            WarehouseOutWarrant warehouseOutWarrant=warehouseOutWarrantMapper.selectByPrimaryKey(outID);
+            if (warehouseOutWarrant==null){
+               alloOutMapper.deleteByPrimaryKey(alloOut.getAlloid());
+               AlloOutSkuExample skuExample=new AlloOutSkuExample();
+               skuExample.createCriteria().andAlloidEqualTo(alloOut.getAlloid());
+               alloOutSkuMapper.deleteByExample(skuExample);
+            }
+        }
 
         //orderService.circleAmount("2020-05-01","2020-05-28");
-       /* List<PurchaseSku> skus=purchaseSkuMapper.getPurchaseSkus();
+     /*   List<PurchaseSku> skus=purchaseSkuMapper.getPurchaseSkus();
         for (PurchaseSku sku:skus){
             int id=sku.getId();
             WarehouseInWarrantSkuExample warehouseInWarrantSkuExample=new WarehouseInWarrantSkuExample();
@@ -330,14 +347,23 @@ public class DataServiceImplTest {
             sku.setUsequantity(outCount);
             purchaseSkuMapper.updateByPrimaryKeySelective(sku);
         }*/
+        //birdService.generateBirdInOrderSku();
+        //orderService.createRelationInAndOut("2020-10-01","2020-11-01");
+       // orderService.synOrderData();
+        //orderService.createEcRelationInAndOut("2020-02-01 00:00:00","2021-03-01 00:00:00");
+        //orderService.synOrderData();
+       // dataService.generateGoodOrder();
         //  orderService.circleAmount("2019-12-01","2020-01-01");
-/*        List<EbayOrderProfit> ebayOrderProfits=orderService.exportOrder("2020-10-01","2020-11-01");
+        //orderService.circleEcAmount("2021-02-01 00:00:00","2021-03-01 00:00:00");
+
+        //orderService.circleEcAmount("2020-12-01 00:00:00","2020-12-15 00:00:00");
+       /* List<EbayOrderProfit> ebayOrderProfits=orderService.exportOrder("2021-02-01","2021-03-01");
 
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(null, "利润报表", ExcelType.XSSF),EbayOrderProfit.class, ebayOrderProfits);
         OutputStream out = null;
         try {
-            String fileName = "十月利润";
-            out = new FileOutputStream("D:/junfan/" + fileName + ".xls");
+            String fileName = "二月利润";
+            out = new FileOutputStream("C:/junfan/" + fileName + ".xls");
             workbook.write(out);
         } catch (Exception e) {
             e.printStackTrace();
@@ -350,8 +376,8 @@ public class DataServiceImplTest {
                 }
             }
         }*/
-        //dataService.generateWinitOrder();
-       /* AlloOutExample example=new AlloOutExample();
+       // dataService.generateWinitOrder();
+    /*    AlloOutExample example=new AlloOutExample();
         example.createCriteria().andOutidIsNotNull();
         List<AlloOut> alloOuts=alloOutMapper.selectByExample(example);
         for (AlloOut alloOut:alloOuts){
@@ -364,7 +390,7 @@ public class DataServiceImplTest {
                 alloOutSkuMapper.deleteByExample(skuExample);
             }
         }*/
-       /* AlloOutSkuExample skuExample=new AlloOutSkuExample();
+      /*  AlloOutSkuExample skuExample=new AlloOutSkuExample();
         skuExample.createCriteria().andAlloidIsNotNull();
         List<AlloOutSku> alloOutSkus=alloOutSkuMapper.selectByExample(skuExample);
         for (AlloOutSku alloOutSku:alloOutSkus){
@@ -375,7 +401,8 @@ public class DataServiceImplTest {
             }
         }*/
         // dataService.checkOutData();
-        //dataService.generateWinitOrder();
+       //dataService.checkOutData();
+        //dataService.generateGoodOrder();
       /*  DateTime dateTime = new DateTime();
         int month = dateTime.getMonthOfYear();
         int day = 1;*/
@@ -554,22 +581,27 @@ public class DataServiceImplTest {
            }
            purchaseMapper.updateByPrimaryKeySelective(purchase);
        }*/
- /*       dataService.generateWinitOrder();
+       // orderService.synOrderData();
+     /*   dataService.generateWinitOrder();
         dataService.generateGoodOrder();
         birdService.generateBirdInOrderSku();*/
         //dataService.updateBasicData();
         //orderService.synOrderData();
         //trackService.updateTrack();
-        //warnInfoService.updateWarnInfo();
+      //  warnInfoService.updateWarnInfo();
+       // dataService.generateWinitOrder();
+        //dataService.generateGoodOrder();
        /* dataService.generateWinitOrder();
         dataService.generateGoodOrder();
         birdService.generateBirdInOrderSku();*/
-       //orderService.createEcRelationInAndOut("2020-10-01 00:00:00","2020-11-01 00:00:00");
-//orderService.createRelationInAndOut("2020-06-27","2020-07-01");
+      //
+     // orderService.createEcRelationInAndOut("2020-11-01 00:00:00","2021-02-01 00:00:00");
 // orderService.circleAmount("2020-06-27","2020-07-01");
         /*  dataService.updateBasicData();*/
-       /* dataService.generateWinitOrder();
-        dataService.generateGoodOrder();
+       // dataService.generateGoodOrder();
+        //dataService.generateWinitOrder();
+       /*
+
         birdService.generateBirdInOrderSku();*/
        /* DateTime dateTime=new DateTime();
         DateTime dateTime1=dateTime.minusDays(3);
@@ -600,12 +632,13 @@ public class DataServiceImplTest {
         }
 
     }*/
-        List<ProductNewYear> newYears=warnInfoService.calcNewYearProductStorage();
+
+     /*   List<ProductNewYear> newYears=warnInfoService.calcNewYearProductStorage();
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(null, "春节补货", ExcelType.XSSF),ProductNewYear.class, newYears);
         OutputStream out = null;
         try {
             String fileName = "春节补货";
-            out = new FileOutputStream("D:/junfan/" + fileName + ".xls");
+            out = new FileOutputStream("C:/junfan/" + fileName + ".xls");
             workbook.write(out);
         } catch (Exception e) {
             e.printStackTrace();
@@ -617,9 +650,9 @@ public class DataServiceImplTest {
                     e.printStackTrace();
                 }
             }
-        }
-    /*  WarehouseOutWarrantExample outWarrantExample=new WarehouseOutWarrantExample();
-      outWarrantExample.createCriteria().andOutnumEqualTo("out6000001267445074");
+        }*/
+/*      WarehouseOutWarrantExample outWarrantExample=new WarehouseOutWarrantExample();
+      outWarrantExample.createCriteria().andOutnumEqualTo("out6000000504002846");
       List<WarehouseOutWarrant> warehouseOutWarrants=warehouseOutWarrantMapper.selectByExample(outWarrantExample);
       for (WarehouseOutWarrant warehouseOutWarrant:warehouseOutWarrants){
           Integer outID=warehouseOutWarrant.getOutid();
@@ -670,7 +703,11 @@ public class DataServiceImplTest {
           warehouseOutWarrantMapper.deleteByPrimaryKey(warehouseOutWarrant.getOutid());
 
       }*/
-    //orderService.circleEcAmount("2020-10-10 00:00:00","2020-11-01 00:00:00");
+        //dataService.generateGoodOrder();
+       // dataService.generateWinitOrder();
+    //orderService.createEcRelationInAndOut("2020-12-01 00:00:00","2021-01-01 00:00:00");
+    //dataService.generateWinitOrder();
+       // birdService.generateBirdInOrderSku();
     // dataService.generateGoodOrder();
       /*  Date date=new Date();
         TodolistExample todolistExample1=new TodolistExample();
@@ -717,7 +754,7 @@ public class DataServiceImplTest {
         //   orderService.createRelationInAndOut();
         //dataService.generateGoodOrder();
         //dataService.updateBasicData();
-        //  orderService.circleAmount("2020-03-01","2020-04-01");
+          //orderService.circleAmount("2020-03-01","2020-04-01");
         // dataService.generateWinitOrder();
         // dataService.synStorageData();
 /*        DateTime dateTime=new DateTime();
@@ -879,7 +916,7 @@ public class DataServiceImplTest {
           warehouseInWarrantMapper.updateByPrimaryKeySelective(warehouseInWarrant);
       }*/
         //warnInfoService.updateWarnInfo();
-        //orderService.synOrderData();
+       // orderService.synOrderData();
         //dataService.generateGoodOrder();
         //dataService.generateWinitOrder();
         //dataService.checkOutData();
@@ -955,7 +992,7 @@ public class DataServiceImplTest {
                 }
             }
         }*/
-    /*    EbayWarehouseoutSkuExample ebayWarehouseoutSkuExample=new EbayWarehouseoutSkuExample();
+/*        EbayWarehouseoutSkuExample ebayWarehouseoutSkuExample=new EbayWarehouseoutSkuExample();
         ebayWarehouseoutSkuExample.createCriteria().andPriceEqualTo(0.0);
         List<EbayWarehouseoutSku> ebayWarehouseoutSkus=ebayWarehouseoutSkuMapper.selectByExample(ebayWarehouseoutSkuExample);
         for (EbayWarehouseoutSku ebayWarehouseoutSku:ebayWarehouseoutSkus){
@@ -967,7 +1004,7 @@ public class DataServiceImplTest {
             ebayWarehouseoutSku.setFare(warehouseInWarrantSku.getFare().doubleValue());
             ebayWarehouseoutSkuMapper.updateByPrimaryKeySelective(ebayWarehouseoutSku);
         }*/
-/*        WarehouseInWarrantSkuExample warehouseInWarrantSkuExample=new WarehouseInWarrantSkuExample();
+   /*     WarehouseInWarrantSkuExample warehouseInWarrantSkuExample=new WarehouseInWarrantSkuExample();
         warehouseInWarrantSkuExample.createCriteria().andUnitpriceEqualTo(BigDecimal.valueOf(0.0));
         List<WarehouseInWarrantSku> warehouseInWarrantSkus=warehouseInWarrantSkuMapper.selectByExample(warehouseInWarrantSkuExample);
         for (WarehouseInWarrantSku warehouseInWarrantSku:warehouseInWarrantSkus){
@@ -992,7 +1029,7 @@ public class DataServiceImplTest {
         //orderService.createRelationInAndOut();
        //  orderService.circleAmount("2020-09-01","2020-10-01");
 //     warnInfoService.updateWarnInfo();
-/*        AlloOutExample example=new AlloOutExample();
+    /*    AlloOutExample example=new AlloOutExample();
         example.createCriteria().andStatusEqualTo(3).andAllweightEqualTo(0.0).andTypeEqualTo("中仓到货").andWarehousenameNotEqualTo("亚马逊美国");
         List<AlloOut> alloOuts=alloOutMapper.selectByExample(example);
         for (AlloOut alloOut:alloOuts){

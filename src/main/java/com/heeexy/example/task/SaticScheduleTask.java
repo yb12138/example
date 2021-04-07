@@ -110,7 +110,7 @@ public class SaticScheduleTask {
     public void synOrderData() {
         dataService.generateWinitOrder();
         dataService.generateGoodOrder();
-        birdService.generateBirdInOrderSku();
+        //birdService.generateBirdInOrderSku();
        /* DateTime dateTime=new DateTime();
         DateTime dateTime1=dateTime.minusDays(3);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

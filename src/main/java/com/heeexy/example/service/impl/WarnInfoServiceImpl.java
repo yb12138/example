@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class WarnInfoServiceImpl implements WarnInfoService {
@@ -236,7 +237,7 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         List<Warninfo> warninfos = warninfoMapper.selectByExample(warninfoExample);
         for (Warninfo warninfo : warninfos) {
             Product product = productMapper.selectByPrimaryKey(warninfo.getProductid());
-            if (product.getProductlevel().equals("停购")) {
+            if (!product.getProductlevel().equals("在售")) {
                 warninfoMapper.deleteByPrimaryKey(warninfo.getProductid());
             }
         }
@@ -269,6 +270,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeTrain();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeTrain();
@@ -333,6 +342,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeTrain();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeTrain();
@@ -555,7 +572,7 @@ public class WarnInfoServiceImpl implements WarnInfoService {
                 holiday=new ProductHoliday();
                 DateTime dateTime=new DateTime();
                 holiday.setStartday(dateTime.toDate());
-                holiday.setEndday(dateTime.plusDays(73).toDate());
+                holiday.setEndday(dateTime.plusDays(55).toDate());
                 holiday.setSkucode(product.getSkucode());
                 holiday.setProductid(productid);
             }
@@ -578,6 +595,7 @@ public class WarnInfoServiceImpl implements WarnInfoService {
                     }
                     if (newYear!=null) {
                         newYears.add(newYear);
+                        break;
                     }
                 }
             }
@@ -670,6 +688,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeAir();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeAir();
@@ -754,6 +780,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeAir();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeAir();
@@ -811,6 +845,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeShip();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeShip();
@@ -877,6 +919,14 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         String sku = product.getSkucode();
         Integer deliverytime = product.getDeliverytime();
         Map<String, Double> sales = productSellService.getStringDoubleMap(productID);
+        double allsale = 0.0;
+        for(Double sale:sales.values()){
+            allsale+=sale;
+        }
+        if (allsale==0)
+        {
+            return 0;
+        }
         int processtime = algorithmicrule.getProcessTimeShip();
         if (deliverytime == null || deliverytime == 0) {
             deliverytime = algorithmicrule.getDeliveryTimeShip();
@@ -944,8 +994,9 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         //获取该产品所有未入库海外仓入库单
         List<WarehouseOutWarrantSku> outWarrantSkus = warehouseOutService.getSkusByID(productid);
 
-        if (outWarrantSkus == null) {
+        if (outWarrantSkus == null||outWarrantSkus.size()==0) {
         } else {
+            outWarrantSkus=outWarrantSkus.stream().sorted(Comparator.comparing(WarehouseOutWarrantSku::getCreatetime)).collect(Collectors.toList());
             for (WarehouseOutWarrantSku warehouseOutWarrantSku : outWarrantSkus) {
                 //获取该订单创建日期
                 Date createDate = warehouseOutWarrantSku.getCreatetime();
@@ -979,7 +1030,34 @@ public class WarnInfoServiceImpl implements WarnInfoService {
                 dt = dt.plusDays(temp);
                 tempdate = dt.toDate();
             }
+            WarehouseOutWarrantSku warehouseOutWarrantSku=outWarrantSkus.get(outWarrantSkus.size()-1);
+            DateTime dateTime=new DateTime(tempdate);
+            DateTime createTime=new DateTime(warehouseOutWarrantSku.getCreatetime());
+            int days=Days.daysBetween(createTime,DateTime.now()).getDays();
+            int exceptSellDays=0;
+            while (qtyAvailable>0){
+                DateTime theEndDataOfMonth = dateTime.dayOfMonth().withMaximumValue();
+                int temps=Days.daysBetween(dateTime,theEndDataOfMonth).getDays();
+
+                Double exceptSell=sales.get("month" + theEndDataOfMonth.getMonthOfYear());
+                if ((qtyAvailable-temps*exceptSell)>0){
+                    qtyAvailable= (int) (qtyAvailable-temps*exceptSell);
+                    dateTime=theEndDataOfMonth.plusDays(1);
+                    exceptSellDays+=temps;
+                }else {
+                    int temp= (int) (qtyAvailable/exceptSell);
+                    dateTime=dateTime.plusDays(temp);
+                    exceptSellDays+=temp;
+                    break;
+                }
+            }
+
+            if (exceptSellDays-safestore>=days+processtime+deliverytime+1){
+                return  false;
+            }
         }
+
+
         WarehouseInWarrantSkuExample warehouseInWarrantSkuExample = new WarehouseInWarrantSkuExample();
         warehouseInWarrantSkuExample.createCriteria().andProductidEqualTo(productid).andStatusLessThan((byte) 3).andIncountGreaterThan(5);
         List<WarehouseInWarrantSku> warehouseInWarrantSkus = warehouseInWarrantSkuMapper.selectByExample(warehouseInWarrantSkuExample);
@@ -1041,6 +1119,7 @@ public class WarnInfoServiceImpl implements WarnInfoService {
             }
         }
 
+
         List<PurchaseSku> purchaseSkus = purchaseService.queryByID(productid);
         for (PurchaseSku purchaseSku : purchaseSkus) {
             Integer purchaseCount = purchaseSku.getPurchasequantity();
@@ -1101,15 +1180,20 @@ public class WarnInfoServiceImpl implements WarnInfoService {
         if (timetemp < 0) {
             return false;
         }
-        cal.add(Calendar.DAY_OF_MONTH, timetemp);
+        cal.add(Calendar.DATE, timetemp);
         int newmonth = cal.get(Calendar.MONTH) + 1;
         Map<Integer, Integer> dateOfMonth = DateUtil.calcDay(cal.get(Calendar.YEAR), newmonth, cal.get(Calendar.DAY_OF_MONTH), timetemp);
         int circleSale = 0;
         circleSale = getCircleSale(sales, dateOfMonth, circleSale);
-        double exceptSell = sales.get("month" + newmonth);
+        //计算预计销量
+        Map<Integer, Integer> dateOfMonth2 = DateUtil.calcDay(cal.get(Calendar.YEAR), newmonth, cal.get(Calendar.DAY_OF_MONTH), safestore);
+        int exceptSell=0;
+        exceptSell=getCircleSale(sales, dateOfMonth2, exceptSell);
         //判断当前库存量是否到安全线
-        if ((qtyAvailable - circleSale) > (safestore * exceptSell)) {
+        if ((qtyAvailable - circleSale) > (exceptSell)) {
+
             return false;
+
 
         }
         return true;
@@ -1131,6 +1215,9 @@ public class WarnInfoServiceImpl implements WarnInfoService {
 
         if (outWarrantSkus == null) {
         } else {
+            if (outWarrantSkus.size()>1){
+                outWarrantSkus=outWarrantSkus.stream().sorted(Comparator.comparing(WarehouseOutWarrantSku::getCreatetime)).collect(Collectors.toList());
+            }
             for (WarehouseOutWarrantSku warehouseOutWarrantSku : outWarrantSkus) {
                 //获取该订单创建日期
                 Date createDate = warehouseOutWarrantSku.getCreatetime();
